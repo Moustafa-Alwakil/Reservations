@@ -25,4 +25,5 @@ class Address extends Model
         return $this->belongsTo(Clinic::class,'address_id','id');
     }
     // End Elqouent Relations
+    //jsdjkfolds
 }
