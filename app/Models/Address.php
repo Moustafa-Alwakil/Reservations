@@ -27,4 +27,5 @@ class Address extends Model
     // End Elqouent Relations
     //jsdjkfolds
     //esraa comment
+    // 3mlt tgheer bs mosh mot2ked
 }
