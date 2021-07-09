@@ -63,9 +63,9 @@ class Physican extends Authenticatable
     {
         return $this->hasOne(Info::class,'info_id','id');
     }
-    public function patients()
+    public function users()
     {
-        return $this->belongsToMany(Patient::class,'reviews','physican_id','patient_id','id','id')->as('reviews');
+        return $this->belongsToMany(User::class,'reviews','physican_id','user_id','id','id')->as('reviews');
     }
     // End Elqouent Relations
 

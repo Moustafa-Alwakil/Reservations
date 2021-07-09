@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Patient extends Authenticatable
+class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-    protected $table = 'patients';
+    protected $table = 'users';
     protected $primaryKey = 'id';
     /**
      * The attributes that are mass assignable.
@@ -45,11 +45,11 @@ class Patient extends Authenticatable
     // Start Eloquent Relations
     public function appointments()
     {
-        return $this->hasMany(Appointment::class,'patient_id','id');
+        return $this->hasMany(Appointment::class,'user_id','id');
     }
     public function physicans()
     {
-        return $this->belongsToMany(Physican::class,'reviews','patient_id','physican_id','id','id')->as('reviews');
+        return $this->belongsToMany(Physican::class,'reviews','user_id','physican_id','id','id')->as('reviews');
     }
     // End Elqouent Relations
     

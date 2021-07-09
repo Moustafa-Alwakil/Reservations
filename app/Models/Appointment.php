@@ -20,9 +20,9 @@ class Appointment extends Model
     {
         return $this->belongsTo(Clinic::class,'clinic_id','id');
     }
-    public function patient()
+    public function user()
     {
-        return $this->belongsTo(Patient::class,'patient_id','id');
+        return $this->belongsTo(User::class,'user_id','id');
     }
     // End Elqouent Relations
     

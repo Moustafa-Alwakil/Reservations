@@ -14,9 +14,9 @@ class Review extends Pivot
     public $timestamps = true;
 
     // Start Eloquent Relations
-    public function patient()
+    public function user()
     {
-        return $this->belongsTo(Patient::class,'patient_id','id');
+        return $this->belongsTo(User::class,'user_id','id');
     }
     public function physican()
     {
