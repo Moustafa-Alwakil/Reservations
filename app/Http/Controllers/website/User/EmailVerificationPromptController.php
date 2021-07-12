@@ -18,6 +18,6 @@ class EmailVerificationPromptController extends Controller
     {
         return $request->user()->hasVerifiedEmail()
                     ? redirect()->intended(RouteServiceProvider::INDEX)
-                    : view('website.user.verify-email');
+                    : view('website.verifyMsg');
     }
 }

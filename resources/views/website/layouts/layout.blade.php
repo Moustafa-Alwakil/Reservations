@@ -46,13 +46,13 @@
                             <span></span>
                         </span>
                     </a>
-                    <a  href="{{route('home')}}" class="navbar-brand logo">
+                    <a href="{{ route('home') }}" class="navbar-brand logo">
                         <img src={{ url('website/assets/img/logo.png') }} class="img-fluid" alt="Logo">
                     </a>
                 </div>
                 <div class="main-menu-wrapper">
                     <div class="menu-header">
-                        <a href="{{route('home')}}" class="menu-logo">
+                        <a href="{{ route('home') }}" class="menu-logo">
                             <img src={{ url('website/assets/img/logo.png') }} class="img-fluid" alt="Logo">
                         </a>
                         <a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -157,59 +157,74 @@
                                 <li><a href="pharmacy/index.html" target="_blank">Pharmacy Admin</a></li>
                             </ul>
                         </li>
-                        <li class="login-link">
-                            <a href="login.html">Login / Signup</a>
-                        </li>
                     </ul>
                 </div>
                 <ul class="nav header-navbar-rht">
-                </ul>
-                <ul class="main-nav">
-                    <li class="has-submenu">
-                        <a>Language<i class="fas fa-chevron-down"></i></a>
-                        <ul class="submenu">
+                    @if (Auth::guard('web')->check())
+                        <?php $name = Auth::guard('web')->user()['name']; ?>
+                        <li class="nav-item dropdown has-arrow logged-item">
+                            <a class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                <span class="user-img">
+                                    {{ $name['fname'] . ' ' . $name['lname'] }}
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="user-header">
+                                    <div class="user-text">
+                                        <h6>{{ $name['fname'] . ' ' . $name['lname'] }}</h6>
+                                        <p class="text-muted mb-0">User</p>
+                                    </div>
+                                </div>
+                                <a class="dropdown-item" href="{{route('user.profile',['id' => Auth::guard('web')->user()->id])}}">Profile</a>
+                                <form method="POST" action="{{ route('user.logout') }}" class="d-inline">
+                                    @csrf<button class="btn btn-link dropdown-item"
+                                        href="{{ route('user.logout') }}">Logout</button>
+                                </form>
+                            </div>
+                        </li>
+                    @else
+                        <li class="nav-item dropdown has-arrow logged-item">
+                            <a class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                <span class="user-img">
+                                    User
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="{{ route('user.login') }}">Login</a>
+                                <a class="dropdown-item" href="{{ route('user.register') }}">Register</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown has-arrow logged-item">
+                            <a class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                <span class="user-img">
+                                    Doctor
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="patient-dashboard.html">Login</a>
+                                <a class="dropdown-item" href="patient-dashboard.html">Register</a>
+                            </div>
+                        </li>
+                    @endif
+                    <li class="nav-item dropdown has-arrow logged-item">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <span class="user-img">
+                                Language
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
                             @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                <li>
-                                    <a rel="alternate" hreflang="{{ $localeCode }}"
-                                        href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                        {{ $properties['native'] }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
+                            <a rel="alternate" hreflang="{{ $localeCode }}"
+                            href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}" class="dropdown-item">
+                            {{ $properties['native'] }}
+                        </a>
+                        @endforeach
+                        </div>
                     </li>
                 </ul>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                @if (Auth::check())
-                    <ul class="main-nav">
-                        <li class="has-submenu">
-                            <?php $name = json_decode(Auth::user()->name) ?>
-                            <a>{{ $name->fname.' '.$name->lname }}<i class="fas fa-chevron-down"></i></a>
-                            <ul class="submenu">
-                                <li><a href="admin/index.html" target="_blank">Profile</a></li>
-                                <li><form method="POST" action="{{ route('user.logout') }}">@csrf<button href="{{ route('user.logout') }}">Logout</button><form></li>
-                            </ul>
-                        @else
-                            <ul class="main-nav">
-                                <li class="has-submenu">
-                                    <a>Account<i class="fas fa-chevron-down"></i></a>
-                                    <ul class="submenu">
-                                        <li><a>User<i></i></a></li>
-                                        <ul class="submenu">
-                                            <li><a href="{{route('user.login')}}">Login</a></li>
-                                            <li><a href="{{ route('user.register') }}">Register</a></li>
-                                        </ul>
-                                        <li><a>Doctor</a></li>
-                                        <ul class="submenu">
-                                            <li><a href="admin/index.html">Login</a></li>
-                                            <li><a href="pharmacy/index.html">Register</a></li>
-                                        </ul>
-                                    </ul>
-                                </li>
-                            </ul>
-                @endif
             </nav>
         </header>
+        @yield('bar')
         <!-- /Header -->
         @yield('content')
         <!-- Footer -->

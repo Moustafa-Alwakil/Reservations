@@ -18,7 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'id','name','gender','email','password','phone','code','status','remember_token','email_verified_at','birthdate','created_at','updated_at'
+        'id','name','gender','email','password','phone','code','remember_token','email_verified_at','birthdate','created_at','updated_at'
     ];
     
     public $timestamps = true;
@@ -40,6 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'name' => 'json'
     ];
 
     // Start Eloquent Relations
@@ -54,14 +55,13 @@ class User extends Authenticatable implements MustVerifyEmail
     // End Elqouent Relations
     
     // Define Accesors To Translate The Values Meaning
-    public function getStatusAttribute($value)
+    public function getGenderAttribute($value)
     {
-        if($value==1){
-            return ucfirst('verified');
-        }elseif($value==2){
-            return ucfirst('banned');
+        if($value=='m'){
+            return ucfirst('male');
+        }elseif($value=='f'){
+            return ucfirst('female');
         }
-        return ucfirst('not verified');
     }
     // End Accessors
 }

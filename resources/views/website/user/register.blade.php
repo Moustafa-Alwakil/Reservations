@@ -20,31 +20,36 @@
                                 <div class="login-header">
                                     <h3>Patient Register <a href="doctor-register.html"></a></h3>
                                 </div>
-                                <form method="POST" action="{{ route('user.register') }}">
+                                @include('website.includes.SessionDisplay')
+                                <form method="POST" action="{{ route('store.user.register') }}">
                                     @csrf
                                     <div class="form-group form-focus">
-                                        <input type="text" class="form-control floating" name="fname" value="{{old('fname')}}">
+                                        <input type="text" class="form-control floating" name="fname"
+                                            value="{{ old('fname') }}">
                                         <label class="focus-label">First Name</label>
                                     </div>
                                     @error('fname')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <div class="form-group form-focus">
-                                        <input type="text" class="form-control floating" name="lname" value="{{old('lname')}}">
+                                        <input type="text" class="form-control floating" name="lname"
+                                            value="{{ old('lname') }}">
                                         <label class="focus-label">Last Name</label>
                                     </div>
                                     @error('lname')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <div class="form-group form-focus">
-                                        <input type="phone" class="form-control floating" name="phone" value="{{old('phone')}}">
+                                        <input type="tel" class="form-control floating" name="phone"
+                                            value="{{ old('phone') }}">
                                         <label class="focus-label">Phone</label>
                                     </div>
                                     @error('phone')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <div class="form-group form-focus">
-                                        <input type="email" class="form-control floating" name="email" value="{{old('email')}}">
+                                        <input type="email" class="form-control floating" name="email"
+                                            value="{{ old('email') }}">
                                         <label class="focus-label">Email</label>
                                     </div>
                                     @error('email')
@@ -53,15 +58,16 @@
                                     <div class="form-group form-focus">
                                         <select class="form-control floating" name="gender">
                                             <option selected disabled>Select Your Gender</option>
-                                            <option value="m"@if(old('gender')=='m'){{'selected'}}@endif>Male</option>
-                                            <option value="f"@if(old('gender')=='f'){{'selected'}}@endif>Female</option>
+                                            <option value="m" @if (old('gender') == 'm') {{ 'selected' }} @endif>Male</option>
+                                            <option value="f" @if (old('gender') == 'f') {{ 'selected' }} @endif>Female</option>
                                         </select>
                                     </div>
                                     @error('gender')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <div class="form-group form-focus">
-                                        <input type="date" class="form-control floating" name="birthdate" value="{{old('birthdate')}}">
+                                        <input type="date" class="form-control floating" name="birthdate"
+                                            value="{{ old('birthdate') }}">
                                         <label class="focus-label">Birthdate</label>
                                     </div>
                                     @error('birthdate')
@@ -82,7 +88,8 @@
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <div class="text-right">
-                                        <a class="forgot-link" href="login.html">Already have an account?</a>
+                                        <a class="forgot-link" href="{{ route('user.login') }}">Already have an
+                                            account?</a>
                                     </div>
                                     <button class="btn btn-primary btn-block btn-lg login-btn"
                                         type="submit">Register</button>

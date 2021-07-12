@@ -19,7 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('phone',20)->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->tinyInteger('status')->default(0)->comment('0->not verified , 1-> verified , 2->banned');
             $table->string('password');
             $table->smallInteger('code')->nullable();
             $table->string('gender',1)->comment('m->male , f->female');

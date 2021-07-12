@@ -20,7 +20,8 @@ Login
 									<div class="login-header">
 										<h3>Login <span>Doccure</span></h3>
 									</div>
-									<form method="POST" action="{{route('user.login')}}">
+									@include('website.includes.sessionDisplay')
+									<form method="POST" action="{{route('store.user.login')}}">
                                         @csrf
 										<div class="form-group form-focus">
 											<input type="email" class="form-control floating" name="email" value="{{old('email')}}">
@@ -37,7 +38,7 @@ Login
                                         <div class="alert alert-danger">{{$message}}</div>
                                         @enderror
 										<div class="text-right">
-											<a class="forgot-link" href="forgot-password.html">Forgot Password ?</a>
+											<a class="forgot-link" href="{{route('user.password.request')}}">Forgot Password ?</a>
 										</div>
 										<button class="btn btn-primary btn-block btn-lg login-btn"
 											type="submit">Login</button>
