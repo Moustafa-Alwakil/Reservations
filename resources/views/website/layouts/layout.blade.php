@@ -161,7 +161,9 @@
                 </div>
                 <ul class="nav header-navbar-rht">
                     @if (Auth::guard('web')->check())
-                        <?php $name = Auth::guard('web')->user()['name']; ?>
+                        @php
+                            $name = Auth::guard('web')->user()->name;
+                        @endphp
                         <li class="nav-item dropdown has-arrow logged-item">
                             <a class="dropdown-toggle nav-link" data-toggle="dropdown">
                                 <span class="user-img">
@@ -175,7 +177,8 @@
                                         <p class="text-muted mb-0">User</p>
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="{{route('user.profile',['id' => Auth::guard('web')->user()->id])}}">Profile</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('user.profile')}}">Profile</a>
                                 <form method="POST" action="{{ route('user.logout') }}" class="d-inline">
                                     @csrf<button class="btn btn-link dropdown-item"
                                         href="{{ route('user.logout') }}">Logout</button>
@@ -202,7 +205,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="patient-dashboard.html">Login</a>
-                                <a class="dropdown-item" href="patient-dashboard.html">Register</a>
+                                <a class="dropdown-item" href="{{route('doctor.register')}}">Register</a>
                             </div>
                         </li>
                     @endif
@@ -214,11 +217,12 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                            <a rel="alternate" hreflang="{{ $localeCode }}"
-                            href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}" class="dropdown-item">
-                            {{ $properties['native'] }}
-                        </a>
-                        @endforeach
+                                <a rel="alternate" hreflang="{{ $localeCode }}"
+                                    href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}"
+                                    class="dropdown-item">
+                                    {{ $properties['native'] }}
+                                </a>
+                            @endforeach
                         </div>
                     </li>
                 </ul>

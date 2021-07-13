@@ -1,7 +1,9 @@
 @extends('website.layouts.layout')
 @section('title')
-    <?php Auth::guard('web')->check();
-    $name = Auth::guard('web')->user()->name; ?>
+    @php
+    Auth::guard('web')->check();
+    $name = Auth::guard('web')->user()->name;
+    @endphp
     {{ $name['fname'] . ' ' . $name['lname'] }} - Change Password
 @endsection
 @section('content')
@@ -22,8 +24,7 @@
                                 <div class="col-md-12 col-lg-6">
                                     @include('website.includes.sessionDisplay')
                                     <!-- Change Password Form -->
-                                    <form method="POST"
-                                        action="{{ route('user.changepass.update')}}">
+                                    <form method="POST" action="{{ route('user.changepass.update') }}">
                                         @csrf
                                         <div class="form-group">
                                             <label>Old Password</label>

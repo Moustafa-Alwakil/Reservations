@@ -1,7 +1,9 @@
 @extends('website.layouts.layout')
 @section('title')
-    <?php Auth::guard('web')->check();
-    $name = Auth::guard('web')->user()->name; ?>
+    @php
+    Auth::guard('web')->check();
+    $name = Auth::guard('web')->user()->name;
+    @endphp
     {{ $name['fname'] . ' ' . $name['lname'] }} - Profile
 @endsection
 @section('content')
@@ -20,8 +22,7 @@
                         <div class="card-body">
                             @include('website.includes.sessionDisplay')
                             <!-- Profile Settings Form -->
-                            <form method="POST"
-                                action="{{ route('user.profile.update')}}">
+                            <form method="POST" action="{{ route('user.profile.update') }}">
                                 @csrf
                                 <div class="row form-row">
                                     <div class="col-12 col-md-6">
@@ -41,7 +42,8 @@
                                                 value="{{ $user->name['lname'] }}">
                                         </div>
                                         @error('lname')
-                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            <div class=" alert alert-danger">{{ $message }}
+                                            </div>
                                         @enderror
                                     </div>
                                     <div class="col-12 col-md-6">
@@ -98,7 +100,7 @@
                                                     value="The account isn't verified, please check yor mail inbox to verify your account.">
                                             @else
                                                 <input type="text" class="form-control bg-success" disabled
-                                                    value="Your account is verified">
+                                                    value="Your account is verified.">
                                             @endif
                                         </div>
                                     </div>

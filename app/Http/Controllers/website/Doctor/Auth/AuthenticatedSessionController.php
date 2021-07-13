@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Website\User;
+namespace App\Http\Controllers\Website\Doctor\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\User\StoreLoginRequest;

@@ -6,7 +6,13 @@
                                 <div class="profile-det-info">
                                     <h3>{{ $name['fname'] . ' ' . $name['lname'] }}</h3>
                                     <div class="patient-details">
-                                        <h5><i class="fas fa-birthday-cake"></i> 24 Jul 1983, 38 years</h5>
+                                        <h5><i class="fas fa-birthday-cake"></i>
+                                            @php
+                                                $date = date_create(Auth::guard('web')->user()->birthdate);
+                                                $diff=date_diff($date,date_create(date("Y-m-d")));
+                                            @endphp
+                                            {{ date_format($date, 'j M Y') }}, {{$diff->format('%y Years')}}
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
@@ -20,14 +26,14 @@
                                             <span>Dashboard</span>
                                         </a>
                                     </li>
-                                    <li class="active">
-                                        <a href="{{route('user.profile')}}">
+                                    <li class="@if (LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale())==route('user.profile')) {{ 'active' }} @endif">
+                                        <a href="{{ route('user.profile') }}">
                                             <i class="fas fa-user-cog"></i>
                                             <span>Profile Settings</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="{{route('user.changepass')}}">
+                                    <li class="@if (LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale())==route('user.changepass')) {{ 'active' }} @endif">
+                                        <a href="{{ route('user.changepass') }}">
                                             <i class="fas fa-lock"></i>
                                             <span>Change Password</span>
                                         </a>

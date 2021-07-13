@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\website\user;
+namespace App\Http\Controllers\Website\User\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\website\user\UpdatePassRequest;
@@ -25,14 +25,12 @@ class ChangePassController extends Controller
                 $user = User::find(Auth::guard('web')->user()->id);
                 $user->password = bcrypt($request->password);
                 $user->save();
-                return redirect()->route('user.changepass')->with('success','You have Successfully changed Your password');
-            }else{
-                  return redirect()->route('user.changepass')->with('error','New password can not be the old password!');
-            }
- 
-        }else{
-            return redirect()->route('user.changepass')->with('error','The old password is not correct');
-        }
-        
+                if (!$user)
+                    return redirect()->route('user.changepass')->with('error', 'Something went wrong, Please try again');
+                return redirect()->route('user.changepass')->with('success', 'You have Successfully changed Your password');
+            } else
+                return redirect()->route('user.changepass')->with('error', 'New password can not be the old password!');
+        } else
+            return redirect()->route('user.changepass')->with('error', 'The old password is not correct');
     }
 }

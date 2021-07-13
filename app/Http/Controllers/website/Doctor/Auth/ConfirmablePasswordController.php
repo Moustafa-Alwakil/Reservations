@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Website\User;
+namespace App\Http\Controllers\Website\Doctor\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -39,6 +39,6 @@ class ConfirmablePasswordController extends Controller
 
         $request->session()->put('auth.password_confirmed_at', time());
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->intended(RouteServiceProvider::INDEX);
     }
 }

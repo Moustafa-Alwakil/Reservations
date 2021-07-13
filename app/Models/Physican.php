@@ -18,7 +18,7 @@ class Physican extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id','name','gender','email','password','remember_token','email_verified_at','code','status','birthdate','department_id','info_id','created_at','updated_at'
+        'id','name','gender','email','password','remember_token','email_verified_at','code','birthdate','department_id','info_id','created_at','updated_at'
     ];
 
     public $timestamps = true;
@@ -70,14 +70,13 @@ class Physican extends Authenticatable
     // End Elqouent Relations
 
     // Define Accesors To Translate The Values Meaning
-    public function getStatusAttribute($value)
+    public function getGenderAttribute($value)
     {
-        if($value==1){
-            return ucfirst('verified');
-        }elseif($value==2){
-            return ucfirst('banned');
+        if($value=='m'){
+            return ucfirst('male');
+        }elseif($value=='f'){
+            return ucfirst('female');
         }
-        return ucfirst('not verified');
     }
     // End Accessors
 }
