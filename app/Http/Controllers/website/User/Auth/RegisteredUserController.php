@@ -31,10 +31,14 @@ class RegisteredUserController extends Controller
      */
     public function store(StoreRegisterRequest $request)
     {
+        // make validation on request using StoreRegisterRequest rules
         $request->validated();
+
+        // convert the request to the form which fits the table
         $request['name'] = $request->only('fname', 'lname');
         $data = $request->except('_token', 'fname', 'lname', 'confirmation_password');
         
+        // insert the user registered data to the users table
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -43,6 +47,9 @@ class RegisteredUserController extends Controller
             'gender' => $data['gender'],
             'birthdate' => $data['birthdate'],
         ]);
+
+        // check if the insertation process failed
+        // if not then complete the register process
         if(!$user)
             return redirect()->route('user.regiser')->with('error','Something went wrong, Please try again');
 

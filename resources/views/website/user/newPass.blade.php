@@ -29,7 +29,7 @@
                                     <input type="hidden" name="token" value="{{ $request->route('token') }}">
                                     <div class="form-group form-focus">
                                         <input type="email" class="form-control floating" name="email"
-                                            value="{{old('email', $request->email)}}">
+                                            value="{{ old('email', $request->email) }}">
                                         <label class="focus-label">Email</label>
                                     </div>
                                     @error('email')

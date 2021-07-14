@@ -7,6 +7,7 @@
                                     <h3>{{ $name['fname'] . ' ' . $name['lname'] }}</h3>
                                     <div class="patient-details">
                                         <h5><i class="fas fa-birthday-cake"></i>
+                                            {{-- get the birth date and the age --}}
                                             @php
                                                 $date = date_create(Auth::guard('web')->user()->birthdate);
                                                 $diff=date_diff($date,date_create(date("Y-m-d")));

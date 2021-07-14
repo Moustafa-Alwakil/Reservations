@@ -177,8 +177,8 @@
                                         <p class="text-muted mb-0">User</p>
                                     </div>
                                 </div>
-                                <a class="dropdown-item"
-                                    href="{{ route('user.profile')}}">Profile</a>
+                                <a class="dropdown-item" href="joj">Appointments</a>
+                                <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
                                 <form method="POST" action="{{ route('user.logout') }}" class="d-inline">
                                     @csrf<button class="btn btn-link dropdown-item"
                                         href="{{ route('user.logout') }}">Logout</button>
@@ -205,10 +205,11 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="patient-dashboard.html">Login</a>
-                                <a class="dropdown-item" href="{{route('doctor.register')}}">Register</a>
+                                <a class="dropdown-item" href="{{ route('doctor.register') }}">Register</a>
                             </div>
                         </li>
                     @endif
+                    {{-- language switcher --}}
                     <li class="nav-item dropdown has-arrow logged-item">
                         <a class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <span class="user-img">
@@ -225,6 +226,7 @@
                             @endforeach
                         </div>
                     </li>
+                    {{-- end language switcher --}}
                 </ul>
             </nav>
         </header>

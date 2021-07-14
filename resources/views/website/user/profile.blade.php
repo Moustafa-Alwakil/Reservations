@@ -1,5 +1,6 @@
 @extends('website.layouts.layout')
 @section('title')
+    {{-- get the name of the user from the session --}}
     @php
     Auth::guard('web')->check();
     $name = Auth::guard('web')->user()->name;
