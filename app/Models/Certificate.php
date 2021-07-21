@@ -26,13 +26,13 @@ class Certificate extends Model
     public function getTypeAttribute($value)
     {
         if($value==1){
-            return ucfirst('bachelor');
+            return ucwords('bachelor');
         }elseif($value==2){
-            return ucfirst('master');
+            return ucwords('master');
         }elseif($value==3){
             return strtoupper('phd');
         }elseif($value==4){
-            return ucfirst('fellowship');
+            return ucwords('fellowship');
         }
     }
     // End Accessors

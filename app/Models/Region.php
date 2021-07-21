@@ -30,9 +30,9 @@ class Region extends Model
     public function getStatusAttribute($value)
     {
         if($value==1){
-            return ucfirst('active');
+            return ucwords('active');
         };
-        return ucfirst('not active');
+        return ucwords('not active');
     }
     // End Accessors
 }

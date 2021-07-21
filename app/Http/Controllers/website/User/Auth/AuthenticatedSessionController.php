@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Website\User\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Website\User\StoreLoginRequest;
+use App\Http\Requests\Website\User\Auth\StoreLoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +16,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
-        return view('website.user.login');
+        return view('website.user.auth.login');
     }
 
     /**
@@ -42,7 +42,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Auth::logout();
+        Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 

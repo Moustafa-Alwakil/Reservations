@@ -21,7 +21,7 @@ Route::group([
                 Route::get('/reset-password/{token}', 'NewPasswordController@create')->name('user.password.reset');
                 Route::post('/reset-password', 'NewPasswordController@store')->name('user.password.update');
             });
-            Route::group(['middleware' => 'auth'], function () {
+            Route::group(['middleware' => 'auth:web'], function () {
                 Route::get('/verify-email', 'EmailVerificationPromptController@__invoke')->name('user.verification.notice');
                 Route::group(['middleware' => 'throttle:6,1'], function () {
                     Route::get('/verify-email/{id}/{hash}', 'VerifyEmailController@__invoke')->middleware('signed')->name('user.verification.verify');
@@ -32,7 +32,7 @@ Route::group([
                 Route::post('/logout', 'AuthenticatedSessionController@destroy')->name('user.logout');
             });
         });
-        Route::group(['prefix' => 'profile', 'middleware' => 'auth', 'namespace' => 'Profile'], function () {
+        Route::group(['prefix' => 'profile', 'middleware' => 'auth:web', 'namespace' => 'Profile'], function () {
             Route::get('/update', 'ProfileController@index')->name('user.profile');
             Route::post('/update', 'ProfileController@update')->name('user.profile.update');
             Route::get('/change-password', 'ChangePassController@index')->name('user.changepass');

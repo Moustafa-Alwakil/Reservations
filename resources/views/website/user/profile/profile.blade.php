@@ -2,7 +2,6 @@
 @section('title')
     {{-- get the name of the user from the session --}}
     @php
-    Auth::guard('web')->check();
     $name = Auth::guard('web')->user()->name;
     @endphp
     {{ $name['fname'] . ' ' . $name['lname'] }} - Profile
@@ -93,24 +92,28 @@
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Account status</label>
-                                            @if ($user->email_verified_at == null)
-                                                <input type="text" class="form-control bg-warning" disabled
-                                                    value="The account isn't verified, please check yor mail inbox to verify your account.">
-                                            @else
-                                                <input type="text" class="form-control bg-success" disabled
-                                                    value="Your account is verified.">
-                                            @endif
-                                        </div>
-                                    </div>
                                     <div class="submit-section">
                                         <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
                                     </div>
                             </form>
                             <!-- /Profile Settings Form -->
-
+                            <br><br><br>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <p class="text-center">Account status</p>
+                                    @if ($user->email_verified_at == null)
+                                        <div class="alert alert-warning">The account isn't verified, please check
+                                            yor mail inbox to verify your account.
+                                            <form method="POST" action="{{ route('user.verification.send') }}">
+                                                @csrf
+                                                <button class="btn btn-link">Resend Verification Email</button>
+                                            </form>
+                                        </div>
+                                    @else
+                                        <div class="alert alert-success">Your account is verified.</div>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

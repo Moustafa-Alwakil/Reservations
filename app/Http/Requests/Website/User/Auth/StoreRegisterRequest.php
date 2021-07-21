@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Website\User;
+namespace App\Http\Requests\Website\User\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules;
@@ -45,6 +45,7 @@ class StoreRegisterRequest extends FormRequest
             'lname.max' => 'The last name must not be greater than 25 characters.',
             'lname.string' => 'The last name must be a string.',
             'birthdate.before_or_equal' => 'You must be at least 15 years old.',
+            'birthdate.after_or_equal' => 'Invalid birthdate',
         ];
     }
 }

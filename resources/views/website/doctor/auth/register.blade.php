@@ -18,33 +18,41 @@
                             </div>
                             <div class="col-md-12 col-lg-6 login-right">
                                 <div class="login-header">
-                                    <h3>Patient Register <a href="doctor-register.html"></a></h3>
+                                    <h3>Doctor Register <a href="doctor-register.html"></a></h3>
                                 </div>
                                 @include('website.includes.SessionDisplay')
-                                <form method="POST" action="{{ route('store.user.register') }}">
+                                <form method="POST" action="{{ route('store.doctor.register') }}">
                                     @csrf
                                     <div class="form-group form-focus">
-                                        <input type="text" class="form-control floating" name="fname"
-                                            value="{{ old('fname') }}">
-                                        <label class="focus-label">First Name</label>
+                                        <input type="text" class="form-control floating" name="fname_ar"
+                                            value="{{ old('fname_ar') }}">
+                                        <label class="focus-label">First Name (Arabic)</label>
                                     </div>
-                                    @error('fname')
+                                    @error('fname_ar')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <div class="form-group form-focus">
-                                        <input type="text" class="form-control floating" name="lname"
-                                            value="{{ old('lname') }}">
-                                        <label class="focus-label">Last Name</label>
+                                        <input type="text" class="form-control floating" name="lname_ar"
+                                            value="{{ old('lname_ar') }}">
+                                        <label class="focus-label">Last Name (Arabic)</label>
                                     </div>
-                                    @error('lname')
+                                    @error('lname_ar')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <div class="form-group form-focus">
-                                        <input type="tel" class="form-control floating" name="phone"
-                                            value="{{ old('phone') }}">
-                                        <label class="focus-label">Phone</label>
+                                        <input type="text" class="form-control floating" name="fname_en"
+                                            value="{{ old('fname_en') }}">
+                                        <label class="focus-label">First Name (English)</label>
                                     </div>
-                                    @error('phone')
+                                    @error('fname_en')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                    <div class="form-group form-focus">
+                                        <input type="text" class="form-control floating" name="lname_en"
+                                            value="{{ old('lname_en') }}">
+                                        <label class="focus-label">Last Name (English)</label>
+                                    </div>
+                                    @error('lname_en')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <div class="form-group form-focus">
@@ -88,7 +96,7 @@
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <div class="text-right">
-                                        <a class="forgot-link" href="{{ route('user.login') }}">Already have an
+                                        <a class="forgot-link" href="{{ route('doctor.login') }}">Already have an
                                             account?</a>
                                     </div>
                                     <button class="btn btn-primary btn-block btn-lg login-btn"
@@ -103,6 +111,9 @@
 
                 </div>
             </div>
+
         </div>
+
     </div>
+    <!-- /Page Content -->
 @endsection

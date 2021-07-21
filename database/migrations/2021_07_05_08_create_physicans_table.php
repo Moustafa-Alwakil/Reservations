@@ -23,8 +23,7 @@ class CreatePhysicansTable extends Migration
             $table->string('gender',1)->comment('m->male , f->female');
             $table->date('birthdate');
             $table->rememberToken();
-            $table->foreignId('department_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('info_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('department_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

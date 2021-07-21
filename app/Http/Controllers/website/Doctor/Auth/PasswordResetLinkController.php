@@ -15,7 +15,7 @@ class PasswordResetLinkController extends Controller
      */
     public function create()
     {
-        return view('website.user.resetPass');
+        return view('website.doctor.auth.resetPass');
     }
 
     /**
@@ -29,7 +29,7 @@ class PasswordResetLinkController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|exists:users',
+            'email' => 'required|email|exists:physicans',
         ]);
 
         // We will send the password reset link to this user. Once we have attempted

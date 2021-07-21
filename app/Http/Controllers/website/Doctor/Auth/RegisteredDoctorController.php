@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Website\Doctor\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\website\user\StoreRegisterRequest;
-use App\Models\User;
+use App\Http\Requests\Website\Doctor\Auth\StoreRegisterRequest;
+use App\Models\Physican;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
-class RegisteredUserController extends Controller
+class RegisteredDoctorController extends Controller
 {
     /**
      * Display the registration view.
@@ -19,7 +17,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('website.doctor.register');
+        return view('website.doctor.auth.register');
     }
 
     /**
@@ -36,27 +34,26 @@ class RegisteredUserController extends Controller
         $request->validated();
 
         // convert the request to the form which fits the table
-        $request['name'] = $request->only('fname', 'lname');
-        $data = $request->except('_token', 'fname', 'lname', 'confirmation_password');
-        
+        $request['name'] = $request->only('fname_ar', 'lname_ar', 'fname_en', 'lname_en');
+        $data = $request->except('_token', 'fname_ar', 'lname_ar', 'fname_en', 'lname_en', 'password_confirmation');
         // insert the user registered data to the users table
-        $user = User::create([
+
+        $doctor = Physican::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'phone' => $data['phone'],
             'gender' => $data['gender'],
             'birthdate' => $data['birthdate'],
         ]);
 
         // check if the insertation process failed
         // if not then complete the register process
-        if(!$user)
-            return redirect()->route('user.regiser')->with('error','Something went wrong, Please try again');
+        if (!$doctor)
+            return redirect()->route('doctor.register')->with('error', 'Something went wrong, Please try again');
 
-        event(new Registered($user));
+        Auth::guard('doc')->login($doctor);
 
-        Auth::login($user);
+        $doctor->sendEmailVerificationNotification();
 
         return redirect(RouteServiceProvider::INDEX);
     }

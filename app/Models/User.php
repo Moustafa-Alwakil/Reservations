@@ -58,9 +58,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getGenderAttribute($value)
     {
         if($value=='m'){
-            return ucfirst('male');
+            return ucwords('male');
         }elseif($value=='f'){
-            return ucfirst('female');
+            return ucwords('female');
         }
     }
     // End Accessors

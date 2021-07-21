@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Website\User\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\website\user\StoreRegisterRequest;
+use App\Http\Requests\website\user\Auth\StoreRegisterRequest;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -18,7 +18,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('website.user.register');
+        return view('website.user.auth.register');
     }
 
     /**
@@ -36,8 +36,8 @@ class RegisteredUserController extends Controller
 
         // convert the request to the form which fits the table
         $request['name'] = $request->only('fname', 'lname');
-        $data = $request->except('_token', 'fname', 'lname', 'confirmation_password');
-        
+        $data = $request->except('_token', 'fname', 'lname', 'password_confirmation');
+
         // insert the user registered data to the users table
         $user = User::create([
             'name' => $data['name'],
@@ -50,12 +50,13 @@ class RegisteredUserController extends Controller
 
         // check if the insertation process failed
         // if not then complete the register process
-        if(!$user)
-            return redirect()->route('user.regiser')->with('error','Something went wrong, Please try again');
+        if (!$user)
+            return redirect()->route('user.register')->with('error', 'Something went wrong, Please try again');
+
+        Auth::guard('web')->login($user);
 
         event(new Registered($user));
 
-        Auth::login($user);
 
         return redirect(RouteServiceProvider::INDEX);
     }

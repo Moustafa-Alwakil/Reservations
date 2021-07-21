@@ -18,7 +18,7 @@ class Physican extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id','name','gender','email','password','remember_token','email_verified_at','code','birthdate','department_id','info_id','created_at','updated_at'
+        'id', 'name', 'gender', 'email', 'password', 'remember_token', 'email_verified_at', 'code', 'birthdate', 'department_id', 'created_at', 'updated_at'
     ];
 
     public $timestamps = true;
@@ -40,42 +40,43 @@ class Physican extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'name' => 'json'
     ];
 
     // Start Eloquent Relations
     public function cetificates()
     {
-        return $this->hasMany(Certificate::class,'physican_id','id');
+        return $this->hasMany(Certificate::class, 'physican_id', 'id');
     }
     public function clinics()
     {
-        return $this->hasMany(Clinic::class,'physican_id','id');
+        return $this->hasMany(Clinic::class, 'physican_id', 'id');
     }
     public function experiences()
     {
-        return $this->hasMany(Experience::class,'physican_id','id');
-    }
-    public function department()
-    {
-        return $this->belongsTo(Department::class,'department_id','id');
+        return $this->hasMany(Experience::class, 'physican_id', 'id');
     }
     public function info()
     {
-        return $this->hasOne(Info::class,'info_id','id');
+        return $this->hasOne(Info::class, 'physican_id', 'id');
+    }
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id', 'id');
     }
     public function users()
     {
-        return $this->belongsToMany(User::class,'reviews','physican_id','user_id','id','id')->as('reviews');
+        return $this->belongsToMany(User::class, 'reviews', 'physican_id', 'user_id', 'id', 'id')->as('reviews');
     }
     // End Elqouent Relations
 
     // Define Accesors To Translate The Values Meaning
     public function getGenderAttribute($value)
     {
-        if($value=='m'){
-            return ucfirst('male');
-        }elseif($value=='f'){
-            return ucfirst('female');
+        if ($value == 'm') {
+            return ucwords('male');
+        } elseif ($value == 'f') {
+            return ucwords('female');
         }
     }
     // End Accessors

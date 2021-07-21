@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Website\User\Profile;
+namespace App\Http\Controllers\Website\Doctor\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\website\UpdatePassRequest;
-use App\Models\User;
+use App\Models\Physican;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,6 +13,7 @@ class ChangePassController extends Controller
 {
     public function index()
     {
+        // return url('en/doctor/profile/change-password');
         return view('website.changePass');
     }
     public function update(UpdatePassRequest $request)
@@ -21,7 +22,7 @@ class ChangePassController extends Controller
         $request->validated();
 
         // getting the hashed password from the session
-        $hashedPass = Auth::guard('web')->user()->password;
+        $hashedPass = Auth::guard('doc')->user()->password;
 
         // check if the old password = hashed password which exists in the session
         // if not then redierct with error messgae
@@ -31,20 +32,20 @@ class ChangePassController extends Controller
             // if not then redierct with error messgae
             if (!Hash::check($request->password, $hashedPass)) {
 
-                // updating the user password after encrypting it
-                $user = User::find(Auth::guard('web')->user()->id);
-                $user->password = bcrypt($request->password);
-                $user->save();
+                // updating the doctor password after encrypting it
+                $doctor = Physican::find(Auth::guard('doc')->user()->id);
+                $doctor->password = bcrypt($request->password);
+                $doctor->save();
 
                 // check if the password updation process failed 
                 // if not then redierct with success messgae
-                if (!$user)
-                    return redirect()->route('user.changepass')->with('error', 'Something went wrong, Please try again');
+                if (!$doctor)
+                    return redirect()->route('doctor.changepass')->with('error', 'Something went wrong, Please try again');
 
-                return redirect()->route('user.changepass')->with('success', 'You have Successfully changed Your password');
+                return redirect()->route('doctor.changepass')->with('success', 'You have Successfully changed Your password');
             } else
-                return redirect()->route('user.changepass')->with('error', 'New password can not be the old password!');
+                return redirect()->route('doctor.changepass')->with('error', 'New password can not be the old password!');
         } else
-            return redirect()->route('user.changepass')->with('error', 'The old password is not correct');
+            return redirect()->route('doctor.changepass')->with('error', 'The old password is not correct');
     }
 }

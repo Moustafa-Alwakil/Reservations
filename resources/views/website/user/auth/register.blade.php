@@ -18,40 +18,25 @@
                             </div>
                             <div class="col-md-12 col-lg-6 login-right">
                                 <div class="login-header">
-                                    <h3>Doctor Register <a href="doctor-register.html"></a></h3>
+                                    <h3>User Register <a href="doctor-register.html"></a></h3>
                                 </div>
                                 @include('website.includes.SessionDisplay')
-                                <form method="POST" action="{{ route('store.doctor.register') }}">
+                                <form method="POST" action="{{ route('store.user.register') }}">
                                     @csrf
                                     <div class="form-group form-focus">
-                                        <input type="text" class="form-control floating" name="fname_ar"
-                                            value="{{ old('fname_ar') }}">
-                                        <label class="focus-label">First Name (Arabic)</label>
+                                        <input type="text" class="form-control floating" name="fname"
+                                            value="{{ old('fname') }}">
+                                        <label class="focus-label">First Name</label>
                                     </div>
-                                    @error('fname_ar')
+                                    @error('fname')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <div class="form-group form-focus">
-                                        <input type="text" class="form-control floating" name="fname_en"
-                                            value="{{ old('fname_en') }}">
-                                        <label class="focus-label">First Name (English)</label>
-                                    </div>
-                                    @error('fname_en')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                    <div class="form-group form-focus">
-                                        <input type="text" class="form-control floating" name="lname_ar"
-                                            value="{{ old('lname_ar') }}">
-                                        <label class="focus-label">Last Name (Arabic)</label>
-                                    </div>
-                                    @error('lname_ar')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror <div class="form-group form-focus">
-                                        <input type="text" class="form-control floating" name="lname_en"
-                                            value="{{ old('lname_en') }}">
+                                        <input type="text" class="form-control floating" name="lname"
+                                            value="{{ old('lname') }}">
                                         <label class="focus-label">Last Name</label>
                                     </div>
-                                    @error('lname_en')
+                                    @error('lname')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <div class="form-group form-focus">
@@ -118,9 +103,6 @@
 
                 </div>
             </div>
-
         </div>
-
     </div>
-    <!-- /Page Content -->
 @endsection

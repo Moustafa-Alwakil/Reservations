@@ -160,28 +160,53 @@
                     </ul>
                 </div>
                 <ul class="nav header-navbar-rht">
-                    @if (Auth::guard('web')->check())
+                        @if (Auth::guard('web')->check())
+                            @php
+                                $name = Auth::guard('web')->user()->name;
+                            @endphp
+                            <li class="nav-item dropdown has-arrow logged-item">
+                                <a class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                    <span class="user-img">
+                                        {{ ucwords($name['fname'] . ' ' . $name['lname']) }}
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="user-header">
+                                        <div class="user-text">
+                                            <h6>{{ ucwords($name['fname'] . ' ' . $name['lname']) }}</h6>
+                                            <p class="text-muted mb-0">User</p>
+                                        </div>
+                                    </div>
+                                    <a class="dropdown-item" href="joj">Appointments</a>
+                                    <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
+                                    <form method="POST" action="{{ route('user.logout') }}" class="d-inline">
+                                        @csrf<button class="btn btn-link dropdown-item"
+                                            href="{{ route('user.logout') }}">Logout</button>
+                                    </form>
+                                </div>
+                            </li>
+                        @elseif (Auth::guard('doc')->check())
                         @php
-                            $name = Auth::guard('web')->user()->name;
+                            $name = Auth::guard('doc')->user()->name;
                         @endphp
                         <li class="nav-item dropdown has-arrow logged-item">
                             <a class="dropdown-toggle nav-link" data-toggle="dropdown">
                                 <span class="user-img">
-                                    {{ $name['fname'] . ' ' . $name['lname'] }}
+                                    {{ ucwords($name['fname_'.LaravelLocalization::getCurrentLocale().''] . ' ' . $name['lname_'.LaravelLocalization::getCurrentLocale().'']) }}
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="user-header">
                                     <div class="user-text">
-                                        <h6>{{ $name['fname'] . ' ' . $name['lname'] }}</h6>
-                                        <p class="text-muted mb-0">User</p>
+                                        <h6>{{ ucwords($name['fname_'.LaravelLocalization::getCurrentLocale().''] . ' ' . $name['lname_'.LaravelLocalization::getCurrentLocale().'']) }}</h6>
+                                        <p class="text-muted mb-0">Doctor</p>
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="joj">Appointments</a>
-                                <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
-                                <form method="POST" action="{{ route('user.logout') }}" class="d-inline">
+                                <a class="dropdown-item" href="joj">Dashboard</a>
+                                <a class="dropdown-item" href="{{ route('doctor.profile') }}">Profile</a>
+                                <form method="POST" action="{{ route('doctor.logout') }}" class="d-inline">
                                     @csrf<button class="btn btn-link dropdown-item"
-                                        href="{{ route('user.logout') }}">Logout</button>
+                                        href="{{ route('doctor.logout') }}">Logout</button>
                                 </form>
                             </div>
                         </li>
@@ -204,7 +229,7 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="patient-dashboard.html">Login</a>
+                                <a class="dropdown-item" href="{{ route('doctor.login') }}">Login</a>
                                 <a class="dropdown-item" href="{{ route('doctor.register') }}">Register</a>
                             </div>
                         </li>
@@ -234,6 +259,7 @@
         <!-- /Header -->
         @yield('content')
         <!-- Footer -->
+        @if (!(Request::url()==route('user.verification.notice') || Request::url()==route('doctor.verification.notice')))
         <footer class="footer">
 
             <!-- Footer Top -->
@@ -371,6 +397,7 @@
             <!-- /Footer Bottom -->
 
         </footer>
+        @endif
         <!-- /Footer -->
 
     </div>

@@ -30,11 +30,11 @@ class Appointment extends Model
     public function getStatusAttribute($value)
     {
         if($value==1){
-            return ucfirst('accepted');
+            return ucwords('accepted');
         }elseif($value==2){
-            return ucfirst('refused'); 
+            return ucwords('refused'); 
         };
-        return ucfirst('waiting');
+        return ucwords('waiting');
     }
     // End Accessors
 }

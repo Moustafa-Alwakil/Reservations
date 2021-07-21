@@ -19,7 +19,7 @@ class CreateInfosTable extends Migration
             $table->string('license');
             $table->string('photo');
             $table->json('about');
-            $table->date('birthdate');
+            $table->foreignId('physican_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

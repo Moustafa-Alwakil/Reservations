@@ -43,7 +43,7 @@ return [
 
         'doc' => [
             'driver' => 'session',
-            'provider' => 'doctors',
+            'provider' => 'physicans',
         ],
 
         'api' => [
@@ -75,8 +75,8 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        
-        'doctors' => [
+
+        'physicans' => [
             'driver' => 'eloquent',
             'model' => App\Models\Physican::class,
         ],
@@ -105,8 +105,8 @@ return [
             'throttle' => 60,
         ],
 
-        'doctors' => [
-            'provider' => 'users',
+        'physicans' => [
+            'provider' => 'physicans',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

@@ -26,9 +26,9 @@ class Experience extends Model
     public function getStatusAttribute($value)
     {
         if($value==1){
-            return ucfirst('left job');
+            return ucwords('left job');
         };
-        return ucfirst('current job');
+        return ucwords('current job');
     }
     // End Accessors
 }

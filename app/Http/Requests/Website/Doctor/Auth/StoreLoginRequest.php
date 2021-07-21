@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Website\User;
+namespace App\Http\Requests\Website\Doctor\Auth;
 
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
@@ -29,7 +29,7 @@ class StoreLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|string|email|exists:users',
+            'email' => 'required|string|email|exists:physicans',
             'password' => 'required|string|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
         ];
     }
@@ -45,7 +45,7 @@ class StoreLoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (! Auth::guard('doc')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([

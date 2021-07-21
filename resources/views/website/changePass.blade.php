@@ -1,11 +1,17 @@
 @extends('website.layouts.layout')
 @section('title')
     {{-- get the name of the user from the session --}}
+    @if(Auth::guard('web')->check())
     @php
-    Auth::guard('web')->check();
     $name = Auth::guard('web')->user()->name;
     @endphp
     {{ $name['fname'] . ' ' . $name['lname'] }} - Change Password
+    @elseif(Auth::guard('doc')->check())
+    @php
+    $name = Auth::guard('doc')->user()->name;
+    @endphp
+    {{ $name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . ''] }} - Change Password
+    @endif
 @endsection
 @section('content')
     @include('website.includes.bar1')
@@ -25,7 +31,11 @@
                                 <div class="col-md-12 col-lg-6">
                                     @include('website.includes.sessionDisplay')
                                     <!-- Change Password Form -->
+                                    @if (Auth::guard('web')->check())
                                     <form method="POST" action="{{ route('user.changepass.update') }}">
+                                    @elseif(Auth::guard('doc')->check())
+                                    <form method="POST" action="{{ route('doctor.changepass.update') }}">
+                                    @endif
                                         @csrf
                                         <div class="form-group">
                                             <label>Old Password</label>

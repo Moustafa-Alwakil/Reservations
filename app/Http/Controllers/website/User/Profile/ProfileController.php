@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Website\User\Profile;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\website\user\UpdateProfileRequest;
+use App\Http\Requests\website\user\Profile\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,9 +16,9 @@ class ProfileController extends Controller
         $user = $user[0];
 
         // return to the view with user data
-        return view('website.user.profile', compact('user'));
+        return view('website.user.profile.profile', compact('user'));
     }
-    public function Update(UpdateProfileRequest $request)
+    public function update(UpdateProfileRequest $request)
     {
         // make validation on request using UpdateProfileRequest rules
         $request->validated();

@@ -20,7 +20,7 @@ class NewPasswordController extends Controller
      */
     public function create(Request $request)
     {
-        return view('website.user.newPass', ['request' => $request]);
+        return view('website.user.auth.newPass', ['request' => $request]);
     }
 
     /**
@@ -46,7 +46,7 @@ class NewPasswordController extends Controller
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user) use ($request) {
                 $user->forceFill([
-                    'password' => Hash::make($request->password),
+                    'password' => bcrypt($request->password),
                     'remember_token' => Str::random(60),
                 ])->save();
 
@@ -58,7 +58,7 @@ class NewPasswordController extends Controller
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
         return $status == Password::PASSWORD_RESET
-                    ? redirect()->route('user.login')->with('Success','Password has changed Successfully')
-                    : back()->route('user.password.reset')->with('error','Something went wrong, please try again, please try again');
+                    ? redirect()->route('user.login')->with('success','Password has changed Successfully')
+                    : redirect()->route('user.password.reset')->with('error','Something went wrong, please try again, please try again');
     }
 }
