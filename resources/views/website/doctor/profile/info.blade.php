@@ -5,7 +5,7 @@
     $name = Auth::guard('doc')->user()->name;
     @endphp
     {{ $name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . ''] }}
-    - Profile
+    - Information
 @endsection
 @section('content')
     @include('website.includes.bar1')
@@ -27,6 +27,11 @@
                                 use App\Models\Info;
                             @endphp
                             @if (Info::firstWhere('physican_id', Auth::guard('doc')->user()->id))
+                                @if (Auth::guard('doc')->user()->status == 0)
+                                    <div class="alert alert-warning">Your license hasn't been accepted yet.</div>
+                                @elseif(Auth::guard('doc')->user()->status == 1)
+                                <div class="alert alert-success">Your license has been accepted.</div>
+                                @endif
                                 <form method="POST" action="{{ route('doctor.info.update') }}"
                                     enctype="multipart/form-data">
                                     @csrf

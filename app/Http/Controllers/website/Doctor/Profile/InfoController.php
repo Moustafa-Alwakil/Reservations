@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\Doctor\Profile\StoreInfoRequest;
 use App\Http\Requests\Website\Doctor\Profile\UpdateInfoRequest;
 use App\Models\Info;
+use App\Models\Physican;
 use App\Traits\generalTrait;
 use Illuminate\Support\Facades\Auth;
 
@@ -71,6 +72,8 @@ class InfoController extends Controller
                 $this->deletePhoto($path);
             }
             $data['license'] = $license;
+            Physican::where('id', Auth::guard('doc')->user()->id)->update(['status'=> 0]);
+
         }
 
         $info = Info::where('physican_id', Auth::guard('doc')->user()->id)->update($data);

@@ -35,5 +35,9 @@ class Certificate extends Model
             return ucwords('fellowship');
         }
     }
+    public function getPhotoAttribute($value)
+    {
+        return url('images/certificates/'.$value);
+    }
     // End Accessors
 }

@@ -18,7 +18,7 @@ class Physican extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'gender', 'email', 'password', 'remember_token', 'email_verified_at', 'code', 'birthdate', 'department_id', 'created_at', 'updated_at'
+        'id', 'name', 'gender', 'email', 'password', 'remember_token', 'email_verified_at', 'code','status', 'birthdate', 'department_id', 'created_at', 'updated_at'
     ];
 
     public $timestamps = true;

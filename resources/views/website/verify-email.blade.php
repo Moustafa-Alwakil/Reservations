@@ -19,8 +19,3 @@
         </form>
     </div>
 @endsection
-
-<form method="POST" action="{{ route('doctor.verification.send') }}">
-    @csrf
-    <button class="btn btn-link">Resend Verification Email</button>
-</form>

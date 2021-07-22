@@ -67,6 +67,12 @@
                                                 <span>Doctor Information</span>
                                             </a>
                                         </li>
+                                        <li class="@if (Request::url()==route('doctor.certificate')) {{ 'active' }} @endif">
+                                            <a href="{{ route('doctor.certificate') }}">
+                                                <i class="fas fa-user-cog"></i>
+                                                <span>Doctor Certificates</span>
+                                            </a>
+                                        </li>
                                         <li class="@if (Request::url()==route('doctor.profile')) {{ 'active' }} @endif">
                                             <a href="{{ route('doctor.profile') }}">
                                                 <i class="fas fa-user-cog"></i>
