@@ -69,7 +69,7 @@
                         <!-- Certificates Preview -->
                         @foreach ($certificates as $certificate)
                             <div class="card text-center">
-                                <img src="{{ $certificate->photo }}" class="card-img-top mx-auto" style="width:50%">
+                                <img src="{{ $certificate->photo }}" class="card-img-top mx-auto" style="width:50%" alt="certificate">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $certificate->type }}</h5>
                                     <p class="card-text">Upload date: {{ $certificate->created_at }}</p>

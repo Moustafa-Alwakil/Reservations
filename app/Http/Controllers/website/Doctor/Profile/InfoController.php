@@ -57,9 +57,12 @@ class InfoController extends Controller
             $photo = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->photo, 'docphotos');
             if ($photo) {
                 $info = Info::firstWhere('physican_id',  Auth::guard('doc')->user()->id);
-                $arr = (explode("docphotos/",$info->photo));
-                $path = public_path('images\docphotos\\'.$arr[1]);
-                $this->deletePhoto($path);
+                $arr = (explode("docphotos/", $info->photo));
+                $path = public_path('images\docphotos\\' . $arr[1]);
+                $delete = $this->deletePhoto($path);
+                if (!$delete) {
+                    return redirect()->route('doctor.info')->with('error', 'Something went wrong, please try again.');
+                }
             }
             $data['photo'] = $photo;
         }
@@ -67,13 +70,15 @@ class InfoController extends Controller
             $license = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->license, 'licenses');
             if ($license) {
                 $info = Info::firstWhere('physican_id',  Auth::guard('doc')->user()->id);
-                $arr = (explode("licenses/",$info->license));
-                $path = public_path('images\licenses\\'.$arr[1]);
-                $this->deletePhoto($path);
+                $arr = (explode("licenses/", $info->license));
+                $path = public_path('images\licenses\\' . $arr[1]);
+                $delete = $this->deletePhoto($path);
+                if (!$delete) {
+                    return redirect()->route('doctor.info')->with('error', 'Something went wrong, please try again.');
+                }
             }
             $data['license'] = $license;
-            Physican::where('id', Auth::guard('doc')->user()->id)->update(['status'=> 0]);
-
+            Physican::where('id', Auth::guard('doc')->user()->id)->update(['status' => 0]);
         }
 
         $info = Info::where('physican_id', Auth::guard('doc')->user()->id)->update($data);

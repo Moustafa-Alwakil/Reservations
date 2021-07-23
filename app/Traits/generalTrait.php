@@ -16,6 +16,7 @@ trait generalTrait
     {
         if (file_exists($path)) {
             unlink($path);
+            return 1;
         }
     }
 }

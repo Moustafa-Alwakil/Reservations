@@ -45,10 +45,16 @@ class CertificateController extends Controller
 
         $data = $request->except('_token', '_method');
 
-        $certificate = Certificate::find($data['id']);
+        $certificate = Certificate::where('id', $data['id'])->where('physican_id', Auth::guard('doc')->user()->id)->first();
+        if(!$certificate){
+            return redirect()->route('doctor.certificate')->with('error', 'Something went wrong, please try again.');
+        }
         $arr = (explode("certificates/",$certificate->photo));
         $path = public_path('images\certificates\\'.$arr[1]);
         $delete = $this->deletePhoto($path);
+        if(!$delete){
+            return redirect()->route('doctor.certificate')->with('error', 'Something went wrong, please try again.');
+        }
         $certificate->delete();
         return redirect()->route('doctor.certificate')->with('success', 'Successfully deleted.');
     }
