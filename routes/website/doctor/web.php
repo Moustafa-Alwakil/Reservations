@@ -44,6 +44,9 @@ Route::group([
                 Route::get('/certificate','CertificateController@index')->name('doctor.certificate');
                 Route::post('/certificate','CertificateController@store')->name('doctor.certificate.store');
                 Route::delete('/certificate','CertificateController@destroy')->name('doctor.certificate.destroy');
+                Route::get('/experience','ExperienceController@index')->name('doctor.experience');
+                Route::post('/experience','ExperienceController@store')->name('doctor.experience.store');
+                Route::delete('/experience','ExperienceController@destroy')->name('doctor.experience.destroy');
             });
         });
     });

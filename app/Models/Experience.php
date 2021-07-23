@@ -8,12 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Experience extends Model
 {
     use HasFactory;
-    protected $table = 'appointments';
+    protected $table = 'experiences';
     protected $primaryKey = 'id';
     protected $fillable = [
        'id','title','place','start_date','end_date','status','physican_id','created_at','updated_at'
     ];
     public $timestamps = true;
+
+    protected $casts = [
+        'title' => 'json',
+        'place' => 'json',
+    ];
 
     // Start Eloquent Relations
     public function physican()
@@ -25,7 +30,7 @@ class Experience extends Model
     // Define Accesors To Translate The Values Meaning
     public function getStatusAttribute($value)
     {
-        if($value==1){
+        if($value==0){
             return ucwords('left job');
         };
         return ucwords('current job');

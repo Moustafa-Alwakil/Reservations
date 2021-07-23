@@ -4,7 +4,7 @@
     @php
     $name = Auth::guard('doc')->user()->name;
     @endphp
-    {{ $name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . ''] }}
+    {{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . '']) }}
     - Profile
 @endsection
 @section('content')

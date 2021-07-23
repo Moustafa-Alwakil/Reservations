@@ -4,7 +4,7 @@
     @php
     $name = Auth::guard('doc')->user()->name;
     @endphp
-    {{ $name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . ''] }}
+    {{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . '']) }}
     - Certificates
 @endsection
 @section('content')
@@ -33,13 +33,13 @@
                                             <select class="form-control select" name="type">
                                                 <option selected disabled>Select your certificate type
                                                 </option>
-                                                <option value="1">Bachelor
+                                                <option value="1" @if(old('type')== 1) {{'selected'}}@endif>Bachelor
                                                 </option>
-                                                <option value="2">Master
+                                                <option value="2" @if(old('type')== 2) {{'selected'}}@endif>Master
                                                 </option>
-                                                <option value="3">PHD
+                                                <option value="3" @if(old('type')== 3) {{'selected'}}@endif>PHD
                                                 </option>
-                                                <option value="4">Fellowship
+                                                <option value="4" @if(old('type')== 4) {{'selected'}}@endif>Fellowship
                                                 </option>
                                             </select>
                                         </div>

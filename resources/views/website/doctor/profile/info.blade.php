@@ -4,7 +4,7 @@
     @php
     $name = Auth::guard('doc')->user()->name;
     @endphp
-    {{ $name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . ''] }}
+    {{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . '']) }}
     - Information
 @endsection
 @section('content')
@@ -48,18 +48,18 @@
                                         <select class="form-control select" name="title">
                                             <option selected disabled>Select your proffesional title
                                             </option>
-                                            <option value="1" @isset($info) @if ($info->title == 1) {{ 'selected' }} @endif @endisset>Professor
+                                            <option value="1" @isset($info) @if ($info->title == 1) {{ 'selected' }} @endif @endisset @if(old('title')== 1) {{'selected'}}@endif>Professor
                                             </option>
-                                            <option value="2" @isset($info) @if ($info->title == 2) {{ 'selected' }} @endif @endisset>Lecturer
+                                            <option value="2" @isset($info) @if ($info->title == 2) {{ 'selected' }} @endif @endisset @if(old('title')== 2) {{'selected'}}@endif>Lecturer
                                             </option>
-                                            <option value="3" @isset($info) @if ($info->title == 3) {{ 'selected' }} @endif @endisset>Consultant
+                                            <option value="3" @isset($info) @if ($info->title == 3) {{ 'selected' }} @endif @endisset @if(old('title')== 3) {{'selected'}}@endif>Consultant
                                             </option>
-                                            <option value="4" @isset($info) @if ($info->title == 4) {{ 'selected' }} @endif @endisset>Specialist
+                                            <option value="4" @isset($info) @if ($info->title == 4) {{ 'selected' }} @endif @endisset @if(old('title')== 4) {{'selected'}}@endif>Specialist
                                             </option>
-                                            <option value="5" @isset($info) @if ($info->title == 5) {{ 'selected' }} @endif @endisset>Assistant
+                                            <option value="5" @isset($info) @if ($info->title == 5) {{ 'selected' }} @endif @endisset @if(old('title')== 5) {{'selected'}}@endif>Assistant
                                                 Lecturer
                                             </option>
-                                            <option value="6" @isset($info) @if ($info->title == 6) {{ 'selected' }} @endif @endisset>Assistant
+                                            <option value="6" @isset($info) @if ($info->title == 6) {{ 'selected' }} @endif @endisset @if(old('title')== 6) {{'selected'}}@endif>Assistant
                                                 Proffessor
                                             </option>
                                         </select>
@@ -100,7 +100,7 @@
                                     <div class="form-group">
                                         <label>About (Arabic)</label>
                                         <textarea class="form-control" name='about_ar'
-                                            rows="4">@isset($info){{ $info->about['about_ar'] }}@endisset</textarea>
+                                            rows="4">@isset($info){{ $info->about['about_ar'] }}@endisset {{old('about_ar')}}</textarea>
                                         </div>
                                         @error('about_ar')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -110,7 +110,7 @@
                                         <div class="form-group">
                                             <label>About (English)</label>
                                             <textarea class="form-control" name='about_en'
-                                                rows="4">@isset($info){{ $info->about['about_en'] }}@endisset</textarea>
+                                                rows="4">@isset($info){{ $info->about['about_en'] }}@endisset {{old('about_en')}}</textarea>
                                             </div>
                                             @error('about_en')
                                                 <div class="alert alert-danger">{{ $message }}</div>

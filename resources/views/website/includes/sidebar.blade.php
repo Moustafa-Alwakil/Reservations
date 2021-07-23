@@ -61,15 +61,21 @@
                                                 <span>Dashboard</span>
                                             </a>
                                         </li>
+                                        <li class="@if (Request::url()==route('doctor.experience')) {{ 'active' }} @endif">
+                                            <a href="{{ route('doctor.experience') }}">
+                                                <i class="fas fa-bookmark"></i>
+                                                <span>Doctor Experiences</span>
+                                            </a>
+                                        </li>
                                         <li class="@if (Request::url()==route('doctor.info')) {{ 'active' }} @endif">
                                             <a href="{{ route('doctor.info') }}">
-                                                <i class="fas fa-user-cog"></i>
+                                                <i class="fas fa-share-alt"></i>
                                                 <span>Doctor Information</span>
                                             </a>
                                         </li>
                                         <li class="@if (Request::url()==route('doctor.certificate')) {{ 'active' }} @endif">
                                             <a href="{{ route('doctor.certificate') }}">
-                                                <i class="fas fa-user-cog"></i>
+                                                <i class="fas fa-file-invoice"></i>
                                                 <span>Doctor Certificates</span>
                                             </a>
                                         </li>

@@ -18,7 +18,7 @@ class CreateExperiencesTable extends Migration
             $table->json('title');
             $table->json('place');
             $table->date('start_date');
-            $table->date('end_date');
+            $table->date('end_date')->nullable();
             $table->tinyInteger('status')->comment('0->left job , 1-> current job');
             $table->foreignId('physican_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

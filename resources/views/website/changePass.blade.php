@@ -5,12 +5,12 @@
     @php
     $name = Auth::guard('web')->user()->name;
     @endphp
-    {{ $name['fname'] . ' ' . $name['lname'] }} - Change Password
+    {{ ucwords($name['fname'] . ' ' . $name['lname']) }} - Change Password
     @elseif(Auth::guard('doc')->check())
     @php
     $name = Auth::guard('doc')->user()->name;
     @endphp
-    {{ $name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . ''] }} - Change Password
+    {{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . '']) }} - Change Password
     @endif
 @endsection
 @section('content')

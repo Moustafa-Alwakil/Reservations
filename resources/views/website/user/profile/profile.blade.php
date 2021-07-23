@@ -4,7 +4,7 @@
     @php
     $name = Auth::guard('web')->user()->name;
     @endphp
-    {{ $name['fname'] . ' ' . $name['lname'] }} - Profile
+    {{ ucwords($name['fname'] . ' ' . $name['lname']) }} - Profile
 @endsection
 @section('content')
     @include('website.includes.bar1')
