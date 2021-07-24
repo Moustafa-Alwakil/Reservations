@@ -196,17 +196,21 @@
                         <li class="nav-item dropdown has-arrow logged-item">
                             <a class="dropdown-toggle nav-link" data-toggle="dropdown">
                                 <span class="user-img">
-                                    <img class="rounded-circle" src="{{ $info->photo }}" width="31"
-                                        alt="Profile Picture">
+                                    @if ($info)
+                                        <img class="rounded-circle" src="{{ $info->photo }}" width="31"
+                                            alt="Profile Picture">
+                                    @endif
                                     {{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . '']) }}
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="user-header">
-                                    <div class="avatar avatar-sm">
-                                        <img class="rounded-circle" src="{{ $info->photo }}" width="31"
-                                            alt="Profile Picture">
-                                    </div>
+                                    @if ($info)
+                                        <div class="avatar avatar-sm">
+                                            <img class="rounded-circle" src="{{ $info->photo }}" width="31"
+                                                alt="Profile Picture">
+                                        </div>
+                                    @endif
                                     <div class="user-text">
                                         <h6>{{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . '']) }}
                                         </h6>

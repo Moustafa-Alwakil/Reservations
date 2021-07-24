@@ -13,9 +13,11 @@
                                         @php
                                             $info = Info::where('physican_id', Auth::guard('doc')->user()->id)->first();
                                         @endphp
-                                        <a href="#" class="booking-doc-img">
-                                            <img src="{{ $info->photo }}" alt="Profile Picture">
-                                        </a>
+                                        @if ($info)
+                                            <a href="doctor.profile" class="booking-doc-img">
+                                                <img src="{{ $info->photo }}" alt="Profile Picture">
+                                            </a>
+                                        @endif
                                         <h3>{{ $name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . ''] }}
                                         </h3>
                                     @endif
