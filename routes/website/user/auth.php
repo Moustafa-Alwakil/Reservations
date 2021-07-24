@@ -32,11 +32,5 @@ Route::group([
                 Route::post('/logout', 'AuthenticatedSessionController@destroy')->name('user.logout');
             });
         });
-        Route::group(['prefix' => 'profile', 'middleware' => 'auth:web', 'namespace' => 'Profile'], function () {
-            Route::get('/update', 'ProfileController@index')->name('user.profile');
-            Route::post('/update', 'ProfileController@update')->name('user.profile.update');
-            Route::get('/change-password', 'ChangePassController@index')->name('user.changepass');
-            Route::post('/change-password', 'ChangePassController@update')->name('user.changepass.update');
-        });
     });
 });

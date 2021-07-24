@@ -159,46 +159,57 @@
                         </li>
                     </ul>
                 </div>
+                @php
+                    use App\Models\Info;
+                @endphp
                 <ul class="nav header-navbar-rht">
-                        @if (Auth::guard('web')->check())
-                            @php
-                                $name = Auth::guard('web')->user()->name;
-                            @endphp
-                            <li class="nav-item dropdown has-arrow logged-item">
-                                <a class="dropdown-toggle nav-link" data-toggle="dropdown">
-                                    <span class="user-img">
-                                        {{ ucwords($name['fname'] . ' ' . $name['lname']) }}
-                                    </span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <div class="user-header">
-                                        <div class="user-text">
-                                            <h6>{{ ucwords($name['fname'] . ' ' . $name['lname']) }}</h6>
-                                            <p class="text-muted mb-0">User</p>
-                                        </div>
-                                    </div>
-                                    <a class="dropdown-item" href="joj">Appointments</a>
-                                    <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
-                                    <form method="POST" action="{{ route('user.logout') }}" class="d-inline">
-                                        @csrf<button class="btn btn-link dropdown-item"
-                                            href="{{ route('user.logout') }}">Logout</button>
-                                    </form>
-                                </div>
-                            </li>
-                        @elseif (Auth::guard('doc')->check())
+                    @if (Auth::guard('web')->check())
                         @php
-                            $name = Auth::guard('doc')->user()->name;
+                            $name = Auth::guard('web')->user()->name;
                         @endphp
                         <li class="nav-item dropdown has-arrow logged-item">
                             <a class="dropdown-toggle nav-link" data-toggle="dropdown">
                                 <span class="user-img">
-                                    {{ ucwords($name['fname_'.LaravelLocalization::getCurrentLocale().''] . ' ' . $name['lname_'.LaravelLocalization::getCurrentLocale().'']) }}
+                                    {{ ucwords($name['fname'] . ' ' . $name['lname']) }}
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="user-header">
                                     <div class="user-text">
-                                        <h6>{{ ucwords($name['fname_'.LaravelLocalization::getCurrentLocale().''] . ' ' . $name['lname_'.LaravelLocalization::getCurrentLocale().'']) }}</h6>
+                                        <h6>{{ ucwords($name['fname'] . ' ' . $name['lname']) }}</h6>
+                                        <p class="text-muted mb-0">User</p>
+                                    </div>
+                                </div>
+                                <a class="dropdown-item" href="joj">Appointments</a>
+                                <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
+                                <form method="POST" action="{{ route('user.logout') }}" class="d-inline">
+                                    @csrf<button class="btn btn-link dropdown-item"
+                                        href="{{ route('user.logout') }}">Logout</button>
+                                </form>
+                            </div>
+                        </li>
+                    @elseif (Auth::guard('doc')->check())
+                        @php
+                            $name = Auth::guard('doc')->user()->name;
+                            $info = Info::where('physican_id', Auth::guard('doc')->user()->id)->first();
+                        @endphp
+                        <li class="nav-item dropdown has-arrow logged-item">
+                            <a class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                <span class="user-img">
+                                    <img class="rounded-circle" src="{{ $info->photo }}" width="31"
+                                        alt="Profile Picture">
+                                    {{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . '']) }}
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="user-header">
+                                    <div class="avatar avatar-sm">
+                                        <img class="rounded-circle" src="{{ $info->photo }}" width="31"
+                                            alt="Profile Picture">
+                                    </div>
+                                    <div class="user-text">
+                                        <h6>{{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . '']) }}
+                                        </h6>
                                         <p class="text-muted mb-0">Doctor</p>
                                     </div>
                                 </div>
@@ -259,144 +270,145 @@
         <!-- /Header -->
         @yield('content')
         <!-- Footer -->
-        @if (!(Request::url()==route('user.verification.notice') || Request::url()==route('doctor.verification.notice')))
-        <footer class="footer">
+        @if (!(Request::url() == route('user.verification.notice') || Request::url() == route('doctor.verification.notice')))
+            <footer class="footer">
 
-            <!-- Footer Top -->
-            <div class="footer-top">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6">
-
-                            <!-- Footer Widget -->
-                            <div class="footer-widget footer-about">
-                                <div class="footer-logo">
-                                    <img src={{ url('website/assets/img/footer-logo.png') }} alt="logo">
-                                </div>
-                                <div class="footer-about-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. </p>
-                                    <div class="social-icon">
-                                        <ul>
-                                            <li>
-                                                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i> </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank"><i class="fab fa-twitter"></i> </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank"><i class="fab fa-dribbble"></i> </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /Footer Widget -->
-
-                        </div>
-
-                        <div class="col-lg-3 col-md-6">
-
-                            <!-- Footer Widget -->
-                            <div class="footer-widget footer-menu">
-                                <h2 class="footer-title">For Patients</h2>
-                                <ul>
-                                    <li><a href="search.html">Search for Doctors</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="register.html">Register</a></li>
-                                    <li><a href="booking.html">Booking</a></li>
-                                    <li><a href="patient-dashboard.html">Patient Dashboard</a></li>
-                                </ul>
-                            </div>
-                            <!-- /Footer Widget -->
-
-                        </div>
-
-                        <div class="col-lg-3 col-md-6">
-
-                            <!-- Footer Widget -->
-                            <div class="footer-widget footer-menu">
-                                <h2 class="footer-title">For Doctors</h2>
-                                <ul>
-                                    <li><a href="appointments.html">Appointments</a></li>
-                                    <li><a href="chat.html">Chat</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="doctor-register.html">Register</a></li>
-                                    <li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
-                                </ul>
-                            </div>
-                            <!-- /Footer Widget -->
-
-                        </div>
-
-                        <div class="col-lg-3 col-md-6">
-
-                            <!-- Footer Widget -->
-                            <div class="footer-widget footer-contact">
-                                <h2 class="footer-title">Contact Us</h2>
-                                <div class="footer-contact-info">
-                                    <div class="footer-address">
-                                        <span><i class="fas fa-map-marker-alt"></i></span>
-                                        <p> 3556 Beech Street, San Francisco,<br> California, CA 94108 </p>
-                                    </div>
-                                    <p>
-                                        <i class="fas fa-phone-alt"></i>
-                                        +1 315 369 5943
-                                    </p>
-                                    <p class="mb-0">
-                                        <i class="fas fa-envelope"></i>
-                                        doccure@example.com
-                                    </p>
-                                </div>
-                            </div>
-                            <!-- /Footer Widget -->
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!-- /Footer Top -->
-
-            <!-- Footer Bottom -->
-            <div class="footer-bottom">
-                <div class="container-fluid">
-
-                    <!-- Copyright -->
-                    <div class="copyright">
+                <!-- Footer Top -->
+                <div class="footer-top">
+                    <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-6 col-lg-6">
-                                <div class="copyright-text">
-                                    <p class="mb-0">&copy; 2020 Doccure. All rights reserved.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6">
+                            <div class="col-lg-3 col-md-6">
 
-                                <!-- Copyright Menu -->
-                                <div class="copyright-menu">
-                                    <ul class="policy-menu">
-                                        <li><a href="term-condition.html">Terms and Conditions</a></li>
-                                        <li><a href="privacy-policy.html">Policy</a></li>
+                                <!-- Footer Widget -->
+                                <div class="footer-widget footer-about">
+                                    <div class="footer-logo">
+                                        <img src={{ url('website/assets/img/footer-logo.png') }} alt="logo">
+                                    </div>
+                                    <div class="footer-about-content">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                            tempor
+                                            incididunt ut labore et dolore magna aliqua. </p>
+                                        <div class="social-icon">
+                                            <ul>
+                                                <li>
+                                                    <a href="#" target="_blank"><i class="fab fa-facebook-f"></i> </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank"><i class="fab fa-twitter"></i> </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank"><i class="fab fa-dribbble"></i> </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Footer Widget -->
+
+                            </div>
+
+                            <div class="col-lg-3 col-md-6">
+
+                                <!-- Footer Widget -->
+                                <div class="footer-widget footer-menu">
+                                    <h2 class="footer-title">For Patients</h2>
+                                    <ul>
+                                        <li><a href="search.html">Search for Doctors</a></li>
+                                        <li><a href="login.html">Login</a></li>
+                                        <li><a href="register.html">Register</a></li>
+                                        <li><a href="booking.html">Booking</a></li>
+                                        <li><a href="patient-dashboard.html">Patient Dashboard</a></li>
                                     </ul>
                                 </div>
-                                <!-- /Copyright Menu -->
+                                <!-- /Footer Widget -->
 
                             </div>
+
+                            <div class="col-lg-3 col-md-6">
+
+                                <!-- Footer Widget -->
+                                <div class="footer-widget footer-menu">
+                                    <h2 class="footer-title">For Doctors</h2>
+                                    <ul>
+                                        <li><a href="appointments.html">Appointments</a></li>
+                                        <li><a href="chat.html">Chat</a></li>
+                                        <li><a href="login.html">Login</a></li>
+                                        <li><a href="doctor-register.html">Register</a></li>
+                                        <li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
+                                    </ul>
+                                </div>
+                                <!-- /Footer Widget -->
+
+                            </div>
+
+                            <div class="col-lg-3 col-md-6">
+
+                                <!-- Footer Widget -->
+                                <div class="footer-widget footer-contact">
+                                    <h2 class="footer-title">Contact Us</h2>
+                                    <div class="footer-contact-info">
+                                        <div class="footer-address">
+                                            <span><i class="fas fa-map-marker-alt"></i></span>
+                                            <p> 3556 Beech Street, San Francisco,<br> California, CA 94108 </p>
+                                        </div>
+                                        <p>
+                                            <i class="fas fa-phone-alt"></i>
+                                            +1 315 369 5943
+                                        </p>
+                                        <p class="mb-0">
+                                            <i class="fas fa-envelope"></i>
+                                            doccure@example.com
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- /Footer Widget -->
+
+                            </div>
+
                         </div>
                     </div>
-                    <!-- /Copyright -->
-
                 </div>
-            </div>
-            <!-- /Footer Bottom -->
+                <!-- /Footer Top -->
 
-        </footer>
+                <!-- Footer Bottom -->
+                <div class="footer-bottom">
+                    <div class="container-fluid">
+
+                        <!-- Copyright -->
+                        <div class="copyright">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+                                    <div class="copyright-text">
+                                        <p class="mb-0">&copy; 2020 Doccure. All rights reserved.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6">
+
+                                    <!-- Copyright Menu -->
+                                    <div class="copyright-menu">
+                                        <ul class="policy-menu">
+                                            <li><a href="term-condition.html">Terms and Conditions</a></li>
+                                            <li><a href="privacy-policy.html">Policy</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- /Copyright Menu -->
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Copyright -->
+
+                    </div>
+                </div>
+                <!-- /Footer Bottom -->
+
+            </footer>
         @endif
         <!-- /Footer -->
 

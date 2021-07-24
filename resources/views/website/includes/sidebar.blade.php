@@ -1,12 +1,21 @@
                 <!-- Profile Sidebar -->
                 <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
                     <div class="profile-sidebar">
+                        @php
+                            use App\Models\Info;
+                        @endphp
                         <div class="widget-profile pro-widget-content">
                             <div class="profile-info-widget">
                                 <div class="profile-det-info">
                                     @if (Auth::guard('web')->check())
                                         <h3>{{ $name['fname'] . ' ' . $name['lname'] }}</h3>
                                     @elseif(Auth::guard('doc')->check())
+                                        @php
+                                            $info = Info::where('physican_id', Auth::guard('doc')->user()->id)->first();
+                                        @endphp
+                                        <a href="#" class="booking-doc-img">
+                                            <img src="{{ $info->photo }}" alt="Profile Picture">
+                                        </a>
                                         <h3>{{ $name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . ''] }}
                                         </h3>
                                     @endif
@@ -92,7 +101,8 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <form method="POST" action="{{ route('doctor.logout') }}" class="d-inline">
+                                            <form method="POST" action="{{ route('doctor.logout') }}"
+                                                class="d-inline">
                                                 @csrf<button class="btn btn-link dropdown-item btn-lg bg-primary"
                                                     href="{{ route('doctor.logout') }}">
                                                     <i class="fas fa-sign-out-alt"></i>
