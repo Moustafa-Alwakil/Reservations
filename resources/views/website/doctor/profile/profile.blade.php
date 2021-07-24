@@ -48,65 +48,65 @@
                                         @enderror
                                     </div>
                                     <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label>First Name (English)</label>
-                                        <input type="text" class="form-control" name="fname_en"
-                                            value="{{ $doctor->name['fname_en'] }}">
-                                    </div>
-                                    @error('fname_en')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label>Last Name (English)</label>
-                                        <input type="text" class="form-control" name="lname_en"
-                                            value="{{ $doctor->name['lname_en'] }}">
-                                    </div>
-                                    @error('lname_en')
-                                        <div class=" alert alert-danger">{{ $message }}
+                                        <div class="form-group">
+                                            <label>First Name (English)</label>
+                                            <input type="text" class="form-control" name="fname_en"
+                                                value="{{ $doctor->name['fname_en'] }}">
                                         </div>
-                                    @enderror
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label>Date of Birth</label>
-                                        <div class="">
-                                            <input type="date" class="form-control datetimepicker" name="birthdate"
-                                                value="{{ $doctor->birthdate }}">
+                                        @error('fname_en')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>Last Name (English)</label>
+                                            <input type="text" class="form-control" name="lname_en"
+                                                value="{{ $doctor->name['lname_en'] }}">
                                         </div>
+                                        @error('lname_en')
+                                            <div class=" alert alert-danger">{{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
-                                    @error('birthdate')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label>gender</label>
-                                        <select class="form-control select" name="gender">
-                                            <option @if ($doctor->gender == 'Male') {{ 'selected' }} @endif value="m">Male
-                                            </option>
-                                            <option @if ($doctor->gender == 'Female') {{ 'selected' }} @endif value="f">Female
-                                            </option>
-                                        </select>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>Date of Birth</label>
+                                            <div class="">
+                                                <input type="date" class="form-control datetimepicker" name="birthdate"
+                                                    value="{{ $doctor->birthdate }}">
+                                            </div>
+                                        </div>
+                                        @error('birthdate')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    @error('gender')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        <input type="email" class="form-control" name="email"
-                                            value="{{ $doctor->email }}">
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>gender</label>
+                                            <select class="form-control select" name="gender">
+                                                <option @if ($doctor->gender == 'Male') {{ 'selected' }} @endif value="m">Male
+                                                </option>
+                                                <option @if ($doctor->gender == 'Female') {{ 'selected' }} @endif value="f">Female
+                                                </option>
+                                            </select>
+                                        </div>
+                                        @error('gender')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    @error('email')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="submit-section">
-                                    <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
-                                </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" name="email"
+                                                value="{{ $doctor->email }}">
+                                        </div>
+                                        @error('email')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="submit-section">
+                                        <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                                    </div>
                             </form>
                             <!-- /Profile Settings Form -->
                             <br><br><br>

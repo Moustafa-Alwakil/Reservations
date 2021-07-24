@@ -78,6 +78,12 @@
                                                 <span>Doctor Experiences</span>
                                             </a>
                                         </li>
+                                        <li class="@if (Request::url()==route('doctor.department')) {{ 'active' }} @endif">
+                                            <a href="{{ route('doctor.department') }}">
+                                                <i class="fas fa-bookmark"></i>
+                                                <span>Doctor Department</span>
+                                            </a>
+                                        </li>
                                         <li class="@if (Request::url()==route('doctor.info')) {{ 'active' }} @endif">
                                             <a href="{{ route('doctor.info') }}">
                                                 <i class="fas fa-share-alt"></i>

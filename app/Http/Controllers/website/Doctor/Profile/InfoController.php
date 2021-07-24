@@ -16,9 +16,9 @@ class InfoController extends Controller
 
     public function index()
     {
-        if ($info = Info::firstWhere('physican_id',  Auth::guard('doc')->user()->id)) {
+        if ($info = Info::firstWhere('physican_id',  Auth::guard('doc')->user()->id))
             return view('website.doctor.profile.info', compact('info'));
-        }
+
         return view('website.doctor.profile.info');
     }
 
@@ -72,7 +72,7 @@ class InfoController extends Controller
                 $file = (explode("licenses/", $info->license));
                 $path = public_path('images\licenses\\' . $file[1]);
                 $delete = $this->deletePhoto($path);
-                
+
                 if (!$delete)
                     return redirect()->route('doctor.info')->with('error', 'Something went wrong, please try again.');
 

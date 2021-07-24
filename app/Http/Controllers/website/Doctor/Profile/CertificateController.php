@@ -16,9 +16,9 @@ class CertificateController extends Controller
     public function index()
     {
         $certificates = Certificate::Where('physican_id',  Auth::guard('doc')->user()->id)->get();
-        if (isset($certificates[0])) {
+        if (isset($certificates[0]))
             return view('website.doctor.profile.certificate', compact('certificates'));
-        }
+            
         return view('website.doctor.profile.certificate');
     }
 

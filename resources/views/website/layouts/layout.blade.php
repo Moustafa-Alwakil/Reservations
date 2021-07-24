@@ -418,7 +418,6 @@
 
     </div>
     <!-- /Main Wrapper -->
-
     <!-- jQuery -->
     <script src={{ url('website/assets/js/jquery.min.js') }}></script>
 
@@ -431,7 +430,7 @@
 
     <!-- Custom JS -->
     <script src={{ url('website/assets/js/script.js') }}></script>
-
+    @yield('scripts')
 </body>
 
 <!-- Mirrored from doccure-html.dreamguystech.com/template/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Mar 2021 19:28:08 GMT -->

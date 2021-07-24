@@ -17,9 +17,9 @@ class ExperienceController extends Controller
     public function index()
     {
         $experiences = Experience::Where('physican_id',  Auth::guard('doc')->user()->id)->get();
-        if (isset($experiences[0])) {
+        if (isset($experiences[0]))
             return view('website.doctor.profile.experience', compact('experiences'));
-        }
+            
         return view('website.doctor.profile.experience');
     }
 
@@ -46,7 +46,7 @@ class ExperienceController extends Controller
         $data = $request->except('_token', '_method');
 
         $certificate = Experience::where('id', $data['id'])->where('physican_id', Auth::guard('doc')->user()->id)->first();
-        if(!$certificate){
+        if (!$certificate) {
             return redirect()->route('doctor.experience')->with('error', 'Something went wrong, please try again.');
         }
         $certificate->delete();

@@ -15,6 +15,10 @@ class Service extends Model
     ];
     public $timestamps = true;
 
+    protected $casts = [
+        'name' => 'json'
+    ];
+
     // Start Eloquent Relations
     public function department()
     {

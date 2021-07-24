@@ -78,7 +78,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <input type="text" name="id" hidden value="{{ $certificate->id }}">
-                                        <button class="btn btn-primary">Delete</button>
+                                        <button class="btn btn-danger">Delete</button>
                                     </form>
                                 </div>
                             </div>
