@@ -9,7 +9,7 @@ class Review extends Pivot
     protected $table = 'reviews';
     protected $primaryKey = 'id';
     protected $fillable = [
-       'comment','value','physican_id','patient_id','created_at','updated_at'
+       'comment','value','physican_id','user_id','created_at','updated_at'
     ];
     public $timestamps = true;
 

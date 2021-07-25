@@ -21,8 +21,9 @@
                 <div class="col-md-7 col-lg-8 col-xl-9">
                     <div class="card">
                         <div class="card-body">
-                            @include('website.includes.sessionDisplay')
-                            <!-- Profile Settings Form -->
+                            <h4 class="card-title">Doctor Certicates<hr></h4>
+                            @include('website.includes.sessionDisplay')<br>
+                            <!-- Certificate Settings Form -->
                             <form method="POST" action="{{ route('doctor.certificate.store') }}"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -60,7 +61,7 @@
                                         <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
                                     </div>
                             </form>
-                            <!-- /Profile Settings Form -->
+                            <!-- /Certificate Settings Form -->
                         </div>
                     </div>
                 </div>

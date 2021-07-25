@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website\Doctor\Profile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\Doctor\Profile\StoreInfoRequest;
 use App\Http\Requests\Website\Doctor\Profile\UpdateInfoRequest;
+use App\Models\Department;
 use App\Models\Info;
 use App\Models\Physican;
 use App\Traits\generalTrait;
@@ -16,10 +17,12 @@ class InfoController extends Controller
 
     public function index()
     {
-        if ($info = Info::firstWhere('physican_id',  Auth::guard('doc')->user()->id))
-            return view('website.doctor.profile.info', compact('info'));
+        $departments = Department::select('id', 'name')->orderby('name')->where('status', 1)->get();
+        if ($info = Info::firstWhere('physican_id',  Auth::guard('doc')->user()->id)) {
+            return view('website.doctor.profile.info', compact('info', 'departments'));
+        }
 
-        return view('website.doctor.profile.info');
+        return view('website.doctor.profile.info', compact('departments'));
     }
 
     public function store(StoreInfoRequest $request)
@@ -29,17 +32,23 @@ class InfoController extends Controller
         $request['about'] = $request->only('about_ar', 'about_en');
 
         $photo = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->photo, 'docphotos');
-        $license = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->license, 'licenses');
+        if (!$photo)
+            return redirect()->route('doctor.info')->with('error', 'Something went wrong, please try again.');
 
-        $data = $request->except('about_ar', 'about_en', '_token', 'photo', 'license');
+        $license = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->license, 'licenses');
+        if (!$license)
+            return redirect()->route('doctor.info')->with('error', 'Something went wrong, please try again.');
+
+        $data = $request->except('about_ar', 'about_en', '_token', 'photo', 'license', 'department_id');
 
         $data['photo'] = $photo;
         $data['license'] = $license;
         $data['physican_id'] = Auth::guard('doc')->user()->id;
 
         $info = Info::create($data);
+        $department_id = Physican::where('id', Auth::guard('doc')->user()->id)->update(['department_id' => $request->department_id]);
 
-        if (!$info)
+        if (!$info || !$department_id)
             return redirect()->route('doctor.info')->with('error', 'Something went wrong, please try again.');
 
         return redirect()->route('doctor.info')->with('success', 'The data has been saved successfully.');
@@ -50,7 +59,7 @@ class InfoController extends Controller
         $request->validated();
 
         $request['about'] = $request->only('about_ar', 'about_en');
-        $data = $request->except('about_ar', 'about_en', '_token', '_method');
+        $data = $request->except('about_ar', 'about_en', '_token', '_method', 'department_id');
 
         if ($request->has('photo')) {
             $photo = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->photo, 'docphotos');
@@ -85,7 +94,11 @@ class InfoController extends Controller
         }
 
         $info = Info::where('physican_id', Auth::guard('doc')->user()->id)->update($data);
-
+        if (Auth::guard('doc')->user()->department_id != $request->department_id) {
+            $department_id = Physican::where('id', Auth::guard('doc')->user()->id)->update(['department_id' => $request->department_id, 'status' => 0]);
+            if (!$department_id)
+                return redirect()->route('doctor.info')->with('error', 'Something went wrong, please try again.');
+        }
         if (!$info)
             return redirect()->route('doctor.info')->with('error', 'Something went wrong, please try again.');
 

@@ -24,6 +24,10 @@ class Service extends Model
     {
         return $this->belongsTo(Department::class, 'depatment_id','id');
     }
+    public function clinics()
+    {
+        return $this->belongsToMany(Clinic::class, 'clinics_services', 'service_id', 'clinic_id', 'id', 'id')->as('clinics_services');
+    }
     // End Elqouent Relations
 
     // Define Accesors To Translate The Values Meaning

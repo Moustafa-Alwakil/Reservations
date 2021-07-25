@@ -18,7 +18,7 @@ class CertificateController extends Controller
         $certificates = Certificate::Where('physican_id',  Auth::guard('doc')->user()->id)->get();
         if (isset($certificates[0]))
             return view('website.doctor.profile.certificate', compact('certificates'));
-            
+
         return view('website.doctor.profile.certificate');
     }
 
@@ -46,18 +46,16 @@ class CertificateController extends Controller
     {
         $request->validated();
 
-        $data = $request->except('_token', '_method');
-
-        $certificate = Certificate::where('id', $data['id'])->where('physican_id', Auth::guard('doc')->user()->id)->first();
-        if (!$certificate) {
+        $certificate = Certificate::where('id', $request->id)->where('physican_id', Auth::guard('doc')->user()->id)->first();
+        if (!$certificate)
             return redirect()->route('doctor.certificate')->with('error', 'Something went wrong, please try again.');
-        }
+
         $file = (explode("certificates/", $certificate->photo));
         $path = public_path('images\certificates\\' . $file[1]);
         $delete = $this->deletePhoto($path);
-        if (!$delete) {
+        if (!$delete)
             return redirect()->route('doctor.certificate')->with('error', 'Something went wrong, please try again.');
-        }
+
         $certificate->delete();
         return redirect()->route('doctor.certificate')->with('success', 'Successfully deleted.');
     }

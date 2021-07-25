@@ -14,7 +14,7 @@
                                             $info = Info::where('physican_id', Auth::guard('doc')->user()->id)->first();
                                         @endphp
                                         @if ($info)
-                                            <a href="doctor.profile" class="booking-doc-img">
+                                            <a href="{{ route('doctor.profile') }}" class="booking-doc-img">
                                                 <img src="{{ $info->photo }}" alt="Profile Picture">
                                             </a>
                                         @endif
@@ -66,40 +66,34 @@
                                             </form>
                                         </li>
                                     @elseif(Auth::guard('doc')->check())
-                                        <li>
-                                            <a href="#">
-                                                <i class="fas fa-columns"></i>
-                                                <span>Dashboard</span>
+                                    <li class="@if (Request::url()==route('doctor.profile')) {{ 'active' }} @endif">
+                                        <a href="{{ route('doctor.profile') }}">
+                                            <i class="fas fa-user-cog"></i>
+                                            <span>General Profile</span>
+                                        </a>
+                                    </li>
+                                    <li class="@if (Request::url()==route('doctor.info')) {{ 'active' }} @endif">
+                                        <a href="{{ route('doctor.info') }}">
+                                            <i class="fas fa-info-circle"></i>
+                                            <span>Doctor Information</span>
+                                        </a>
+                                    </li>
+                                    <li class="@if (Request::url()==route('doctor.certificate')) {{ 'active' }} @endif">
+                                        <a href="{{ route('doctor.certificate') }}">
+                                            <i class="fas fa-user-graduate"></i>
+                                            <span>Doctor Certificates</span>
+                                        </a>
+                                    </li>
+                                        <li class="@if (Request::url()==route('doctor.experience')) {{ 'active' }} @endif">
+                                            <a href="{{ route('doctor.experience') }}">
+                                                <i class="fas fa-briefcase"></i>
+                                                <span>Doctor Experiences</span>
                                             </a>
                                         </li>
                                         <li class="@if (Request::url()==route('doctor.experience')) {{ 'active' }} @endif">
                                             <a href="{{ route('doctor.experience') }}">
-                                                <i class="fas fa-bookmark"></i>
-                                                <span>Doctor Experiences</span>
-                                            </a>
-                                        </li>
-                                        <li class="@if (Request::url()==route('doctor.department')) {{ 'active' }} @endif">
-                                            <a href="{{ route('doctor.department') }}">
-                                                <i class="fas fa-bookmark"></i>
-                                                <span>Doctor Department</span>
-                                            </a>
-                                        </li>
-                                        <li class="@if (Request::url()==route('doctor.info')) {{ 'active' }} @endif">
-                                            <a href="{{ route('doctor.info') }}">
-                                                <i class="fas fa-share-alt"></i>
-                                                <span>Doctor Information</span>
-                                            </a>
-                                        </li>
-                                        <li class="@if (Request::url()==route('doctor.certificate')) {{ 'active' }} @endif">
-                                            <a href="{{ route('doctor.certificate') }}">
-                                                <i class="fas fa-file-invoice"></i>
-                                                <span>Doctor Certificates</span>
-                                            </a>
-                                        </li>
-                                        <li class="@if (Request::url()==route('doctor.profile')) {{ 'active' }} @endif">
-                                            <a href="{{ route('doctor.profile') }}">
-                                                <i class="fas fa-user-cog"></i>
-                                                <span>General Profile</span>
+                                                <i class="fas fa-clinic-medical"></i>
+                                                <span>Clinics</span>
                                             </a>
                                         </li>
                                         <li class="@if (Request::url()==route('doctor.changepass')) {{ 'active' }} @endif">

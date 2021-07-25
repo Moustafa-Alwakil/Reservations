@@ -27,9 +27,10 @@
                 <div class="col-md-7 col-lg-8 col-xl-9">
                     <div class="card">
                         <div class="card-body">
+                            <h4 class="card-title">Change Password<hr></h4>
+                            @include('website.includes.sessionDisplay')<br>
                             <div class="row">
                                 <div class="col-md-12 col-lg-6">
-                                    @include('website.includes.sessionDisplay')
                                     <!-- Change Password Form -->
                                     @if (Auth::guard('web')->check())
                                     <form method="POST" action="{{ route('user.changepass.update') }}">

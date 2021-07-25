@@ -21,8 +21,11 @@
                 <div class="col-md-7 col-lg-8 col-xl-9">
                     <div class="card">
                         <div class="card-body">
-                            @include('website.includes.sessionDisplay')
-                            <!-- Profile Settings Form -->
+                            <h4 class="card-title">Doctor Information
+                                <hr>
+                            </h4>
+                            @include('website.includes.sessionDisplay')<br>
+                            <!-- Info Settings Form -->
                             @php
                                 use App\Models\Info;
                             @endphp
@@ -68,6 +71,25 @@
                                         </select>
                                     </div>
                                     @error('title')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Departments</label>
+                                        <select class="form-control select" name="department_id">
+                                            <option selected disabled>Select your Department
+                                            </option>
+                                            @isset($departments)
+                                                @foreach ($departments as $department)
+                                                    <option value="{{ $department->id }}" @if (old('department_id') == $department->id || Auth::guard('doc')->user()->department_id == $department->id) {{ 'selected' }} @endif>
+                                                        {{ $department->name['name_' . LaravelLocalization::getCurrentLocale()] }}
+                                                    </option>
+                                                @endforeach
+                                            @endisset
+                                        </select>
+                                    </div>
+                                    @error('department_id')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -124,7 +146,7 @@
                                             <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
                                         </div>
                                         </form>
-                                        <!-- /Profile Settings Form -->
+                                        <!-- /Info Settings Form -->
                                     </div>
                                 </div>
                             </div>

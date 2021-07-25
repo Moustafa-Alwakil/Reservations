@@ -11,7 +11,7 @@ class Appointment extends Model
     protected $table = 'appointments';
     protected $primaryKey = 'id';
     protected $fillable = [
-       'id','date','start_time','end_time','status','clinic_id','patient_id','created_at','updated_at'
+       'id','date','start_time','end_time','status','clinic_id','user_id','created_at','updated_at'
     ];
     public $timestamps = true;
 

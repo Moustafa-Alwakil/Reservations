@@ -44,6 +44,10 @@ class Clinic extends Model
     {
         return $this->hasOne(Workday::class,'clinic_id','id');
     }
+    public function services()
+    {
+        return $this->belongsToMany(service::class, 'clinics_services', 'clinic_id', 'service_id', 'id', 'id')->as('clinics_services');
+    }
     // End Elqouent Relations
 
     // Define Accesors To Translate The Values Meaning

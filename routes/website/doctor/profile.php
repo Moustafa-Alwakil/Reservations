@@ -24,8 +24,9 @@ Route::group([
                 Route::delete('/certificate','CertificateController@destroy')->name('doctor.certificate.destroy');
                 Route::get('/experience','ExperienceController@index')->name('doctor.experience');
                 Route::post('/experience','ExperienceController@store')->name('doctor.experience.store');
+                Route::get('/experience/{id}','ExperienceController@edit')->name('doctor.experience.edit');
+                Route::put('/experience','ExperienceController@update')->name('doctor.experience.update');
                 Route::delete('/experience','ExperienceController@destroy')->name('doctor.experience.destroy');
-                Route::get('/department','DepartmentController@index')->name('doctor.department');
             });
         });
     });
