@@ -19,9 +19,14 @@ class EnsureDocIsAccepted
      */
     public function handle(Request $request, Closure $next, $redirectToRoute = null)
     {
+        if (Auth::guard('doc')->user()->status == 2) {
+            return $request->expectsJson()
+                ? abort(403, 'Your information is being reviewed by us and we will verify you as soon as possible, this might take hours or maybe few days.')
+                : Redirect::guest(URL::route($redirectToRoute ?: 'doctor.info'));
+        }
         if (Auth::guard('doc')->user()->status == 0) {
             return $request->expectsJson()
-                ? abort(403, 'Your license hasn\'t been accepted yet.')
+                ? abort(403, 'Your information is invalid, please review it again and insert the correct information.')
                 : Redirect::guest(URL::route($redirectToRoute ?: 'doctor.info'));
         }
         return $next($request);
