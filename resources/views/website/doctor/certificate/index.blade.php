@@ -21,7 +21,7 @@
                 <div class="col-md-7 col-lg-8 col-xl-9">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Doctor Certicates<hr></h4>
+                            <h4 class="card-title">Doctor Certificates<hr></h4>
                             @include('website.includes.sessionDisplay')<br>
                             <!-- Certificate Settings Form -->
                             <form method="POST" action="{{ route('doctor.certificate.store') }}"
@@ -58,7 +58,7 @@
                                         @enderror
                                     </div>
                                     <div class="submit-section">
-                                        <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                                        <button type="submit" class="btn btn-primary submit-btn">Save</button>
                                     </div>
                             </form>
                             <!-- /Certificate Settings Form -->

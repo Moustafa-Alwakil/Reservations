@@ -15,10 +15,7 @@ class ExperienceController extends Controller
     public function index()
     {
         $experiences = Experience::Where('physican_id',  Auth::guard('doc')->user()->id)->get();
-        if (isset($experiences[0]))
-            return view('website.doctor.experience.index', compact('experiences'));
-
-        return view('website.doctor.experience.index');
+        return view('website.doctor.experience.index',compact('experiences'));
     }
 
     public function store(StoreExperienceRequest $request)

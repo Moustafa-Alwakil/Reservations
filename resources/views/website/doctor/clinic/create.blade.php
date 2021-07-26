@@ -112,12 +112,14 @@
                                         <select class="form-control select" name="city" id="city">
                                             <option selected disabled>Select your clinic City
                                             </option>
-                                            @foreach ($cities['data'] as $city)
-                                                <option @if (old('city') == $city->id) {{ 'selected' }} @endif
-                                                    value="{{ $city->id }}">
-                                                    {{ $city->name['name_' . LaravelLocalization::getCurrentLocale()] }}
-                                                </option>
-                                            @endforeach
+                                            @isset($cities)
+                                                @foreach ($cities['data'] as $city)
+                                                    <option @if (old('city') == $city->id) {{ 'selected' }} @endif
+                                                        value="{{ $city->id }}">
+                                                        {{ $city->name['name_' . LaravelLocalization::getCurrentLocale()] }}
+                                                    </option>
+                                                @endforeach
+                                            @endisset
                                         </select>
                                     </div>
                                     @error('city')
@@ -214,7 +216,7 @@
                     <!-- Clinic Workdays -->
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Clinic Services
+                            <h4 class="card-title">Clinic Workdays
                                 <hr>
                             </h4><br>
                             <div class="row form-row">
@@ -555,21 +557,24 @@
                     <!-- Clinic Services -->
                     <div class="card contact-card">
                         <div class="card-body">
-                            <h4 class="card-title">Clinic Workdays
+                            <h4 class="card-title">Clinic Services
                                 <hr>
                             </h4><br>
                             <div class="row form-row">
                                 <div class="col-12">
-                                    <h4 class="card-title mb-4">Services:</h4>
+                                    <h4 class="card-title mb-4">What services is your clinic will Provide?</h4>
+                                    @isset($services)
                                     @foreach ($services as $service)
-                                        <div class="payment-list">
-                                            <label class="payment-radio credit-card-option mb-3">
-                                                <input type="checkbox" value="{{ $service->id }}" name="service_id">
-                                                <span class="checkmark"></span>
-                                                {{ $service->name['name_' . LaravelLocalization::getCurrentLocale()] }}
-                                            </label>
-                                        </div>
-                                    @endforeach
+                                    <div class="payment-list">
+                                        <label class="payment-radio credit-card-option mb-3">
+                                            <input type="checkbox" value="{{ $service->id }}" name="service_id">
+                                            <span class="checkmark"></span>
+                                            {{ $service->name['name_' . LaravelLocalization::getCurrentLocale()] }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                                    @endisset
+                                    <small class="text-secondary"> * These services based on your specialist.</small>
                                 </div>
                             </div>
                         </div>
@@ -642,7 +647,7 @@
                                     var name = response['data'][i].name;
 
                                     var option = "<option value='" + id + "'>" + name
-                                        .name_<?php echo $locale?> + "</option>";
+                                        .name_<?php echo $locale; ?> + "</option>";
 
                                     $("#region").append(option);
                                 }

@@ -18,11 +18,9 @@ class InfoController extends Controller
     public function index()
     {
         $departments = Department::select('id', 'name')->orderby('name')->where('status', 1)->get();
-        if ($info = Info::firstWhere('physican_id',  Auth::guard('doc')->user()->id)) {
-            return view('website.doctor.info.index', compact('info', 'departments'));
-        }
+        $info = Info::firstWhere('physican_id',  Auth::guard('doc')->user()->id);
 
-        return view('website.doctor.info.index', compact('departments'));
+        return view('website.doctor.info.index', compact('departments','info'));
     }
 
     public function store(StoreInfoRequest $request)
@@ -85,7 +83,7 @@ class InfoController extends Controller
                 if (!$delete)
                     return redirect()->route('doctor.info')->with('error', 'Something went wrong, please try again.');
 
-                $status = Physican::where('id', Auth::guard('doc')->user()->id)->update(['status' => 0]);
+                $status = Physican::where('id', Auth::guard('doc')->user()->id)->update(['status' => 2]);
 
                 if (!$status)
                     return redirect()->route('doctor.info')->with('error', 'Something went wrong, please try again.');
@@ -95,7 +93,7 @@ class InfoController extends Controller
 
         $info = Info::where('physican_id', Auth::guard('doc')->user()->id)->update($data);
         if (Auth::guard('doc')->user()->department_id != $request->department_id) {
-            $department_id = Physican::where('id', Auth::guard('doc')->user()->id)->update(['department_id' => $request->department_id, 'status' => 0]);
+            $department_id = Physican::where('id', Auth::guard('doc')->user()->id)->update(['department_id' => $request->department_id, 'status' => 2]);
             if (!$department_id)
                 return redirect()->route('doctor.info')->with('error', 'Something went wrong, please try again.');
         }

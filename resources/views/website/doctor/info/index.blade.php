@@ -26,14 +26,13 @@
                             </h4>
                             @include('website.includes.sessionDisplay')<br>
                             <!-- Info Settings Form -->
-                            @php
-                                use App\Models\Info;
-                            @endphp
-                            @if (Info::firstWhere('physican_id', Auth::guard('doc')->user()->id))
+                            @if (isset($info))
                                 @if (Auth::guard('doc')->user()->status == 0)
-                                    <div class="alert alert-warning">Your license hasn't been accepted yet.</div>
+                                    <div class="alert alert-danger">Your information is invalid, please review it again and insert the correct information.</div>
                                 @elseif(Auth::guard('doc')->user()->status == 1)
-                                    <div class="alert alert-success">Your license has been accepted.</div>
+                                    <div class="alert alert-success">Congratulations, you have been reviewed and accepted.</div>
+                                @elseif(Auth::guard('doc')->user()->status == 2)
+                                    <div class="alert alert-warning">Your information is being reviewed by us and we will verify you as soon as possible, this might take hours or maybe few days.</div>
                                 @endif
                                 <form method="POST" action="{{ route('doctor.info.update') }}"
                                     enctype="multipart/form-data">
@@ -76,9 +75,9 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Departments</label>
+                                        <label>specialist</label>
                                         <select class="form-control select" name="department_id">
-                                            <option selected disabled>Select your Department
+                                            <option selected disabled>Select your specialist
                                             </option>
                                             @isset($departments)
                                                 @foreach ($departments as $department)
@@ -88,6 +87,9 @@
                                                 @endforeach
                                             @endisset
                                         </select>
+                                        @if(Auth::guard('doc')->user()->status == 1)
+                                        <small class="text-secondary"> *Be Careful, making any changes to your specialist will make yor account in waiting status until we review it and accept it again.</small>
+                                        @endif
                                     </div>
                                     @error('department_id')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -97,6 +99,9 @@
                                     <div class="form-group">
                                         <label>License</label>
                                         <input class="form-control" type="file" id="license" name="license">
+                                        @if(Auth::guard('doc')->user()->status == 1)
+                                        <small class="text-secondary"> *Be Careful, making any changes to your license will make yor account in waiting status until we review it and accept it again.</small>
+                                        @endif
                                     </div>
                                     @isset($info)
                                         <div class="text-center">
@@ -143,7 +148,7 @@
                                             @enderror
                                         </div>
                                         <div class="submit-section">
-                                            <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                                            <button type="submit" class="btn btn-primary submit-btn">Save</button>
                                         </div>
                                         </form>
                                         <!-- /Info Settings Form -->

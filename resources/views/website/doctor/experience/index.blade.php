@@ -111,7 +111,7 @@
                                             @enderror
                                         </div>
                                         <div class="submit-section">
-                                            <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                                            <button type="submit" class="btn btn-primary submit-btn">Save</button>
                                         </div>
                                 </form>
                             <!-- /Experience Settings Form -->

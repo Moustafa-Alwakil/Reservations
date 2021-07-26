@@ -12,9 +12,7 @@ class ProfileController extends Controller
     public function index()
     {
         // get the user from database
-        $doctor = Physican::select('name', 'email', 'birthdate', 'gender', 'email_verified_at')->where('id', Auth::guard('doc')->user()->id)->get();
-        $doctor = $doctor[0];
-
+        $doctor = Physican::select('name', 'email', 'birthdate', 'gender', 'email_verified_at')->where('id', Auth::guard('doc')->user()->id)->first();
         // return to the view with user data
         return view('website.doctor.profile.index', compact('doctor'));
     }
