@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Website\Doctor\Profile;
+namespace App\Http\Controllers\Website\Doctor\Info;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\Doctor\Profile\StoreInfoRequest;
@@ -8,21 +8,21 @@ use App\Http\Requests\Website\Doctor\Profile\UpdateInfoRequest;
 use App\Models\Department;
 use App\Models\Info;
 use App\Models\Physican;
-use App\Traits\generalTrait;
+use App\Traits\uploadTrait;
 use Illuminate\Support\Facades\Auth;
 
 class InfoController extends Controller
 {
-    use generalTrait;
+    use uploadTrait;
 
     public function index()
     {
         $departments = Department::select('id', 'name')->orderby('name')->where('status', 1)->get();
         if ($info = Info::firstWhere('physican_id',  Auth::guard('doc')->user()->id)) {
-            return view('website.doctor.profile.info', compact('info', 'departments'));
+            return view('website.doctor.info.index', compact('info', 'departments'));
         }
 
-        return view('website.doctor.profile.info', compact('departments'));
+        return view('website.doctor.info.index', compact('departments'));
     }
 
     public function store(StoreInfoRequest $request)
@@ -35,7 +35,7 @@ class InfoController extends Controller
         if (!$photo)
             return redirect()->route('doctor.info')->with('error', 'Something went wrong, please try again.');
 
-        $license = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->license, 'licenses');
+        $license = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->license, 'doclicenses');
         if (!$license)
             return redirect()->route('doctor.info')->with('error', 'Something went wrong, please try again.');
 
@@ -75,11 +75,11 @@ class InfoController extends Controller
             $data['photo'] = $photo;
         }
         if ($request->has('license')) {
-            $license = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->license, 'licenses');
+            $license = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->license, 'doclicenses');
             if ($license) {
                 $info = Info::firstWhere('physican_id',  Auth::guard('doc')->user()->id);
-                $file = (explode("licenses/", $info->license));
-                $path = public_path('images\licenses\\' . $file[1]);
+                $file = (explode("doclicenses/", $info->license));
+                $path = public_path('images\doclicenses\\' . $file[1]);
                 $delete = $this->deletePhoto($path);
 
                 if (!$delete)

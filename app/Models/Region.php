@@ -11,25 +11,29 @@ class Region extends Model
     protected $table = 'regions';
     protected $primaryKey = 'id';
     protected $fillable = [
-       'id','name','status','city_id','created_at','updated_at'
+        'id', 'name', 'status', 'city_id', 'created_at', 'updated_at'
     ];
     public $timestamps = true;
+
+    protected $casts = [
+        'name' => 'json'
+    ];
 
     // Start Eloquent Relations
     public function addresses()
     {
-        return $this->hasMany(Address::class,'region_id','id');
+        return $this->hasMany(Address::class, 'region_id', 'id');
     }
     public function city()
     {
-        return $this->belongsTo(City::class,'city_id','id');
+        return $this->belongsTo(City::class, 'city_id', 'id');
     }
     // End Elqouent Relations
 
     // Define Accesors To Translate The Values Meaning
     public function getStatusAttribute($value)
     {
-        if($value==1){
+        if ($value == 1) {
             return ucwords('active');
         };
         return ucwords('not active');

@@ -15,6 +15,10 @@ class City extends Model
     ];
     public $timestamps = true;
 
+    protected $casts = [
+        'name' => 'json'
+    ];
+    
     // Start Eloquent Relations
     public function regions()
     {

@@ -16,7 +16,7 @@ class ProfileController extends Controller
         $doctor = $doctor[0];
 
         // return to the view with user data
-        return view('website.doctor.profile.profile', compact('doctor'));
+        return view('website.doctor.profile.index', compact('doctor'));
     }
     public function update(UpdateProfileRequest $request)
     {

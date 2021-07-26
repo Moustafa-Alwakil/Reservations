@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 
-class EnsureDocIsVerified
+class EnsureDocIsAccepted
 {
     /**
      * Handle an incoming request.
@@ -19,10 +19,10 @@ class EnsureDocIsVerified
      */
     public function handle(Request $request, Closure $next, $redirectToRoute = null)
     {
-        if (!Auth::guard('doc')->user()->email_verified_at) {
+        if (Auth::guard('doc')->user()->status == 0) {
             return $request->expectsJson()
-                ? abort(403, 'Your email address is not verified.')
-                : Redirect::guest(URL::route($redirectToRoute ?: 'doctor.profile'));
+                ? abort(403, 'Your license hasn\'t been accepted yet.')
+                : Redirect::guest(URL::route($redirectToRoute ?: 'doctor.info'));
         }
         return $next($request);
     }

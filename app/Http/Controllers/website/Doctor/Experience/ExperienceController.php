@@ -1,26 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Website\Doctor\Profile;
+namespace App\Http\Controllers\Website\Doctor\Experience;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\Doctor\Profile\DestroyExperienceRequest;
 use App\Http\Requests\Website\Doctor\Profile\StoreExperienceRequest;
 use App\Http\Requests\Website\Doctor\Profile\UpdateExperienceRequest;
 use App\Models\Experience;
-use App\Traits\generalTrait;
 use Illuminate\Support\Facades\Auth;
 
 class ExperienceController extends Controller
 {
-    use generalTrait;
 
     public function index()
     {
         $experiences = Experience::Where('physican_id',  Auth::guard('doc')->user()->id)->get();
         if (isset($experiences[0]))
-            return view('website.doctor.profile.experience', compact('experiences'));
+            return view('website.doctor.experience.index', compact('experiences'));
 
-        return view('website.doctor.profile.experience');
+        return view('website.doctor.experience.index');
     }
 
     public function store(StoreExperienceRequest $request)
@@ -45,7 +43,7 @@ class ExperienceController extends Controller
         if (!$experience)
             return redirect()->route('doctor.experience')->with('error', 'Something went wrong, please try again.');
 
-        return view('website.doctor.profile.experience', compact('experience'));
+        return view('website.doctor.experience.edit', compact('experience'));
     }
 
     public function Update(UpdateExperienceRequest $request)

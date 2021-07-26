@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-trait generalTrait
+trait uploadTrait
 {
 
     public function uploadPhoto($id, $image, $folder)

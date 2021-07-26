@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Website\Doctor\Profile;
+namespace App\Http\Controllers\Website\Doctor\Certificate;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\Doctor\Profile\DestroyCertificateRequest;
 use App\Http\Requests\Website\Doctor\Profile\StoreCertificateRequest;
 use App\Models\Certificate;
-use App\Traits\generalTrait;
+use App\Traits\uploadTrait;
 use Illuminate\Support\Facades\Auth;
 
 class CertificateController extends Controller
 {
-    use generalTrait;
+    use uploadTrait;
 
     public function index()
     {
         $certificates = Certificate::Where('physican_id',  Auth::guard('doc')->user()->id)->get();
         if (isset($certificates[0]))
-            return view('website.doctor.profile.certificate', compact('certificates'));
+            return view('website.doctor.certificate.index', compact('certificates'));
 
-        return view('website.doctor.profile.certificate');
+        return view('website.doctor.certificate.index');
     }
 
     public function store(StoreCertificateRequest $request)

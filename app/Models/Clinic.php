@@ -15,6 +15,10 @@ class Clinic extends Model
     ];
     public $timestamps = true;
 
+    protected $casts = [
+        'name' => 'json'
+    ];
+
     // Start Eloquent Relations
     public function appointments()
     {
