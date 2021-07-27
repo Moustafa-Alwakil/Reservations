@@ -15,6 +15,10 @@ class Workday extends Model
     ];
     public $timestamps = true;
 
+    protected $casts = [
+        'available' => 'json',
+    ];
+
     // Start Eloquent Relations
     public function clinic()
     {

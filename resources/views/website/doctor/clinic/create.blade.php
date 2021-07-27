@@ -1,3 +1,9 @@
+@php
+use App\Models\Region;
+$region = Region::select()
+    ->where('id', old('region_id'))
+    ->first();
+@endphp
 @extends('website.layouts.layout')
 @section('title')
     {{-- get the name of the user from the session --}}
@@ -27,7 +33,7 @@
                                 <hr>
                             </h4>
                             @include('website.includes.sessionDisplay')<br>
-                            <form method="POST" enctype="multipart/form-data" action="">
+                            <form method="POST" enctype="multipart/form-data" action="{{ route('clinics.store') }}">
                                 @csrf
                                 <div class="row form-row">
                                     <div class="col-12">
@@ -79,9 +85,12 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Clinic Photos</label>
-                                            <input class="form-control" type="file" id="Photos" name="photo" multiple>
+                                            <input class="form-control" type="file" id="Photos" name="photo[]" multiple>
                                         </div>
                                         @error('photo')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                        @error('photo.*')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -132,6 +141,11 @@
                                         <select class="form-control select" name="region_id" id="region">
                                             <option selected disabled>Select your clinic Region
                                             </option>
+                                            @if (old('region_id'))
+                                                <option selected value="{{ old('region_id') }}">
+                                                    {{ $region->name['name_' . LaravelLocalization::getCurrentLocale()] }}
+                                                <option>
+                                            @endif
                                         </select>
                                     </div>
                                     @error('region_id')
@@ -160,7 +174,7 @@
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
-                                        <label>Buliding Number</label>
+                                        <label>Building Number</label>
                                         <input type="text" class="form-control select" name="buildingno"
                                             value="{{ old('buildingno') }}">
                                     </div>
@@ -191,20 +205,20 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Landmark (Arabic)</label>
-                                        <input type="text" class="form-control select" name="landmar_ar"
-                                            value="{{ old('landmar_ar') }}">
+                                        <input type="text" class="form-control select" name="landmark_ar"
+                                            value="{{ old('landmark_ar') }}">
                                     </div>
-                                    @error('landmar_ar')
+                                    @error('landmark_ar')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Landmark (English)</label>
-                                        <input type="text" class="form-control select" name="landmar_en"
-                                            value="{{ old('landmar_en') }}">
+                                        <input type="text" class="form-control select" name="landmark_en"
+                                            value="{{ old('landmark_en') }}">
                                     </div>
-                                    @error('landmar_en')
+                                    @error('landmark_en')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -564,15 +578,21 @@
                                 <div class="col-12">
                                     <h4 class="card-title mb-4">What services is your clinic will Provide?</h4>
                                     @isset($services)
-                                    @foreach ($services as $service)
-                                    <div class="payment-list">
-                                        <label class="payment-radio credit-card-option mb-3">
-                                            <input type="checkbox" value="{{ $service->id }}" name="service_id">
-                                            <span class="checkmark"></span>
-                                            {{ $service->name['name_' . LaravelLocalization::getCurrentLocale()] }}
-                                        </label>
-                                    </div>
-                                @endforeach
+                                        @php
+                                            $i = 0;
+                                        @endphp
+                                        @foreach ($services as $service)
+                                            <div class="payment-list">
+                                                <label class="payment-radio credit-card-option mb-3">
+                                                    <input type="checkbox" value="{{ $service->id }}" name="service_id[]" @if (old('service_id[' . $i . ']') == $service->id) {{ 'checked' }} @endif>
+                                                    <span class="checkmark"></span>
+                                                    {{ $service->name['name_' . LaravelLocalization::getCurrentLocale()] }}
+                                                </label>
+                                            </div>
+                                            @php
+                                                $i++;
+                                            @endphp
+                                        @endforeach
                                     @endisset
                                     <small class="text-secondary"> * These services based on your specialist.</small>
                                 </div>
@@ -642,7 +662,7 @@
                             if (len > 0) {
                                 // Read data and create <option >
                                 for (var i = 0; i < len; i++) {
-                                    console.log(name);
+                                    console.log(len);
                                     var id = response['data'][i].id;
                                     var name = response['data'][i].name;
 

@@ -62,5 +62,9 @@ class Clinic extends Model
         };
         return ucwords('not active');
     }
+    public function getPhotoAttribute($value)
+    {
+        return url('images/clinics-licenses/' . $value);
+    }
     // End Accessors
 }

@@ -16,9 +16,9 @@ class CreateAddressesTable extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->json('street');
-            $table->json('buildingno');
+            $table->string('buildingno');
             $table->tinyInteger('floor');
-            $table->tinyInteger('apartno');
+            $table->tinyInteger('apartno')->nullable();
             $table->json('landmark');
             $table->foreignId('region_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

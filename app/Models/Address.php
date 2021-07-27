@@ -15,6 +15,11 @@ class Address extends Model
     ];
     public $timestamps = true;
 
+    protected $casts = [
+        'street' => 'json',
+        'landmrark' => 'json',
+    ];
+
     // Start Eloquent Relations
     public function region()
     {
