@@ -185,7 +185,7 @@ $region = Region::select()
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
                                         <label>Floor</label>
-                                        <input type="number" class="form-control select" name="floor"
+                                        <input type="text" class="form-control select" name="floor"
                                             value="{{ old('floor') }}">
                                     </div>
                                     @error('floor')
@@ -578,23 +578,43 @@ $region = Region::select()
                                 <div class="col-12">
                                     <h4 class="card-title mb-4">What services is your clinic will Provide?</h4>
                                     @isset($services)
-                                        @php
-                                            $i = 0;
-                                        @endphp
                                         @foreach ($services as $service)
+                                            @if (old('service_id.' . $service->id))
+                                                <div class="payment-list">
+                                                    <label class="payment-radio credit-card-option mb-3">
+                                                        <input type="checkbox" value="{{ $service->id }}" name="service_id[{{ $service->id }}]" checked>
+                                                        <span class="checkmark"></span>
+                                                        {{ $service->name['name_' . LaravelLocalization::getCurrentLocale()] }}
+                                                    </label>
+                                                </div>
+                                            @else
                                             <div class="payment-list">
                                                 <label class="payment-radio credit-card-option mb-3">
-                                                    <input type="checkbox" value="{{ $service->id }}" name="service_id[]" @if (old('service_id[' . $i . ']') == $service->id) {{ 'checked' }} @endif>
+                                                    <input type="checkbox" value="{{ $service->id }}" name="service_id[{{ $service->id }}]">
                                                     <span class="checkmark"></span>
                                                     {{ $service->name['name_' . LaravelLocalization::getCurrentLocale()] }}
                                                 </label>
                                             </div>
-                                            @php
-                                                $i++;
-                                            @endphp
+                                            @endif
                                         @endforeach
                                     @endisset
                                     <small class="text-secondary"> * These services based on your specialist.</small>
+                                    @error('service_id')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                    {{-- @foreach ($features as feature)
+                                    @if ($feature->category_name == 'Interior Features')
+                                    @if (isset(old('feature.' . $feature->id . '')))
+                                            <li class="checkbox">
+                                                <label><input id="features" name="feature[{{$feature->id}}]" type="checkbox" checked>{{$feature->feature_name}}</label>
+                                            </li>
+                                        @else
+                                            <li class="checkbox">
+                                                <label><input id="features" name="feature[{{$feature->id}}]" type="checkbox">{{$feature->feature_name}}</label>
+                                            </li>
+                                        @endif
+                                    @endif 
+                                @endforeach --}}
                                 </div>
                             </div>
                         </div>

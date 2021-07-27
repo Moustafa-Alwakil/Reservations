@@ -17,8 +17,8 @@ class CreateAddressesTable extends Migration
             $table->id();
             $table->json('street');
             $table->string('buildingno');
-            $table->tinyInteger('floor');
-            $table->tinyInteger('apartno')->nullable();
+            $table->string('floor');
+            $table->string('apartno');
             $table->json('landmark');
             $table->foreignId('region_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

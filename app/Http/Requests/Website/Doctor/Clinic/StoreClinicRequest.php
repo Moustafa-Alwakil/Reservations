@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests\Website\Doctor\Clinic;
 
-use App\Models\Service;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class StoreClinicRequest extends FormRequest
@@ -26,7 +24,6 @@ class StoreClinicRequest extends FormRequest
      */
     public function rules()
     {
-        $services = Service::select()->where('status', 1)->where('department_id', Auth::guard('doc')->user()->department_id)->get();
         return [
             // clinic basic info
             'name_ar' => 'required|string|min:4|max:25',
@@ -44,14 +41,13 @@ class StoreClinicRequest extends FormRequest
             // clinic address
             'city' => 'required|exists:cities,id',
             'region_id' => 'required|exists:regions,id',
-            'street_ar' => 'required|string|min:4|max:30',
-            'street_en' => 'required|string|min:4|max:30',
-            'street_en' => 'required|string|min:4|max:30',
+            'street_ar' => 'required|string|min:4|max:50',
+            'street_en' => 'required|string|min:4|max:50',
             'buildingno' => 'required|string|max:20',
             'floor' => 'required|string|max:20',
-            'apartno' => 'nullable|string|max:20',
-            'landmark_ar' => 'required|string|min:5|max:50',
-            'landmark_en' => 'required|string|min:5|max:50',
+            'apartno' => 'required|string|max:20',
+            'landmark_ar' => 'required|string|min:5|max:80',
+            'landmark_en' => 'required|string|min:5|max:80',
             // clinic address
 
             ################################################################################################################################################################
@@ -106,6 +102,7 @@ class StoreClinicRequest extends FormRequest
             ################################################################################################################################################################
 
             // clinic services
+            'service_id' => 'required|exists:services,id',
             //clinic services
 
             ################################################################################################################################################################

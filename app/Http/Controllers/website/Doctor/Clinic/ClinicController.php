@@ -90,20 +90,9 @@ class ClinicController extends Controller
         $address['street'] = $request->only('street_ar', 'street_en');
         $address['buildingno'] = $request->buildingno;
         $address['floor'] = $request->floor;
-        $address['apartno'] = null;
-
-        if ($request->has('apartno'))
-            $address['apartno'] = $request->apartno;
-
+        $address['apartno'] = $request->apartno;
         $address['landmark'] = $request->only('landmark_ar', 'landmark_en');
-        $storeAddress = Address::create([
-            'street' =>  $address['street'],
-            'buildingno' =>  $address['buildingno'],
-            'floor' =>  $address['floor'],
-            'apartno' =>  $address['apartno'],
-            'landmark' =>  $address['landmark'],
-            'region_id' => $request->region_id,
-        ]);
+        $storeAddress = Address::create($address);
 
         if (!$storeAddress)
             return redirect()->route('clinics.create')->with('error', 'Something went wrong, please try again.');
