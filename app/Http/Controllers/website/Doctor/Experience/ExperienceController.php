@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Website\Doctor\Experience;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Website\Doctor\Profile\DestroyExperienceRequest;
-use App\Http\Requests\Website\Doctor\Profile\StoreExperienceRequest;
-use App\Http\Requests\Website\Doctor\Profile\UpdateExperienceRequest;
+use App\Http\Requests\Website\Doctor\Experience\DestroyExperienceRequest;
+use App\Http\Requests\Website\Doctor\Experience\StoreExperienceRequest;
+use App\Http\Requests\Website\Doctor\Experience\UpdateExperienceRequest;
 use App\Models\Experience;
 use Illuminate\Support\Facades\Auth;
 

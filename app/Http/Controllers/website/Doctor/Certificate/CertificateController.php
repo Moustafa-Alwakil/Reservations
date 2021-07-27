@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Website\Doctor\Certificate;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Website\Doctor\Profile\DestroyCertificateRequest;
-use App\Http\Requests\Website\Doctor\Profile\StoreCertificateRequest;
+use App\Http\Requests\Website\Doctor\Certificate\DestroyCertificateRequest;
+use App\Http\Requests\Website\Doctor\Certificate\StoreCertificateRequest;
 use App\Models\Certificate;
 use App\Traits\uploadTrait;
 use Illuminate\Support\Facades\Auth;

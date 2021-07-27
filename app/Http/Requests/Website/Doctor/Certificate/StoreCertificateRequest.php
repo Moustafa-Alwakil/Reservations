@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Website\Doctor\Profile;
+namespace App\Http\Requests\Website\Doctor\Certificate;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class DestroyExperienceRequest extends FormRequest
+class StoreCertificateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +25,8 @@ class DestroyExperienceRequest extends FormRequest
     public function rules()
     {
         return [
-            'id'=> 'required|exists:experiences',
+            'type'=> ['required', Rule::in([1,2,3,4])],
+            'photo' => 'required|mimes:png,jpg,jpeg|max:4000|image',
         ];
     }
 }

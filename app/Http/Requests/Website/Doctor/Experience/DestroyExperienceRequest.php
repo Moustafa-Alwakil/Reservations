@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Website\Doctor\Profile;
+namespace App\Http\Requests\Website\Doctor\Experience;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DestroyCertificateRequest extends FormRequest
+class DestroyExperienceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class DestroyCertificateRequest extends FormRequest
     public function rules()
     {
         return [
-            'id'=> 'required|exists:certificates',
+            'id'=> 'required|exists:experiences',
         ];
     }
 }

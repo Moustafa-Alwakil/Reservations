@@ -39,10 +39,10 @@ class ClinicController extends Controller
         return view('website.doctor.clinic.create', compact('services', 'cities'));
     }
 
-    public function getRegions($cityid = 0)
+    public function getRegions($id)
     {
 
-        $regions['data'] = Region::select('name','id')->where('city_id', $cityid)->get();
+        $regions['data'] = Region::select('name','id')->where('city_id', $id)->get();
 
         return response()->json($regions);
     }

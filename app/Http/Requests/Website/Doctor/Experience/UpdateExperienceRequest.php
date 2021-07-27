@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Website\Doctor\Profile;
+namespace App\Http\Requests\Website\Doctor\Experience;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class StoreExperienceRequest extends FormRequest
+class UpdateExperienceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Website\Doctor\Profile;
+namespace App\Http\Requests\Website\Doctor\Certificate;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class StoreCertificateRequest extends FormRequest
+class DestroyCertificateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +24,7 @@ class StoreCertificateRequest extends FormRequest
     public function rules()
     {
         return [
-            'type'=> ['required', Rule::in([1,2,3,4])],
-            'photo' => 'required|mimes:png,jpg,jpeg|max:4000|image',
+            'id'=> 'required|exists:certificates',
         ];
     }
 }

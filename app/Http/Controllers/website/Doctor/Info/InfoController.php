@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Website\Doctor\Info;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Website\Doctor\Profile\StoreInfoRequest;
-use App\Http\Requests\Website\Doctor\Profile\UpdateInfoRequest;
+use App\Http\Requests\Website\Doctor\Info\StoreInfoRequest;
+use App\Http\Requests\Website\Doctor\Info\UpdateInfoRequest;
 use App\Models\Department;
 use App\Models\Info;
 use App\Models\Physican;
