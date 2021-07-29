@@ -12,5 +12,6 @@ Route::group([
     Route::group(['prefix' => 'doctor', 'middleware' => ['auth:doc', 'doc.verified', 'doc.accepted'], 'namespace' => 'Clinic'], function () {
         Route::resource('clinics', 'ClinicController');
         Route::get('clinics/create/getregions/{id}', 'ClinicController@getRegions');
+        Route::get('clinics/{clinic_id}/edit/getregions/{id}', 'ClinicController@getRegions');
     });
 });

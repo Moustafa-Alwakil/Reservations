@@ -29,8 +29,8 @@ class StoreInfoRequest extends FormRequest
             'department_id'=> 'required|exists:departments,id',
             'license' => 'required|mimes:png,jpg,jpeg|max:4000|image',
             'photo' => 'required|mimes:png,jpg,jpeg|max:4000|image',
-            'about_en'=>'required|string|min:100',
-            'about_ar'=>'required|string|min:100',
+            'about_en'=>'required|string|min:70|max:255',
+            'about_ar'=>'required|string|min:70|max:255',
         ];
     }
 }

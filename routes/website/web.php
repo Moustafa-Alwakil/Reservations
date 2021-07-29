@@ -9,7 +9,7 @@ Route::group([
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath',],
     'namespace' => 'App\Http\Controllers\Website'
 ], function () {
-    Route::get('/', 'IndexController@index')->name('home');
+    Route::get('/', 'IndexController@index')->name('index');
 });
 
 Route::get('/dashboard', function () {

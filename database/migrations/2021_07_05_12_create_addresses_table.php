@@ -16,11 +16,12 @@ class CreateAddressesTable extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->json('street');
-            $table->string('buildingno');
+            $table->json('building');
             $table->string('floor');
             $table->string('apartno');
             $table->json('landmark');
-            $table->foreignId('region_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('region_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('set null');
+            $table->foreignId('clinic_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

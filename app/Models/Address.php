@@ -11,13 +11,20 @@ class Address extends Model
     protected $table = 'addresses';
     protected $primaryKey = 'id';
     protected $fillable = [
-       'id','street','bulidingno','floor','apartno','landmark','region_id','created_at','updated_at'
+       'id','street','building','floor','apartno','landmark','region_id','clinic_id','created_at','updated_at'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+    
     public $timestamps = true;
 
     protected $casts = [
         'street' => 'json',
-        'landmrark' => 'json',
+        'landmark' => 'json',
+        'building' => 'json',
     ];
 
     // Start Eloquent Relations
@@ -27,7 +34,7 @@ class Address extends Model
     }
     public function clinic()
     {
-        return $this->belongsTo(Clinic::class,'address_id','id');
+        return $this->belongsTo(Clinic::class,'clinic_id','id');
     }
     // End Elqouent Relations
 }

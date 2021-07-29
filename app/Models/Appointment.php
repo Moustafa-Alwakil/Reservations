@@ -13,6 +13,12 @@ class Appointment extends Model
     protected $fillable = [
        'id','date','start_time','end_time','status','clinic_id','user_id','created_at','updated_at'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+    
     public $timestamps = true;
 
     // Start Eloquent Relations

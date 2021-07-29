@@ -13,6 +13,12 @@ class Experience extends Model
     protected $fillable = [
        'id','title','place','start_date','end_date','status','physican_id','created_at','updated_at'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+    
     public $timestamps = true;
 
     protected $casts = [

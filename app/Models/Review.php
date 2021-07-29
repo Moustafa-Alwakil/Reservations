@@ -11,6 +11,12 @@ class Review extends Pivot
     protected $fillable = [
        'comment','value','physican_id','user_id','created_at','updated_at'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+    
     public $timestamps = true;
 
     // Start Eloquent Relations

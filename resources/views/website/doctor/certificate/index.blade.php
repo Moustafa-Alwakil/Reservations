@@ -73,7 +73,7 @@
                                 <img src="{{ $certificate->photo }}" class="card-img-top mx-auto" style="width:50%" alt="certificate">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $certificate->type }}</h5>
-                                    <p class="card-text">Upload date: {{ $certificate->created_at }}</p>
+                                    <p class="card-text">Upload At: {{ $certificate->created_at }}</p>
                                     <a href="{{ $certificate->photo }}" class="btn btn-primary" target="_blank">Preview</a>
                                     <form class="d-inline" method="POST" action="{{ route('doctor.certificate.destroy') }}">
                                         @csrf

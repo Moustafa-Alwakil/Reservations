@@ -31,9 +31,6 @@ class RegisteredUserController extends Controller
      */
     public function store(StoreRegisterRequest $request)
     {
-        // make validation on request using StoreRegisterRequest rules
-        $request->validated();
-
         // convert the request to the form which fits the table
         $request['name'] = $request->only('fname', 'lname');
         $data = $request->except('_token', 'fname', 'lname', 'password_confirmation');

@@ -46,13 +46,13 @@
                             <span></span>
                         </span>
                     </a>
-                    <a href="{{ route('home') }}" class="navbar-brand logo">
+                    <a href="{{ route('index') }}" class="navbar-brand logo">
                         <img src={{ url('website/assets/img/logo.png') }} class="img-fluid" alt="Logo">
                     </a>
                 </div>
                 <div class="main-menu-wrapper">
                     <div class="menu-header">
-                        <a href="{{ route('home') }}" class="menu-logo">
+                        <a href="{{ route('index') }}" class="menu-logo">
                             <img src={{ url('website/assets/img/logo.png') }} class="img-fluid" alt="Logo">
                         </a>
                         <a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -60,8 +60,8 @@
                         </a>
                     </div>
                     <ul class="main-nav">
-                        <li class="has-submenu active">
-                            <a href="{{ route('home') }}">{{ __('index.home') }}<i class="fas"></i></a>
+                        <li class="has-submenu @if (Request::url()==route('index')) {{ 'active' }} @endif">
+                            <a href="{{ route('index') }}">{{ __('index.home') }}<i class="fas"></i></a>
                         </li>
                         <li class="has-submenu">
                             <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>

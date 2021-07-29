@@ -5,13 +5,13 @@
     $name = Auth::guard('doc')->user()->name;
     @endphp
     {{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . '']) }}
-    - Create Clinic
+    - Edit Clinic
 @endsection
 @section('content')
     @include('website.includes.bar1')
-    Clinics
+    Clinic
     @include('website.includes.bar2')
-    Create Clinic
+    Edit Clinic
     @include('website.includes.bar3')
     <!-- Page Content -->
     <div class="content">
@@ -27,14 +27,16 @@
                                 <hr>
                             </h4>
                             @include('website.includes.sessionDisplay')<br>
-                            <form method="POST" enctype="multipart/form-data" action="{{ route('clinics.store') }}">
+                            <form method="POST" enctype="multipart/form-data"
+                                action="{{ route('clinics.update', [$clinic->id]) }}">
                                 @csrf
+                                @method("PUT")
                                 <div class="row form-row">
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Name (Arabic)</label>
                                             <input type="text" class="form-control select" name="name_ar"
-                                                value="{{ old('name_ar') }}">
+                                                value="{{ $clinic->name['name_ar'] }}">
                                         </div>
                                         @error('name_ar')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -44,7 +46,7 @@
                                         <div class="form-group">
                                             <label>Name (English)</label>
                                             <input type="text" class="form-control select" name="name_en"
-                                                value="{{ old('name_en') }}">
+                                                value="{{ $clinic->name['name_en'] }}">
                                         </div>
                                         @error('name_en')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -54,7 +56,7 @@
                                         <div class="form-group">
                                             <label>Phone</label>
                                             <input type="tel" class="form-control select" name="phone"
-                                                value="{{ old('phone') }}">
+                                                value="{{ $clinic->phone }}">
                                         </div>
                                         @error('phone')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -66,9 +68,9 @@
                                             <select class="form-control select" name="status">
                                                 <option selected disabled>Select your clinic status
                                                 </option>
-                                                <option value="0" @if (old('status') == '0') {{ 'selected' }} @endif>Not Active
+                                                <option value="0" @if ($clinic->status == 'Not Active') {{ 'selected' }} @endif>Not Active
                                                 </option>
-                                                <option value="1" @if (old('status') == 1) {{ 'selected' }} @endif>Active
+                                                <option value="1" @if ($clinic->status == 'Active') {{ 'selected' }} @endif>Active
                                                 </option>
                                             </select>
                                         </div>
@@ -81,6 +83,18 @@
                                             <label>Clinic Photos</label>
                                             <input class="form-control" type="file" id="Photos" name="photo[]" multiple>
                                         </div>
+                                        @foreach ($clinic->clinicphotos as $clinicphoto)
+                                            <div class="text-center">
+                                                <img src="{{ $clinicphoto->photo }}" class="rounded" style="width:50%"
+                                                    alt="Clinic Photos">
+                                                <hr style="  height:0px;
+                                                border-radius: 2px;
+                                                $color: teal;
+                                                color: $color;
+                                                border: 2px solid currentColor;
+                                                width: 80%;">
+                                            </div>
+                                        @endforeach
                                         @error('photo')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -92,6 +106,10 @@
                                         <div class="form-group">
                                             <label>License</label>
                                             <input class="form-control" type="file" id="license" name="license">
+                                        </div>
+                                        <div class="text-center">
+                                            <img src="{{ $clinic->license }}" class="rounded" style="width:50%"
+                                                alt="Clinic License">
                                         </div>
                                         @error('license')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -117,7 +135,7 @@
                                             </option>
                                             @isset($cities)
                                                 @foreach ($cities['data'] as $city)
-                                                    <option @if (old('city') == $city->id) {{ 'selected' }} @endif
+                                                    <option @if ($clinic->address->region->city_id == $city->id) {{ 'selected' }} @endif
                                                         value="{{ $city->id }}">
                                                         {{ $city->name['name_' . LaravelLocalization::getCurrentLocale()] }}
                                                     </option>
@@ -135,17 +153,9 @@
                                         <select class="form-control select" name="region_id" id="region">
                                             <option selected disabled>Select your clinic Region
                                             </option>
-                                            @php
-                                                use App\Models\Region;
-                                                $region = Region::select()
-                                                    ->where('id', old('region_id'))
-                                                    ->first();
-                                            @endphp
-                                            @if (old('region_id'))
-                                                <option selected value="{{ old('region_id') }}">
-                                                    {{ $region->name['name_' . LaravelLocalization::getCurrentLocale()] }}
+                                                <option selected value="{{ $clinic->address->region->id }}">
+                                                    {{ $clinic->address->region->name['name_' . LaravelLocalization::getCurrentLocale()] }}
                                                 <option>
-                                            @endif
                                         </select>
                                     </div>
                                     @error('region_id')
@@ -156,7 +166,7 @@
                                     <div class="form-group">
                                         <label>Street (Arabic)</label>
                                         <input type="text" class="form-control select" name="street_ar"
-                                            value="{{ old('street_ar') }}">
+                                            value="{{ $clinic->address->street['street_ar'] }}">
                                     </div>
                                     @error('street_ar')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -166,7 +176,7 @@
                                     <div class="form-group">
                                         <label>Street (English)</label>
                                         <input type="text" class="form-control select" name="street_en"
-                                            value="{{ old('street_en') }}">
+                                            value="{{ $clinic->address->street['street_en'] }}">
                                     </div>
                                     @error('street_en')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -176,7 +186,7 @@
                                     <div class="form-group">
                                         <label>Building (Name Or Number)(Arabic)</label>
                                         <input type="text" class="form-control select" name="building_ar"
-                                            value="{{ old('building_ar') }}">
+                                            value="{{ $clinic->address->building['building_ar'] }}">
                                     </div>
                                     @error('building_ar')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -186,7 +196,7 @@
                                     <div class="form-group">
                                         <label>Building (Name Or Number)(English)</label>
                                         <input type="text" class="form-control select" name="building_en"
-                                            value="{{ old('building_en') }}">
+                                            value="{{ $clinic->address->building['building_en'] }}">
                                     </div>
                                     @error('building_en')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -196,7 +206,7 @@
                                     <div class="form-group">
                                         <label>Floor</label>
                                         <input type="text" class="form-control select" name="floor"
-                                            value="{{ old('floor') }}">
+                                            value="{{ $clinic->address->floor }}">
                                     </div>
                                     @error('floor')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -206,7 +216,7 @@
                                     <div class="form-group">
                                         <label>Apartment Number</label>
                                         <input type="text" class="form-control select" name="apartno"
-                                            value="{{ old('apartno') }}">
+                                            value="{{ $clinic->address->apartno }}">
                                     </div>
                                     @error('apartno')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -216,7 +226,7 @@
                                     <div class="form-group">
                                         <label>Landmark (Arabic)</label>
                                         <input type="text" class="form-control select" name="landmark_ar"
-                                            value="{{ old('landmark_ar') }}">
+                                            value="{{ $clinic->address->landmark['landmark_ar'] }}">
                                     </div>
                                     @error('landmark_ar')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -226,7 +236,7 @@
                                     <div class="form-group">
                                         <label>Landmark (English)</label>
                                         <input type="text" class="form-control select" name="landmark_en"
-                                            value="{{ old('landmark_en') }}">
+                                            value="{{ $clinic->address->landmark['landmark_en'] }}">
                                     </div>
                                     @error('landmark_en')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -250,9 +260,9 @@
                                         <select class="form-control select" name="sat_status">
                                             <option selected disabled>Select saturday status
                                             </option>
-                                            <option value="0" @if (old('sat_status') == '0') {{ 'selected' }} @endif>Holiday
+                                            <option value="0" @if ($clinic->workday->available['saturday']['sat_status'] == '0') {{ 'selected' }} @endif>Holiday
                                             </option>
-                                            <option value="1" @if (old('sat_status') == 1) {{ 'selected' }} @endif>Workday
+                                            <option value="1" @if ($clinic->workday->available['saturday']['sat_status'] == 1) {{ 'selected' }} @endif>Workday
                                             </option>
                                         </select>
                                     </div>
@@ -264,7 +274,7 @@
                                     <div class="form-group">
                                         <label>Start Time</label>
                                         <input type="time" class="form-control" name="sat_start_time"
-                                            value="{{ old('sat_start_time') }}">
+                                            value="{{ $clinic->workday->available['saturday']['sat_start_time'] }}">
                                     </div>
                                     @error('sat_start_time')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -274,7 +284,7 @@
                                     <div class="form-group">
                                         <label>End Time</label>
                                         <input type="time" class="form-control" name="sat_end_time"
-                                            value="{{ old('sat_end_time') }}">
+                                            value="{{ $clinic->workday->available['saturday']['sat_end_time'] }}">
                                     </div>
                                     @error('sat_end_time')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -284,7 +294,7 @@
                                     <div class="form-group">
                                         <label>Exmination Duration</label>
                                         <input type="number" class="form-control" name="sat_duration"
-                                            value="{{ old('sat_duration') }}">
+                                            value="{{ $clinic->workday->available['saturday']['sat_duration'] }}}">
                                         <small class="text-secondary"> * You have to enter the duration in minutes</small>
                                     </div>
                                     @error('sat_duration')
@@ -297,9 +307,9 @@
                                         <select class="form-control select" name="sun_status">
                                             <option selected disabled>Select sunday status
                                             </option>
-                                            <option value="0" @if (old('sun_status') == '0') {{ 'selected' }} @endif>Holiday
+                                            <option value="0" @if ($clinic->workday->available['sunday']['sun_status'] == '0') {{ 'selected' }} @endif>Holiday
                                             </option>
-                                            <option value="1" @if (old('sun_status') == 1) {{ 'selected' }} @endif>Workday
+                                            <option value="1" @if ($clinic->workday->available['sunday']['sun_status'] == 1) {{ 'selected' }} @endif>Workday
                                             </option>
                                         </select>
                                     </div>
@@ -311,7 +321,7 @@
                                     <div class="form-group">
                                         <label>Start Time</label>
                                         <input type="time" class="form-control" name="sun_start_time"
-                                            value="{{ old('sun_start_time') }}">
+                                            value="{{ $clinic->workday->available['sunday']['sun_start_time'] }}">
                                     </div>
                                     @error('sun_start_time')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -321,7 +331,7 @@
                                     <div class="form-group">
                                         <label>End Time</label>
                                         <input type="time" class="form-control" name="sun_end_time"
-                                            value="{{ old('sun_end_time') }}">
+                                            value="{{ $clinic->workday->available['sunday']['sun_end_time'] }}">
                                     </div>
                                     @error('sun_end_time')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -331,7 +341,7 @@
                                     <div class="form-group">
                                         <label>Exmination Duration</label>
                                         <input type="number" class="form-control" name="sun_duration"
-                                            value="{{ old('sun_duration') }}">
+                                            value="{{ $clinic->workday->available['sunday']['sun_duration'] }}">
                                         <small class="text-secondary"> * You have to enter the duration in minutes</small>
                                     </div>
                                     @error('sun_duration')
@@ -344,9 +354,9 @@
                                         <select class="form-control select" name="mon_status">
                                             <option selected disabled>Select monday status
                                             </option>
-                                            <option value="0" @if (old('mon_status') == '0') {{ 'selected' }} @endif>Holiday
+                                            <option value="0" @if ($clinic->workday->available['monday']['mon_status'] == '0') {{ 'selected' }} @endif>Holiday
                                             </option>
-                                            <option value="1" @if (old('mon_status') == 1) {{ 'selected' }} @endif>Workday
+                                            <option value="1" @if ($clinic->workday->available['monday']['mon_status'] == 1) {{ 'selected' }} @endif>Workday
                                             </option>
                                         </select>
                                     </div>
@@ -358,7 +368,7 @@
                                     <div class="form-group">
                                         <label>Start Time</label>
                                         <input type="time" class="form-control" name="mon_start_time"
-                                            value="{{ old('mon_start_time') }}">
+                                            value="{{ $clinic->workday->available['monday']['mon_start_time'] }}">
                                     </div>
                                     @error('mon_start_time')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -368,7 +378,7 @@
                                     <div class="form-group">
                                         <label>End Time</label>
                                         <input type="time" class="form-control" name="mon_end_time"
-                                            value="{{ old('mon_end_time') }}">
+                                            value="{{ $clinic->workday->available['monday']['mon_end_time'] }}">
                                     </div>
                                     @error('mon_end_time')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -378,7 +388,7 @@
                                     <div class="form-group">
                                         <label>Exmination Duration</label>
                                         <input type="number" class="form-control" name="mon_duration"
-                                            value="{{ old('mon_duration') }}">
+                                            value="{{ $clinic->workday->available['monday']['mon_duration'] }}">
                                         <small class="text-secondary"> * You have to enter the duration in minutes</small>
                                     </div>
                                     @error('mon_duration')
@@ -391,9 +401,9 @@
                                         <select class="form-control select" name="tue_status">
                                             <option selected disabled>Select tuesday status
                                             </option>
-                                            <option value="0" @if (old('tue_status') == '0') {{ 'selected' }} @endif>Holiday
+                                            <option value="0" @if ($clinic->workday->available['tuesday']['tue_status'] == '0') {{ 'selected' }} @endif>Holiday
                                             </option>
-                                            <option value="1" @if (old('tue_status') == 1) {{ 'selected' }} @endif>Workday
+                                            <option value="1" @if ($clinic->workday->available['tuesday']['tue_status'] == 1) {{ 'selected' }} @endif>Workday
                                             </option>
                                         </select>
                                     </div>
@@ -405,7 +415,7 @@
                                     <div class="form-group">
                                         <label>Start Time</label>
                                         <input type="time" class="form-control" name="tue_start_time"
-                                            value="{{ old('tue_start_time') }}">
+                                            value="{{ $clinic->workday->available['tuesday']['tue_start_time'] }}">
                                     </div>
                                     @error('tue_start_time')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -415,7 +425,7 @@
                                     <div class="form-group">
                                         <label>End Time</label>
                                         <input type="time" class="form-control" name="tue_end_time"
-                                            value="{{ old('tue_end_time') }}">
+                                            value="{{ $clinic->workday->available['tuesday']['tue_end_time'] }}">
                                     </div>
                                     @error('tue_end_time')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -425,7 +435,7 @@
                                     <div class="form-group">
                                         <label>Exmination Duration</label>
                                         <input type="number" class="form-control" name="tue_duration"
-                                            value="{{ old('tue_duration') }}">
+                                            value="{{ $clinic->workday->available['tuesday']['tue_duration'] }}">
                                         <small class="text-secondary"> * You have to enter the duration in minutes</small>
                                     </div>
                                     @error('tue_duration')
@@ -438,9 +448,9 @@
                                         <select class="form-control select" name="wed_status">
                                             <option selected disabled>Select wednesday status
                                             </option>
-                                            <option value="0" @if (old('wed_status') == '0') {{ 'selected' }} @endif>Holiday
+                                            <option value="0" @if ($clinic->workday->available['wednesday']['wed_status'] == '0') {{ 'selected' }} @endif>Holiday
                                             </option>
-                                            <option value="1" @if (old('wed_status') == 1) {{ 'selected' }} @endif>Workday
+                                            <option value="1" @if ($clinic->workday->available['wednesday']['wed_status'] == 1) {{ 'selected' }} @endif>Workday
                                             </option>
                                         </select>
                                     </div>
@@ -452,7 +462,7 @@
                                     <div class="form-group">
                                         <label>Start Time</label>
                                         <input type="time" class="form-control" name="wed_start_time"
-                                            value="{{ old('wed_start_time') }}">
+                                            value="{{ $clinic->workday->available['wednesday']['wed_start_time'] }}">
                                     </div>
                                     @error('wed_start_time')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -462,7 +472,7 @@
                                     <div class="form-group">
                                         <label>End Time</label>
                                         <input type="time" class="form-control" name="wed_end_time"
-                                            value="{{ old('wed_end_time') }}">
+                                            value="{{ $clinic->workday->available['wednesday']['wed_end_time'] }}">
                                     </div>
                                     @error('wed_end_time')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -472,7 +482,7 @@
                                     <div class="form-group">
                                         <label>Exmination Duration</label>
                                         <input type="number" class="form-control" name="wed_duration"
-                                            value="{{ old('wed_duration') }}">
+                                            value="{{ $clinic->workday->available['wednesday']['wed_duration'] }}">
                                         <small class="text-secondary"> * You have to enter the duration in minutes</small>
                                     </div>
                                     @error('wed_duration')
@@ -485,9 +495,9 @@
                                         <select class="form-control select" name="thu_status">
                                             <option selected disabled>Select thursday status
                                             </option>
-                                            <option value="0" @if (old('thu_status') == '0') {{ 'selected' }} @endif>Holiday
+                                            <option value="0" @if ($clinic->workday->available['thursday']['thu_status'] == '0') {{ 'selected' }} @endif>Holiday
                                             </option>
-                                            <option value="1" @if (old('thu_status') == 1) {{ 'selected' }} @endif>Workday
+                                            <option value="1" @if ($clinic->workday->available['thursday']['thu_status'] == 1) {{ 'selected' }} @endif>Workday
                                             </option>
                                         </select>
                                     </div>
@@ -499,7 +509,7 @@
                                     <div class="form-group">
                                         <label>Start Time</label>
                                         <input type="time" class="form-control" name="thu_start_time"
-                                            value="{{ old('thu_start_time') }}">
+                                            value="{{ $clinic->workday->available['thursday']['thu_start_time'] }}">
                                     </div>
                                     @error('thu_start_time')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -509,7 +519,7 @@
                                     <div class="form-group">
                                         <label>End Time</label>
                                         <input type="time" class="form-control" name="thu_end_time"
-                                            value="{{ old('thu_end_time') }}">
+                                            value="{{ $clinic->workday->available['thursday']['thu_end_time'] }}">
                                     </div>
                                     @error('thu_end_time')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -519,7 +529,7 @@
                                     <div class="form-group">
                                         <label>Exmination Duration</label>
                                         <input type="number" class="form-control" name="thu_duration"
-                                            value="{{ old('thu_duration') }}">
+                                            value="{{ $clinic->workday->available['thursday']['thu_duration'] }}">
                                         <small class="text-secondary"> * You have to enter the duration in minutes</small>
                                     </div>
                                     @error('thu_duration')
@@ -532,9 +542,9 @@
                                         <select class="form-control select" name="fri_status">
                                             <option selected disabled>Select friday status
                                             </option>
-                                            <option value="0" @if (old('fri_status') == '0') {{ 'selected' }} @endif>Holiday
+                                            <option value="0" @if ($clinic->workday->available['friday']['fri_status'] == '0') {{ 'selected' }} @endif>Holiday
                                             </option>
-                                            <option value="1" @if (old('fri_status') == 1) {{ 'selected' }} @endif>Workday
+                                            <option value="1" @if ($clinic->workday->available['friday']['fri_status'] == 1) {{ 'selected' }} @endif>Workday
                                             </option>
                                         </select>
                                     </div>
@@ -546,7 +556,7 @@
                                     <div class="form-group">
                                         <label>Start Time</label>
                                         <input type="time" class="form-control" name="fri_start_time"
-                                            value="{{ old('fri_start_time') }}">
+                                            value="{{ $clinic->workday->available['friday']['fri_start_time'] }}">
                                     </div>
                                     @error('fri_start_time')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -556,7 +566,7 @@
                                     <div class="form-group">
                                         <label>End Time</label>
                                         <input type="time" class="form-control" name="fri_end_time"
-                                            value="{{ old('fri_end_time') }}">
+                                            value="{{ $clinic->workday->available['friday']['fri_end_time'] }}">
                                     </div>
                                     @error('fri_end_time')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -566,7 +576,7 @@
                                     <div class="form-group">
                                         <label>Exmination Duration</label>
                                         <input type="number" class="form-control" name="fri_duration"
-                                            value="{{ old('fri_duration') }}">
+                                            value="{{ $clinic->workday->available['friday']['fri_duration'] }}">
                                         <small class="text-secondary"> * You have to enter the duration in minutes</small>
                                     </div>
                                     @error('fri_duration')
@@ -589,116 +599,109 @@
                                     <h4 class="card-title mb-4">What services is your clinic will Provide?</h4>
                                     @isset($services)
                                         @foreach ($services as $service)
-                                            @if (old('service_id.' . $service->id))
                                                 <div class="payment-list">
                                                     <label class="payment-radio credit-card-option mb-3">
                                                         <input type="checkbox" value="{{ $service->id }}"
-                                                            name="service_id[{{ $service->id }}]" checked>
-                                                        <span class="checkmark"></span>
-                                                        {{ $service->name['name_' . LaravelLocalization::getCurrentLocale()] }}
-                                                    </label>
-                                                </div>
-                                            @else
-                                                <div class="payment-list">
-                                                    <label class="payment-radio credit-card-option mb-3">
-                                                        <input type="checkbox" value="{{ $service->id }}"
-                                                            name="service_id[{{ $service->id }}]">
-                                                        <span class="checkmark"></span>
-                                                        {{ $service->name['name_' . LaravelLocalization::getCurrentLocale()] }}
-                                                    </label>
-                                                </div>
-                                            @endif
-                                        @endforeach
-                                    @endisset
-                                    <small class="text-secondary"> * These services based on your specialist.</small>
-                                    @error('service_id')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                    @error('service_id.*')
+                                                            name="service_id[{{ $service->id }}]" @foreach ($clinic->services as $services)  @if ($services->service_id==$service->id)
+                                                        {{ 'checked' }} @endif
+                                            @endforeach>
+                                            <span class="checkmark"></span>
+                                            {{ $service->name['name_' . LaravelLocalization::getCurrentLocale()] }}
+                                            </label>
+                                    </div>
+                                    @endforeach
+                                @endisset
+                                <small class="text-secondary"> * These services based on your specialist.</small>
+                                @error('service_id')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
-                                </div>
+                                @error('service_id.*')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
-                    <!-- /Clinic Services -->
-
-                    <!-- Pricing -->
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Clinic Price
-                                <hr>
-                            </h4><br>
-                            <div class="row form-row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Exmination Price</label>
-                                        <input type="number" class="form-control select" name="price"
-                                            value="{{ old('price') }}">
-                                        <small class="text-secondary"> * The price is in EGP currency.</small>
-                                    </div>
-                                    @error('price')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Pricing -->
-                    <div class="submit-section submit-btn-bottom">
-                        <button type="submit" class="btn btn-primary submit-btn">Create</button>
-                    </div>
-                    </form>
                 </div>
+                <!-- /Clinic Services -->
+
+                <!-- Pricing -->
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Clinic Price
+                            <hr>
+                        </h4><br>
+                        <div class="row form-row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Exmination Price</label>
+                                    <input type="number" class="form-control select" name="price"
+                                        value="{{ $clinic->examfee->price }}">
+                                    <small class="text-secondary"> * The price is in EGP currency.</small>
+                                </div>
+                                @error('price')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Pricing -->
+                <div class="submit-section submit-btn-bottom">
+                    <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                </div>
+                </form>
             </div>
         </div>
-    @endsection
-    @php
-        $locale = LaravelLocalization::getCurrentLocale();
-    @endphp
-    @section('scripts')
-        <script type='text/javascript'>
-            $(document).ready(function() {
+    </div>
+@endsection
+@php
+$locale = LaravelLocalization::getCurrentLocale();
+$urlParameter = $clinic->id;
+@endphp
+@section('scripts')
+    <script type='text/javascript'>
+        $(document).ready(function() {
 
-                // Department Change
-                $('#city').change(function() {
+            // Department Change
+            $('#city').change(function() {
 
-                    // Department id
-                    var id = $(this).val();
+                // Department id
+                var id = $(this).val();
 
-                    // Empty the dropdown
-                    $('#region').find('option').not(':first').remove();
+                // Empty the dropdown
+                $('#region').find('option').not(':first').remove();
 
-                    // AJAX request 
-                    $.ajax({
-                        url: 'create/getregions/' + id,
-                        type: 'get',
-                        dataType: 'json',
-                        success: function(response) {
+                // AJAX request 
+                $.ajax({
+                    url: '/clinics/{'
+                    <?php echo $urlParameter; ?> '}/edit/getregions/' + id,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(response) {
 
-                            var len = 0;
-                            if (response['data'] != null) {
-                                len = response['data'].length;
-                            }
-
-                            if (len > 0) {
-                                // Read data and create <option >
-                                for (var i = 0; i < len; i++) {
-                                    console.log(len);
-                                    var id = response['data'][i].id;
-                                    var name = response['data'][i].name;
-
-                                    var option = "<option value='" + id + "'>" + name
-                                        .name_<?php echo $locale; ?> + "</option>";
-
-                                    $("#region").append(option);
-                                }
-                            }
-
+                        var len = 0;
+                        if (response['data'] != null) {
+                            len = response['data'].length;
                         }
-                    });
-                });
 
+                        if (len > 0) {
+                            // Read data and create <option >
+                            for (var i = 0; i < len; i++) {
+                                console.log(len);
+                                var id = response['data'][i].id;
+                                var name = response['data'][i].name;
+
+                                var option = "<option value='" + id + "'>" + name
+                                    .name_<?php echo $locale; ?> + "</option>";
+
+                                $("#region").append(option);
+                            }
+                        }
+
+                    }
+                });
             });
-        </script>
-    @endsection
+
+        });
+    </script>
+@endsection

@@ -17,9 +17,6 @@ class ChangePassController extends Controller
     }
     public function update(UpdatePassRequest $request)
     {
-        // make validation on request using UpdatePassRequest rules
-        $request->validated();
-
         // getting the hashed password from the session
         $hashedPass = Auth::guard('web')->user()->password;
 

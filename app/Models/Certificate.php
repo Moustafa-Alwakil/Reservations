@@ -13,6 +13,12 @@ class Certificate extends Model
     protected $fillable = [
        'id','type','photo','physican_id','created_at','updated_at'
     ];
+    
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+    
     public $timestamps = true;
 
     // Start Eloquent Relations

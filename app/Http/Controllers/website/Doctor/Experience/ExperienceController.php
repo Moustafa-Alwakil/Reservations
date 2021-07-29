@@ -20,8 +20,6 @@ class ExperienceController extends Controller
 
     public function store(StoreExperienceRequest $request)
     {
-        $request->validated();
-
         $request['title'] = $request->only('title_ar', 'title_en');
         $request['place'] = $request->only('place_ar', 'place_en');
         $data = $request->except('_token', 'place_ar', 'place_en', 'title_ar', 'title_en');
@@ -45,8 +43,6 @@ class ExperienceController extends Controller
 
     public function Update(UpdateExperienceRequest $request)
     {
-        $request->validated();
-
         $request['title'] = $request->only('title_ar', 'title_en');
         $request['place'] = $request->only('place_ar', 'place_en');
         $data = $request->except('_token', 'place_ar', 'place_en', 'title_ar', 'title_en','_method');

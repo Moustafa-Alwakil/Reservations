@@ -13,6 +13,12 @@ class Exception extends Model
     protected $fillable = [
        'id','date','start_time','end_time','clinic_id','created_at','updated_at'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+    
     public $timestamps = true;
 
     // Start Eloquent Relations

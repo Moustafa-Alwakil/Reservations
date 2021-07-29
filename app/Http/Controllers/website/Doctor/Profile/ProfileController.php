@@ -18,9 +18,6 @@ class ProfileController extends Controller
     }
     public function update(UpdateProfileRequest $request)
     {
-        // make validation on request using UpdateProfileRequest rules
-        $request->validated();
-        
         // convert the request to the form which fits the table
         $request['name'] = $request->only('fname_ar', 'lname_ar','fname_en', 'lname_en');
         $data = $request->except('_token', 'fname_ar', 'lname_ar','fname_en', 'lname_en');

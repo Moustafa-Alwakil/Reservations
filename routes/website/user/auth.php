@@ -7,10 +7,9 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
-    'namespace' => 'App\Http\Controllers\Website\User'
+    'namespace' => 'App\Http\Controllers\Website\User\Auth'
 ], function () {
     Route::group(['prefix' => 'user'], function () {
-        Route::group(['namespace' => 'Auth'], function () {
             Route::group(['middleware' => 'guest'], function () {
                 Route::get('/register', 'RegisteredUserController@create')->name('user.register');
                 Route::post('/register', 'RegisteredUserController@store')->name('store.user.register');
@@ -33,4 +32,3 @@ Route::group([
             });
         });
     });
-});

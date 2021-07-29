@@ -11,14 +11,20 @@ class Examfee extends Model
     protected $table = 'examfees';
     protected $primaryKey = 'id';
     protected $fillable = [
-       'id','price','created_at','updated_at'
+       'id','price','clinic_id','created_at','updated_at'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+    
     public $timestamps = true;
 
     // Start Eloquent Relations
     public function clinic()
     {
-        return $this->belongsTo(Clinic::class,'examfee_id','id');
+        return $this->belongsTo(Clinic::class,'clinic_id','id');
     }
     // End Elqouent Relations
 }

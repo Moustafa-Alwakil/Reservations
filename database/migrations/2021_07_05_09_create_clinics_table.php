@@ -20,9 +20,7 @@ class CreateClinicsTable extends Migration
             $table->tinyInteger('status')->default(0)->comment('0->not active , 1->active');
             $table->string('license');
             $table->tinyInteger('review')->default(2)->comment('0->not accepted , 1->accepted , 2->waiting');
-            $table->foreignId('examfee_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('physican_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('address_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

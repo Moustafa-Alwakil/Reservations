@@ -11,6 +11,12 @@ class ClinicService extends Pivot
     protected $fillable = [
        'clinic_id','service_id','created_at','updated_at'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+    
     public $timestamps = true;
 
     // Start Eloquent Relations

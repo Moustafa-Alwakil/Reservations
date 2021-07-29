@@ -21,11 +21,9 @@ class CertificateController extends Controller
 
     public function store(StoreCertificateRequest $request)
     {
-        $request->validated();
-
         $data = $request->except('_token', 'photo');
 
-        $photo = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->photo, 'certificates');
+        $photo = $this->uploadPhoto(1,Auth::guard('doc')->user()->id, $request->photo, 'certificates');
         if (!$photo)
             return redirect()->route('doctor.certificate')->with('error', 'Something went wrong, please try again.');
 
@@ -41,8 +39,6 @@ class CertificateController extends Controller
 
     public function destroy(DestroyCertificateRequest $request)
     {
-        $request->validated();
-
         $certificate = Certificate::where('id', $request->id)->where('physican_id', Auth::guard('doc')->user()->id)->first();
         if (!$certificate)
             return redirect()->route('doctor.certificate')->with('error', 'Something went wrong, please try again.');

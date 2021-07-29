@@ -11,8 +11,14 @@ class Clinic extends Model
     protected $table = 'clinics';
     protected $primaryKey = 'id';
     protected $fillable = [
-       'id','name','phone','status','license','examfee_id','physican_id','address_id','created_at','updated_at'
+       'id','name','phone','status','license','review','physican_id','created_at','updated_at'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+    
     public $timestamps = true;
 
     protected $casts = [
@@ -24,19 +30,19 @@ class Clinic extends Model
     {
         return $this->hasMany(Appointment::class,'clinic_id','id');
     }
-    public function examfee()
-    {
-        return $this->hasOne(Examfee::class,'examfee_id','id');
-    }
     public function physican()
     {
         return $this->belongsTo(Physican::class,'physican_id','id');
     }
     public function address()
     {
-        return $this->hasOne(Address::class,'address_id','id');
+        return $this->hasOne(Address::class,'clinic_id','id');
     }
-    public function clincphotos()
+    public function examfee()
+    {
+        return $this->hasOne(Examfee::class,'clinic_id','id');
+    }
+    public function clinicphotos()
     {
         return $this->hasMany(Clinicphoto::class,'clinic_id','id');
     }
@@ -62,7 +68,17 @@ class Clinic extends Model
         };
         return ucwords('not active');
     }
-    public function getPhotoAttribute($value)
+    public function getReviewAttribute($value)
+    {
+        if($value==0){
+            return ucwords('not accepted');
+        };
+        if($value==1){
+            return ucwords('accepted');
+        };
+        return ucwords('waiting');
+    }
+    public function getLicenseAttribute($value)
     {
         return url('images/clinics-licenses/' . $value);
     }

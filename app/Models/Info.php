@@ -13,6 +13,12 @@ class Info extends Model
     protected $fillable = [
         'id', 'title', 'license', 'photo', 'about', 'physican_id', 'created_at', 'updated_at'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+    
     public $timestamps = true;
 
     protected $casts = [

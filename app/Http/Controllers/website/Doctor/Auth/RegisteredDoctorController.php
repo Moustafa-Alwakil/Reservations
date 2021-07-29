@@ -30,9 +30,6 @@ class RegisteredDoctorController extends Controller
      */
     public function store(StoreRegisterRequest $request)
     {
-        // make validation on request using StoreRegisterRequest rules
-        $request->validated();
-
         // convert the request to the form which fits the table
         $request['name'] = $request->only('fname_ar', 'lname_ar', 'fname_en', 'lname_en');
         $data = $request->except('_token', 'fname_ar', 'lname_ar', 'fname_en', 'lname_en', 'password_confirmation');

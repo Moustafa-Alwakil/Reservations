@@ -13,6 +13,12 @@ class Clinicphoto extends Model
     protected $fillable = [
         'id', 'photo', 'clinic_id', 'created_at', 'updated_at'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+    
     public $timestamps = true;
 
     // Start Eloquent Relations

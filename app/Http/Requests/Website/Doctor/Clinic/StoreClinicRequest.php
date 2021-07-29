@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Website\Doctor\Clinic;
 
+use App\Models\Service;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class StoreClinicRequest extends FormRequest
@@ -24,6 +26,12 @@ class StoreClinicRequest extends FormRequest
      */
     public function rules()
     {
+        $services= Service::select('id')->where('department_id',Auth::guard('doc')->user()->department_id)->get();
+        $i=0;
+        foreach ($services as $service) {
+            $available_services_id[$i] = $service->id;
+            $i++;
+        }
         return [
             // clinic basic info
             'name_ar' => 'required|string|min:4|max:25',
@@ -43,7 +51,8 @@ class StoreClinicRequest extends FormRequest
             'region_id' => 'required|exists:regions,id',
             'street_ar' => 'required|string|min:4|max:50',
             'street_en' => 'required|string|min:4|max:50',
-            'buildingno' => 'required|string|max:20',
+            'building_ar' => 'required|string|max:30',
+            'building_en' => 'required|string|max:30',
             'floor' => 'required|string|max:20',
             'apartno' => 'required|string|max:20',
             'landmark_ar' => 'required|string|min:5|max:80',
@@ -58,7 +67,7 @@ class StoreClinicRequest extends FormRequest
             //saturday
             'sat_status' => ['required', Rule::in([0, 1])],
             'sat_start_time' => 'required_unless:sat_status,0|prohibited_unless:sat_status,1|nullable|date_format:H:i',
-            'sat_end_time' => 'required_unless:sat_status,0|prohibited_unless:sat_status,1|nullable|date_format:h:i|after:sat_start_time',
+            'sat_end_time' => 'required_unless:sat_status,0|prohibited_unless:sat_status,1|nullable|date_format:H:i|after:sat_start_time',
             'sat_duration' => 'required_unless:sat_status,0|prohibited_unless:sat_status,1|nullable|integer|min:3',
 
             //sunday
@@ -102,7 +111,8 @@ class StoreClinicRequest extends FormRequest
             ################################################################################################################################################################
 
             // clinic services
-            'service_id' => 'required|exists:services,id',
+            'service_id' =>['required','exists:services,id'],
+            'service_id.*' =>[ Rule::in($available_services_id)],
             //clinic services
 
             ################################################################################################################################################################

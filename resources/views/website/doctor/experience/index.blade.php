@@ -25,95 +25,95 @@
                                 <hr>
                             </h4>
                             @include('website.includes.sessionDisplay')<br>
-                                <form method="POST" action="{{ route('doctor.experience.store') }}"
-                                    enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('doctor.experience.store') }}"
+                                enctype="multipart/form-data">
 
-                                    @csrf
-                                    <div class="row form-row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Title (Arabic)</label>
-                                                <input type="text" class="form-control" name="title_ar"
-                                                    value="{{ old('title_ar') }}">
+                                @csrf
+                                <div class="row form-row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Title (Arabic)</label>
+                                            <input type="text" class="form-control" name="title_ar"
+                                                value="{{ old('title_ar') }}">
+                                        </div>
+                                        @error('title_ar')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Title (English)</label>
+                                            <input type="text" class="form-control" name="title_en"
+                                                value="{{ old('title_en') }}">
+                                        </div>
+                                        @error('title_en')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Place (Arabic)</label>
+                                            <input type="text" class="form-control" name="place_ar"
+                                                value="{{ old('place_ar') }}">
+                                        </div>
+                                        @error('place_ar')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Place (English)</label>
+                                            <input type="text" class="form-control" name="place_en"
+                                                value="{{ old('place_en') }}">
+                                        </div>
+                                        @error('place_en')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <select class="form-control select" name="status">
+                                                <option selected disabled>Select your job status
+                                                </option>
+                                                <option value="0" @if (old('status') == '0') {{ 'selected' }} @endif> Left Job
+                                                </option>
+                                                <option value="1" @if (old('status') == 1) {{ 'selected' }} @endif>Current Job
+                                                </option>
+                                            </select>
+                                        </div>
+                                        @error('status')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>Start Date</label>
+                                            <div class="">
+                                                <input type="date" class="form-control datetimepicker" name="start_date"
+                                                    value="{{ old('start_date') }}">
                                             </div>
-                                            @error('title_ar')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Title (English)</label>
-                                                <input type="text" class="form-control" name="title_en"
-                                                    value="{{ old('title_en') }}">
+                                        @error('start_date')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>End Date</label>
+                                            <div class="">
+                                                <input type="date" class="form-control datetimepicker" name="end_date"
+                                                    value="">
                                             </div>
-                                            @error('title_en')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Place (Arabic)</label>
-                                                <input type="text" class="form-control" name="place_ar"
-                                                    value="{{ old('place_ar') }}">
-                                            </div>
-                                            @error('place_ar')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Place (English)</label>
-                                                <input type="text" class="form-control" name="place_en"
-                                                    value="{{ old('place_en') }}">
-                                            </div>
-                                            @error('place_en')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Status</label>
-                                                <select class="form-control select" name="status">
-                                                    <option selected disabled>Select your job status
-                                                    </option>
-                                                    <option value="0" @if (old('status') == '0') {{ 'selected' }} @endif> Left Job
-                                                    </option>
-                                                    <option value="1" @if (old('status') == 1) {{ 'selected' }} @endif>Current Job
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            @error('status')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-12 col-md-6">
-                                            <div class="form-group">
-                                                <label>Start Date</label>
-                                                <div class="">
-                                                    <input type="date" class="form-control datetimepicker" name="start_date"
-                                                        value="{{ old('start_date') }}">
-                                                </div>
-                                            </div>
-                                            @error('start_date')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-12 col-md-6">
-                                            <div class="form-group">
-                                                <label>End Date</label>
-                                                <div class="">
-                                                    <input type="date" class="form-control datetimepicker" name="end_date"
-                                                        value="">
-                                                </div>
-                                            </div>
-                                            @error('end_date')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="submit-section">
-                                            <button type="submit" class="btn btn-primary submit-btn">Save</button>
-                                        </div>
-                                </form>
+                                        @error('end_date')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="submit-section">
+                                        <button type="submit" class="btn btn-primary submit-btn">Save</button>
+                                    </div>
+                            </form>
                             <!-- /Experience Settings Form -->
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                                     @endif
                                     <p class="card-text">Duration: {{ $diff->format('%y Years %m Months %d Days') }}</p>
                                     <a href="{{ route('doctor.experience.edit', ['id' => $experience->id]) }}"
-                                        class="btn btn-primary">Edit</a>
+                                        class="btn btn-warning">Edit</a>
                                     <form class="d-inline" method="POST" action="{{ route('doctor.experience.destroy') }}">
                                         @csrf
                                         @method('DELETE')
@@ -157,8 +157,6 @@
                 </div>
             </div>
         @endisset
-    </div>
-    </div>
     </div>
     <!-- /Page Content -->
 @endsection

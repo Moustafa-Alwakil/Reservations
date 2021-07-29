@@ -13,6 +13,12 @@ class Region extends Model
     protected $fillable = [
         'id', 'name', 'status', 'city_id', 'created_at', 'updated_at'
     ];
+    
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+    
     public $timestamps = true;
 
     protected $casts = [

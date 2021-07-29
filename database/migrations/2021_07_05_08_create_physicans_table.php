@@ -24,7 +24,7 @@ class CreatePhysicansTable extends Migration
             $table->tinyInteger('status')->default(2)->comment('0->not accepted , 1->accepted , 2->waiting');
             $table->date('birthdate');
             $table->rememberToken();
-            $table->foreignId('department_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('department_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -13,6 +13,12 @@ class Service extends Model
     protected $fillable = [
        'id','name','status','department_id','created_at','updated_at'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+    
     public $timestamps = true;
 
     protected $casts = [

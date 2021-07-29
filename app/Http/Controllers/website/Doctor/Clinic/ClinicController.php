@@ -28,7 +28,12 @@ class ClinicController extends Controller
 
     public function index()
     {
-        return view('website.doctor.clinic.index');
+        $clinics = Clinic::select('id', 'name', 'status', 'review')->with(['address', 'address.region' => function ($q) {
+            $q->select('id', 'name', 'city_id');
+        }, 'address.region.city' => function ($q) {
+            $q->select('id', 'name');
+        }, 'examfee'])->where('physican_id', Auth::guard('doc')->user()->id)->get();
+        return view('website.doctor.clinic.index', compact('clinics'));
     }
 
     /**
@@ -58,13 +63,11 @@ class ClinicController extends Controller
      */
     public function store(StoreClinicRequest $request)
     {
-        $request->validated();
-
         $clinic['name'] = $request->only('name_ar', 'name_en');
         $clinic['phone'] = $request->phone;
         $clinic['status'] = $request->status;
 
-        $license = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->license, 'clinics-licenses');
+        $license = $this->uploadPhoto(1,Auth::guard('doc')->user()->id, $request->license, 'clinics-licenses');
         if (!$license)
             return redirect()->route('clinics.create')->with('error', 'Something went wrong, please try again.');
 
@@ -74,9 +77,9 @@ class ClinicController extends Controller
 
         if (!$storeClinic)
             return redirect()->route('clinics.create')->with('error', 'Something went wrong, please try again.');
-
+        $i = 1;
         foreach ($request->photo as $photo) {
-            $clinicphoto = $this->uploadPhoto(Auth::guard('doc')->user()->id, $photo, 'clinics-photos');
+            $clinicphoto = $this->uploadPhoto($i,Auth::guard('doc')->user()->id, $photo, 'clinics-photos');
 
             if (!$clinicphoto)
                 return redirect()->route('clinics.create')->with('error', 'Something went wrong, please try again.');
@@ -85,19 +88,21 @@ class ClinicController extends Controller
 
             if (!$storeClinicPhoto)
                 return redirect()->route('clinics.create')->with('error', 'Something went wrong, please try again.');
+            $i++;
         }
 
         $address['street'] = $request->only('street_ar', 'street_en');
-        $address['buildingno'] = $request->buildingno;
+        $address['building'] = $request->only('building_ar', 'building_en');
         $address['floor'] = $request->floor;
         $address['apartno'] = $request->apartno;
         $address['landmark'] = $request->only('landmark_ar', 'landmark_en');
+        $address['region_id'] = $request->region_id;
+        $address['clinic_id'] = $storeClinic->id;
         $storeAddress = Address::create($address);
+
 
         if (!$storeAddress)
             return redirect()->route('clinics.create')->with('error', 'Something went wrong, please try again.');
-
-        Clinic::where('id', $storeClinic->id)->update(['examfee_id' => $storeAddress->id]);
 
         $workday['available']['saturday'] = $request->only('sat_status', 'sat_start_time', 'sat_end_time', 'sat_duration');
         $workday['available']['sunday'] = $request->only('sun_status', 'sun_start_time', 'sun_end_time', 'sun_duration');
@@ -106,7 +111,8 @@ class ClinicController extends Controller
         $workday['available']['wednesday'] = $request->only('wed_status', 'wed_start_time', 'wed_end_time', 'wed_duration');
         $workday['available']['thursday'] = $request->only('thu_status', 'thu_start_time', 'thu_end_time', 'thu_duration');
         $workday['available']['friday'] = $request->only('fri_status', 'fri_start_time', 'fri_end_time', 'fri_duration');
-        $storeWorkdays = Workday::create(['available' => $workday['available'], 'clinic_id' => $storeClinic->id]);
+        $workday['clinic_id'] = $storeClinic->id;
+        $storeWorkdays = Workday::create($workday);
 
         if (!$storeWorkdays)
             return redirect()->route('clinics.create')->with('error', 'Something went wrong, please try again.');
@@ -118,14 +124,15 @@ class ClinicController extends Controller
                 return redirect()->route('clinics.create')->with('error', 'Something went wrong, please try again.');
         }
 
-        $storePrice = Examfee::create(['price' => $request->price]);
+        $examfee['price'] = $request->price;
+        $examfee['clinic_id'] = $storeClinic->id;
+        $storePrice = Examfee::create($examfee);
 
         if (!$storePrice)
             return redirect()->route('clinics.create')->with('error', 'Something went wrong, please try again.');
 
-        Clinic::where('id', $storeClinic->id)->update(['examfee_id' => $storePrice->id]);
 
-        return redirect()->route('clinics.create')->with('success', 'success.');
+        return redirect()->route('clinics.index')->with('success', 'The clinic has been created successfully.');
     }
 
     /**
@@ -147,7 +154,10 @@ class ClinicController extends Controller
      */
     public function edit($id)
     {
-        //
+        $clinic = Clinic::select()->with(['address', 'address.region', 'examfee', 'workday','services'=>function($q){$q->select('service_id');}])->where('id', $id)->where('physican_id', Auth::guard('doc')->user()->id)->first();
+        $cities['data'] = City::select()->where('status', 1)->get();
+        $services = Service::select()->where('status', 1)->where('department_id', Auth::guard('doc')->user()->department_id)->get();
+        return view('website.doctor.clinic.edit', compact('clinic','services','cities'));
     }
 
     /**
@@ -170,6 +180,32 @@ class ClinicController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $clinic = Clinic::select()->with('clinicphotos')->where('id', $id)->where('physican_id', Auth::guard('doc')->user()->id)->first();
+
+        if (!$clinic)
+            return redirect()->route('clinics.index')->with('error', 'Something went wrong, please try again.');
+
+        $file = (explode("clinics-licenses/", $clinic->license));
+        $path = public_path('images\clinics-licenses\\' . $file[0]);
+        $deleteLicense = $this->deletePhoto($path);
+
+        // if (!$deleteLicense)
+        //     return redirect()->route('clinics.index')->with('error', 'Something went wrong, please try again.');
+
+        foreach ($clinic->clinicphotos as $clinicphoto) {
+            $file = (explode("clinics-photos/", $clinicphoto->photo));
+            $path = public_path('images\clinics-photos\\' . $file[1]);
+            $deleteClinicPhoto = $this->deletePhoto($path);
+
+            if (!$deleteClinicPhoto)
+            return redirect()->route('clinics.index')->with('error', 'Something went wrong, please try again.');
+        }
+
+        $delete = $clinic->delete();
+
+        if (!$delete)
+        return redirect()->route('clinics.index')->with('error', 'Something went wrong, please try again.');
+
+        return redirect()->route('clinics.index')->with('success', 'The clinic has been deleted successfully.');
     }
 }

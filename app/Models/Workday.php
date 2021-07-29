@@ -13,6 +13,12 @@ class Workday extends Model
     protected $fillable = [
        'id','available','clinic_id','created_at','updated_at'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+    
     public $timestamps = true;
 
     protected $casts = [
