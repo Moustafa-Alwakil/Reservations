@@ -27,11 +27,11 @@ class InfoController extends Controller
     {
         $request['about'] = $request->only('about_ar', 'about_en');
 
-        $photo = $this->uploadPhoto(1,Auth::guard('doc')->user()->id, $request->photo, 'docphotos');
+        $photo = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->photo, 'docphotos');
         if (!$photo)
             return redirect()->route('doctor.info')->with('error', 'Something went wrong, please try again.');
 
-        $license = $this->uploadPhoto(1,Auth::guard('doc')->user()->id, $request->license, 'doclicenses');
+        $license = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->license, 'doclicenses');
         if (!$license)
             return redirect()->route('doctor.info')->with('error', 'Something went wrong, please try again.');
 
@@ -56,7 +56,7 @@ class InfoController extends Controller
         $data = $request->except('about_ar', 'about_en', '_token', '_method', 'department_id');
 
         if ($request->has('photo')) {
-            $photo = $this->uploadPhoto(1,Auth::guard('doc')->user()->id, $request->photo, 'docphotos');
+            $photo = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->photo, 'docphotos');
             if ($photo) {
                 $info = Info::firstWhere('physican_id',  Auth::guard('doc')->user()->id);
                 $file = (explode("docphotos/", $info->photo));
@@ -69,7 +69,7 @@ class InfoController extends Controller
             $data['photo'] = $photo;
         }
         if ($request->has('license')) {
-            $license = $this->uploadPhoto(1,Auth::guard('doc')->user()->id, $request->license, 'doclicenses');
+            $license = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->license, 'doclicenses');
             if ($license) {
                 $info = Info::firstWhere('physican_id',  Auth::guard('doc')->user()->id);
                 $file = (explode("doclicenses/", $info->license));

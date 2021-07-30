@@ -16,7 +16,7 @@ class CreateClinicsTable extends Migration
         Schema::create('clinics', function (Blueprint $table) {
             $table->id();
             $table->json('name');
-            $table->string('phone',20);
+            $table->string('phone',20)->unique();
             $table->tinyInteger('status')->default(0)->comment('0->not active , 1->active');
             $table->string('license');
             $table->tinyInteger('review')->default(2)->comment('0->not accepted , 1->accepted , 2->waiting');

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Website\Doctor\Clinic;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Website\Doctor\Clinic\destroyClinicPhotoRequest;
+use App\Http\Requests\Website\Doctor\Clinic\EditClinicRequest;
 use App\Http\Requests\Website\Doctor\Clinic\StoreClinicRequest;
+use App\Http\Requests\Website\Doctor\Clinic\UpdateClinicRequest;
 use App\Models\Address;
 use App\Models\City;
 use App\Models\Clinic;
@@ -16,6 +19,7 @@ use App\Models\Workday;
 use App\Traits\uploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 class ClinicController extends Controller
 {
@@ -67,7 +71,7 @@ class ClinicController extends Controller
         $clinic['phone'] = $request->phone;
         $clinic['status'] = $request->status;
 
-        $license = $this->uploadPhoto(1,Auth::guard('doc')->user()->id, $request->license, 'clinics-licenses');
+        $license = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->license, 'clinics-licenses');
         if (!$license)
             return redirect()->route('clinics.create')->with('error', 'Something went wrong, please try again.');
 
@@ -77,9 +81,10 @@ class ClinicController extends Controller
 
         if (!$storeClinic)
             return redirect()->route('clinics.create')->with('error', 'Something went wrong, please try again.');
+
         $i = 1;
         foreach ($request->photo as $photo) {
-            $clinicphoto = $this->uploadPhoto($i,Auth::guard('doc')->user()->id, $photo, 'clinics-photos');
+            $clinicphoto = $this->uploadPhoto(Auth::guard('doc')->user()->id, $photo, 'clinics-photos', $i);
 
             if (!$clinicphoto)
                 return redirect()->route('clinics.create')->with('error', 'Something went wrong, please try again.');
@@ -88,6 +93,7 @@ class ClinicController extends Controller
 
             if (!$storeClinicPhoto)
                 return redirect()->route('clinics.create')->with('error', 'Something went wrong, please try again.');
+
             $i++;
         }
 
@@ -154,10 +160,13 @@ class ClinicController extends Controller
      */
     public function edit($id)
     {
-        $clinic = Clinic::select()->with(['address', 'address.region', 'examfee', 'workday','services'=>function($q){$q->select('service_id');}])->where('id', $id)->where('physican_id', Auth::guard('doc')->user()->id)->first();
+        $clinic = Clinic::select()->with(['address', 'address.region', 'examfee', 'workday', 'services' => function ($q) {
+            $q->select('service_id');
+        }])->where('id', $id)->where('physican_id', Auth::guard('doc')->user()->id)->first();
         $cities['data'] = City::select()->where('status', 1)->get();
         $services = Service::select()->where('status', 1)->where('department_id', Auth::guard('doc')->user()->department_id)->get();
-        return view('website.doctor.clinic.edit', compact('clinic','services','cities'));
+        session(['clinic_id' => $clinic->id]);
+        return view('website.doctor.clinic.edit', compact('clinic', 'services', 'cities'));
     }
 
     /**
@@ -167,9 +176,92 @@ class ClinicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateClinicRequest $request, $id)
     {
-        //
+        $clinic['name'] = $request->only('name_ar', 'name_en');
+        $clinic['phone'] = $request->phone;
+        $clinic['status'] = $request->status;
+
+        if ($request->has('license')) {
+            $license = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->license, 'clinics-licenses');
+
+            if (!$license)
+                return redirect()->back()->with('error', 'Something went wrong, please try again.');
+
+            $file = (explode("clinics-licenses/", Clinic::select('license')->where('id', $id)->first()->license));
+            $path = public_path('images\clinics-licenses\\' . $file[1]);
+            $deleteLicense = $this->deletePhoto($path);
+
+            if (!$deleteLicense)
+                return redirect()->route('clinics.index')->with('error', 'Something went wrong, please try again.');
+
+            $clinic['license'] = $license;
+            $clinic['review'] = 2;
+        }
+
+        $clinic['physican_id'] = Auth::guard('doc')->user()->id;
+        $updateClinic = Clinic::where('id', $id)->update($clinic);
+
+        if (!$updateClinic)
+            return redirect()->back()->with('error', 'Something went wrong, please try again.');
+
+        if ($request->has('photo')) {
+            $i = 1;
+            foreach ($request->photo as $photo) {
+                $clinicphoto = $this->uploadPhoto(Auth::guard('doc')->user()->id, $photo, 'clinics-photos', $i);
+
+                if (!$clinicphoto)
+                    return redirect()->back()->with('error', 'Something went wrong, please try again.');
+
+                $storeClinicPhoto = Clinicphoto::create(['photo' => $clinicphoto, 'clinic_id' => $id]);
+
+                if (!$storeClinicPhoto)
+                    return redirect()->back()->with('error', 'Something went wrong, please try again.');
+
+                $i++;
+            }
+        }
+
+        $address['street'] = $request->only('street_ar', 'street_en');
+        $address['building'] = $request->only('building_ar', 'building_en');
+        $address['floor'] = $request->floor;
+        $address['apartno'] = $request->apartno;
+        $address['landmark'] = $request->only('landmark_ar', 'landmark_en');
+        $address['region_id'] = $request->region_id;
+        $updateAddress = Address::where('clinic_id', $id)->update($address);
+
+
+        if (!$updateAddress)
+            return redirect()->back()->with('error', 'Something went wrong, please try again.');
+
+        $workday['available']['saturday'] = $request->only('sat_status', 'sat_start_time', 'sat_end_time', 'sat_duration');
+        $workday['available']['sunday'] = $request->only('sun_status', 'sun_start_time', 'sun_end_time', 'sun_duration');
+        $workday['available']['monday'] = $request->only('mon_status', 'mon_start_time', 'mon_end_time', 'mon_duration');
+        $workday['available']['tuesday'] = $request->only('tue_status', 'tue_start_time', 'tue_end_time', 'tue_duration');
+        $workday['available']['wednesday'] = $request->only('wed_status', 'wed_start_time', 'wed_end_time', 'wed_duration');
+        $workday['available']['thursday'] = $request->only('thu_status', 'thu_start_time', 'thu_end_time', 'thu_duration');
+        $workday['available']['friday'] = $request->only('fri_status', 'fri_start_time', 'fri_end_time', 'fri_duration');
+        $updateWorkdays = Workday::where('clinic_id', $id)->update($workday);
+
+        if (!$updateWorkdays)
+            return redirect()->back()->with('error', 'Something went wrong, please try again.');
+
+        ClinicService::where('clinic_id', $id)->delete();
+        foreach ($request->service_id as $service_id) {
+            $storeClinicServices = ClinicService::create(['service_id' => $service_id, 'clinic_id' => $id]);
+
+            if (!$storeClinicServices)
+                return redirect()->back()->with('error', 'Something went wrong, please try again.');
+        }
+
+        $examfee['price'] = $request->price;
+        $updatePrice = Examfee::where('clinic_id', $id)->update($examfee);
+
+        if (!$updatePrice)
+            return redirect()->back()->with('error', 'Something went wrong, please try again.');
+
+
+        return redirect()->back()->with('success', 'The clinic has been updated successfully.');
     }
 
     /**
@@ -186,11 +278,11 @@ class ClinicController extends Controller
             return redirect()->route('clinics.index')->with('error', 'Something went wrong, please try again.');
 
         $file = (explode("clinics-licenses/", $clinic->license));
-        $path = public_path('images\clinics-licenses\\' . $file[0]);
+        $path = public_path('images\clinics-licenses\\' . $file[1]);
         $deleteLicense = $this->deletePhoto($path);
 
-        // if (!$deleteLicense)
-        //     return redirect()->route('clinics.index')->with('error', 'Something went wrong, please try again.');
+        if (!$deleteLicense)
+            return redirect()->route('clinics.index')->with('error', 'Something went wrong, please try again.');
 
         foreach ($clinic->clinicphotos as $clinicphoto) {
             $file = (explode("clinics-photos/", $clinicphoto->photo));
@@ -198,14 +290,36 @@ class ClinicController extends Controller
             $deleteClinicPhoto = $this->deletePhoto($path);
 
             if (!$deleteClinicPhoto)
-            return redirect()->route('clinics.index')->with('error', 'Something went wrong, please try again.');
+                return redirect()->route('clinics.index')->with('error', 'Something went wrong, please try again.');
         }
 
         $delete = $clinic->delete();
 
         if (!$delete)
-        return redirect()->route('clinics.index')->with('error', 'Something went wrong, please try again.');
+            return redirect()->route('clinics.index')->with('error', 'Something went wrong, please try again.');
 
         return redirect()->route('clinics.index')->with('success', 'The clinic has been deleted successfully.');
+    }
+
+    public function destroyClinicPhoto(destroyClinicPhotoRequest $request)
+    {
+        $clinicPhoto = Clinicphoto::select()->where('id', $request->id)->where('clinic_id', $request->clinic_id)->first();
+
+        if (!$clinicPhoto)
+            return redirect()->back()->with('error', 'Something went wrong, please try again.');
+
+        $file = (explode("clinics-photos/", $clinicPhoto->photo));
+        $path = public_path('images\clinics-photos\\' . $file[1]);
+        $deleteLicense = $this->deletePhoto($path);
+
+        if (!$deleteLicense)
+            return redirect()->back()->with('error', 'Something went wrong, please try again.');
+
+        $delete = $clinicPhoto->delete();
+
+        if (!$delete)
+            return redirect()->back()->with('error', 'Something went wrong, please try again.');
+
+        return redirect()->back()->with('successDelete', 'The clinic photo has been deleted successfully.');
     }
 }

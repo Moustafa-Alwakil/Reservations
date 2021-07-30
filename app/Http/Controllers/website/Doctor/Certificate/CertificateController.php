@@ -23,7 +23,7 @@ class CertificateController extends Controller
     {
         $data = $request->except('_token', 'photo');
 
-        $photo = $this->uploadPhoto(1,Auth::guard('doc')->user()->id, $request->photo, 'certificates');
+        $photo = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->photo, 'certificates');
         if (!$photo)
             return redirect()->route('doctor.certificate')->with('error', 'Something went wrong, please try again.');
 

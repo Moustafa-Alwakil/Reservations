@@ -69,7 +69,7 @@
                                             {{ $clinic->address->street['street_' . LaravelLocalization::getCurrentLocale()] }}
                                             , building:
                                             {{ $clinic->address->building['building_' . LaravelLocalization::getCurrentLocale()] }}
-                                            , floor: {{ $clinic->address->floor }}
+                                            , floor: {{ $clinic->address->floor}}
                                             , Apartment: {{ $clinic->address->apartno }}
                                             -
                                             {{ $clinic->address->region->name['name_' . LaravelLocalization::getCurrentLocale()] }}

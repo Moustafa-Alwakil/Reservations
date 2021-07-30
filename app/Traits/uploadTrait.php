@@ -5,7 +5,7 @@ namespace App\Traits;
 trait uploadTrait
 {
 
-    public function uploadPhoto($i, $id, $image, $folder)
+    public function uploadPhoto($id, $image, $folder, $i=1)
     {
         $fileName = $i . $id . '_' . time() . '.' . $image->extension();
         $image->move(public_path('images/' . $folder), $fileName);

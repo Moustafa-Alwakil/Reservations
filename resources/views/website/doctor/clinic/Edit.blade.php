@@ -9,7 +9,7 @@
 @endsection
 @section('content')
     @include('website.includes.bar1')
-    Clinic
+    Clinics
     @include('website.includes.bar2')
     Edit Clinic
     @include('website.includes.bar3')
@@ -83,18 +83,56 @@
                                             <label>Clinic Photos</label>
                                             <input class="form-control" type="file" id="Photos" name="photo[]" multiple>
                                         </div>
-                                        @foreach ($clinic->clinicphotos as $clinicphoto)
-                                            <div class="text-center">
-                                                <img src="{{ $clinicphoto->photo }}" class="rounded" style="width:50%"
-                                                    alt="Clinic Photos">
-                                                <hr style="  height:0px;
-                                                border-radius: 2px;
-                                                $color: teal;
-                                                color: $color;
-                                                border: 2px solid currentColor;
-                                                width: 80%;">
+                                        <!-- Cards -->
+                                        <section class="comp-section comp-cards">
+                                            <div class="section-header">
+                                                <h3 class="section-title">Clinic Photos</h3>
+                                                <div class="line mb-2"></div>
+                                                @if(Session()->has('successDelete'))
+                                                <div class="alert alert-success"> {{Session()->get('successDelete')}} </div>
+                                              @endif
                                             </div>
-                                        @endforeach
+                                            <div class="row">
+                                                @if (isset($clinic->clinicphotos[1]))
+                                                    @foreach ($clinic->clinicphotos as $clinicphoto)
+                                                        <div class="col-12 col-md-6 col-lg-4 d-flex">
+                                                            <div class="card flex-fill">
+                                                                <img alt="Card Image" src="{{ $clinicphoto->photo }}"
+                                                                    class="card-img-top">
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <a class="btn btn-primary d-block mb-2"
+                                                                    href="{{ $clinicphoto->photo }}"
+                                                                    target="_blank">Preview</a>
+                                                                    <form class="d-inline" method="POST" action="{{ route('clinic.destroyphoto') }}">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <input type="text" name="id" hidden value="{{ $clinicphoto->id }}">
+                                                                        <input type="text" name="clinic_id" hidden value="{{ $clinic->id }}">
+                                                                        <button class="btn btn-danger">Delete</button>
+                                                                    </form>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                @else
+                                                    @foreach ($clinic->clinicphotos as $clinicphoto)
+                                                        <div
+                                                            class="col-12 col-md-6 col-lg-4 d-flex clinicphoto{{ $clinicphoto->id }}">
+                                                            <div class="card flex-fill">
+                                                                <img alt="Card Image" src="{{ $clinicphoto->photo }}"
+                                                                    class="card-img-top">
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <a class="btn btn-primary d-block mb-2"
+                                                                    href="{{ $clinicphoto->photo }}"
+                                                                    target="_blank">Preview</a>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                        </section>
+                                        <!-- /Cards -->
                                         @error('photo')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -107,10 +145,32 @@
                                             <label>License</label>
                                             <input class="form-control" type="file" id="license" name="license">
                                         </div>
-                                        <div class="text-center">
-                                            <img src="{{ $clinic->license }}" class="rounded" style="width:50%"
-                                                alt="Clinic License">
-                                        </div>
+                                        <!-- Cards -->
+                                        <section class="comp-section comp-cards">
+                                            <div class="section-header">
+                                                <h3 class="section-title">Clinic License</h3>
+                                                <div class="line"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-8 mx-auto text-center">
+                                                    <div class="card ">
+                                                        <img alt="Card Image" src="{{ $clinic->license }}"
+                                                            class="card-img-top">
+                                                        <div class="card-body">
+                                                            <a class="btn btn-primary" href="{{ $clinic->license }}"
+                                                                target="_blank">Preview</a>
+                                                        </div>
+                                                        <small class="text-secondary"> * You can change your clinic license
+                                                            by uploading new one, but making any changes to your clinic
+                                                            license
+                                                            will make your clinic in waiting status until we review it and
+                                                            accept it
+                                                            again.</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <!-- /Cards -->
                                         @error('license')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -153,9 +213,9 @@
                                         <select class="form-control select" name="region_id" id="region">
                                             <option selected disabled>Select your clinic Region
                                             </option>
-                                                <option selected value="{{ $clinic->address->region->id }}">
-                                                    {{ $clinic->address->region->name['name_' . LaravelLocalization::getCurrentLocale()] }}
-                                                <option>
+                                            <option selected value="{{ $clinic->address->region->id }}">
+                                                {{ $clinic->address->region->name['name_' . LaravelLocalization::getCurrentLocale()] }}
+                                            <option>
                                         </select>
                                     </div>
                                     @error('region_id')
@@ -294,7 +354,7 @@
                                     <div class="form-group">
                                         <label>Exmination Duration</label>
                                         <input type="number" class="form-control" name="sat_duration"
-                                            value="{{ $clinic->workday->available['saturday']['sat_duration'] }}}">
+                                            value="{{ $clinic->workday->available['saturday']['sat_duration'] }}">
                                         <small class="text-secondary"> * You have to enter the duration in minutes</small>
                                     </div>
                                     @error('sat_duration')
@@ -599,15 +659,16 @@
                                     <h4 class="card-title mb-4">What services is your clinic will Provide?</h4>
                                     @isset($services)
                                         @foreach ($services as $service)
-                                                <div class="payment-list">
-                                                    <label class="payment-radio credit-card-option mb-3">
-                                                        <input type="checkbox" value="{{ $service->id }}"
-                                                            name="service_id[{{ $service->id }}]" @foreach ($clinic->services as $services)  @if ($services->service_id==$service->id)
-                                                        {{ 'checked' }} @endif
-                                            @endforeach>
-                                            <span class="checkmark"></span>
-                                            {{ $service->name['name_' . LaravelLocalization::getCurrentLocale()] }}
-                                            </label>
+                                            <div class="payment-list">
+                                                <label class="payment-radio credit-card-option mb-3">
+                                                    <input type="checkbox" value="{{ $service->id }}"
+                                                        name="service_id[{{ $service->id }}]" @foreach ($clinic->services as $services) 
+                                                        @if ($services->service_id==$service->id)
+                                                    {{ 'checked' }} @endif
+                                        @endforeach>
+                                        <span class="checkmark"></span>
+                                        {{ $service->name['name_' . LaravelLocalization::getCurrentLocale()] }}
+                                        </label>
                                     </div>
                                     @endforeach
                                 @endisset
@@ -656,7 +717,6 @@
 @endsection
 @php
 $locale = LaravelLocalization::getCurrentLocale();
-$urlParameter = $clinic->id;
 @endphp
 @section('scripts')
     <script type='text/javascript'>
@@ -673,8 +733,7 @@ $urlParameter = $clinic->id;
 
                 // AJAX request 
                 $.ajax({
-                    url: '/clinics/{'
-                    <?php echo $urlParameter; ?> '}/edit/getregions/' + id,
+                    url: 'edit/getregions/' + id,
                     type: 'get',
                     dataType: 'json',
                     success: function(response) {
@@ -701,7 +760,6 @@ $urlParameter = $clinic->id;
                     }
                 });
             });
-
         });
     </script>
 @endsection

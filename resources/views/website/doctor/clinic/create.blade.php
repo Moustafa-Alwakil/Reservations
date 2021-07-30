@@ -698,7 +698,6 @@
                         }
                     });
                 });
-
             });
         </script>
     @endsection

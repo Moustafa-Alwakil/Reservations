@@ -28,11 +28,14 @@
                             <!-- Info Settings Form -->
                             @if (isset($info))
                                 @if (Auth::guard('doc')->user()->status == 0)
-                                    <div class="alert alert-danger">Your information is invalid, please review it again and insert the correct information.</div>
+                                    <div class="alert alert-danger">Your information is invalid, please review it again and
+                                        insert the correct information.</div>
                                 @elseif(Auth::guard('doc')->user()->status == 1)
-                                    <div class="alert alert-success">Congratulations, you have been reviewed and accepted.</div>
+                                    <div class="alert alert-success">Congratulations, you have been reviewed and accepted.
+                                    </div>
                                 @elseif(Auth::guard('doc')->user()->status == 2)
-                                    <div class="alert alert-warning">Your information is being reviewed by us and we will verify you as soon as possible, this might take hours or maybe few days.</div>
+                                    <div class="alert alert-warning">Your information is being reviewed by us and we will
+                                        verify you as soon as possible, this might take hours or maybe few days.</div>
                                 @endif
                                 <form method="POST" action="{{ route('doctor.info.update') }}"
                                     enctype="multipart/form-data">
@@ -87,8 +90,10 @@
                                                 @endforeach
                                             @endisset
                                         </select>
-                                        @if(Auth::guard('doc')->user()->status == 1)
-                                        <small class="text-secondary"> *Be Careful, making any changes to your specialist will make yor account in waiting status until we review it and accept it again.</small>
+                                        @if (Auth::guard('doc')->user()->status == 1)
+                                            <small class="text-secondary"> *Be Careful, making any changes to your
+                                                specialist will make your account in waiting status until we review it and
+                                                accept it again.</small>
                                         @endif
                                     </div>
                                     @error('department_id')
@@ -99,14 +104,33 @@
                                     <div class="form-group">
                                         <label>License</label>
                                         <input class="form-control" type="file" id="license" name="license">
-                                        @if(Auth::guard('doc')->user()->status == 1)
-                                        <small class="text-secondary"> *Be Careful, making any changes to your license will make yor account in waiting status until we review it and accept it again.</small>
+                                        @if (Auth::guard('doc')->user()->status == 1)
+                                            <small class="text-secondary"> *Be Careful, making any changes to your license
+                                                will make your account in waiting status until we review it and accept it
+                                                again.</small>
                                         @endif
                                     </div>
                                     @isset($info)
-                                        <div class="text-center">
-                                            <img src="{{ $info->license }}" class="rounded" style="width:50%" alt="License">
-                                        </div>
+                                        <!-- Cards -->
+                                        <section class="comp-section comp-cards">
+                                            <div class="section-header">
+                                                <h3 class="section-title">Doctor License</h3>
+                                                <div class="line"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-8 mx-auto text-center">
+                                                    <div class="card ">
+                                                        <img alt="Card Image" src="{{ $info->license }}"
+                                                            class="card-img-top">
+                                                        <div class="card-body">
+                                                            <a class="btn btn-primary" href="{{ $info->license }}"
+                                                                target="_blank">Preview</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <!-- /Cards -->
                                     @endisset
                                     @error('license')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -118,47 +142,64 @@
                                         <input class="form-control" type="file" id="photo" name="photo">
                                     </div>
                                     @isset($info)
-                                        <div class="text-center">
-                                            <img src="{{ $info->photo }}" class="rounded" style="width:50%"
-                                                alt="Personal Photo">
-                                        </div>
-                                    @endisset
-                                    @error('photo')
+                                        <!-- Cards -->
+                                        <section class="comp-section comp-cards">
+                                            <div class="section-header">
+                                                <h3 class="section-title">Doctor Personal Photo</h3>
+                                                <div class="line"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-8 mx-auto text-center">
+                                                    <div class="card ">
+                                                        <img alt="Card Image" src="{{ $info->photo }}"
+                                                            class="card-img-top">
+                                                        <div class="card-body">
+                                                            <a class="btn btn-primary" href="{{ $info->photo }}"
+                                                                target="_blank">Preview</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <!-- /Cards -->
+                                    </div>
+                                @endisset
+                                @error('photo')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>About (Arabic)</label>
+                                    <textarea class="form-control" name='about_ar'
+                                        rows="4">@isset($info){{ $info->about['about_ar'] }}@endisset {{ old('about_ar') }}</textarea>
+                                    </div>
+                                    @error('about_ar')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>About (Arabic)</label>
-                                        <textarea class="form-control" name='about_ar'
-                                            rows="4">@isset($info){{ $info->about['about_ar'] }}@endisset {{ old('about_ar') }}</textarea>
+                                        <label>About (English)</label>
+                                        <textarea class="form-control" name='about_en'
+                                            rows="4">@isset($info){{ $info->about['about_en'] }}@endisset {{ old('about_en') }}</textarea>
                                         </div>
-                                        @error('about_ar')
+                                        @error('about_en')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>About (English)</label>
-                                            <textarea class="form-control" name='about_en'
-                                                rows="4">@isset($info){{ $info->about['about_en'] }}@endisset {{ old('about_en') }}</textarea>
-                                            </div>
-                                            @error('about_en')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="submit-section">
-                                            <button type="submit" class="btn btn-primary submit-btn">Save</button>
-                                        </div>
-                                        </form>
-                                        <!-- /Info Settings Form -->
+                                    <div class="submit-section">
+                                        <button type="submit" class="btn btn-primary submit-btn">Save</button>
                                     </div>
+                                    </form>
+                                    <!-- /Info Settings Form -->
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <!-- /Page Content -->
 
-            @endsection
+            </div>
+            <!-- /Page Content -->
+
+        @endsection
