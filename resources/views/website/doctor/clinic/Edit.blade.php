@@ -88,9 +88,11 @@
                                             <div class="section-header">
                                                 <h3 class="section-title">Clinic Photos</h3>
                                                 <div class="line mb-2"></div>
-                                                @if(Session()->has('successDelete'))
-                                                <div class="alert alert-success"> {{Session()->get('successDelete')}} </div>
-                                              @endif
+                                                @if (Session()->has('successDelete'))
+                                                    <div class="alert alert-success">
+                                                        {{ Session()->get('successDelete') }}
+                                                    </div>
+                                                @endif
                                             </div>
                                             <div class="row">
                                                 @if (isset($clinic->clinicphotos[1]))
@@ -104,13 +106,8 @@
                                                                 <a class="btn btn-primary d-block mb-2"
                                                                     href="{{ $clinicphoto->photo }}"
                                                                     target="_blank">Preview</a>
-                                                                    <form class="d-inline" method="POST" action="{{ route('clinic.destroyphoto') }}">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <input type="text" name="id" hidden value="{{ $clinicphoto->id }}">
-                                                                        <input type="text" name="clinic_id" hidden value="{{ $clinic->id }}">
-                                                                        <button class="btn btn-danger">Delete</button>
-                                                                    </form>
+                                                                <a class="btn btn-danger"
+                                                                    href="{{ route('clinic.destroyphoto', ['id' => $clinicphoto->id]) }}">Delete</a>
                                                             </div>
                                                         </div>
                                                     @endforeach

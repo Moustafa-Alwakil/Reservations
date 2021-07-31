@@ -76,6 +76,8 @@
                                             -
                                             {{ $clinic->address->region->city->name['name_' . LaravelLocalization::getCurrentLocale()] }}
                                         </h5>
+                                        <a href="{{ route('clinics.show', ['clinic' => $clinic->id]) }}"
+                                            class="btn btn-primary">Dashboard</a>
                                         <a href="{{ route('clinics.edit', ['clinic' => $clinic->id]) }}"
                                             class="btn btn-warning">Edit</a>
                                         <form class="d-inline" method="POST"

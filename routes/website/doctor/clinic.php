@@ -15,7 +15,7 @@ Route::group([
     Route::group(['prefix' => 'doctor', 'middleware' => ['auth:doc', 'doc.verified', 'doc.accepted'], 'namespace' => 'Clinic'], function () {
         Route::resource('clinics', 'ClinicController');
         Route::get('clinics/create/getregions/{id}', 'ClinicController@getRegions');
-        Route::delete('clinics/edit/photo/destroy', 'ClinicController@destroyClinicPhoto')->name('clinic.destroyphoto');
-        Route::get('clinics/'.session()->pull('clinic_id').'/edit/getregions/{id}', 'ClinicController@getRegions')->name('clinic.regions');
+        Route::get('clinics/edit/photo/destroy/{id}', 'ClinicController@destroyClinicPhoto')->name('clinic.destroyphoto');
+        Route::get('clinics/'. session()->pull('clinic_id').'/edit/getregions/{id}', 'ClinicController@getRegions');
     });
 });

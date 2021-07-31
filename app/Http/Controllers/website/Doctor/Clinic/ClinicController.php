@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Website\Doctor\Clinic;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Website\Doctor\Clinic\destroyClinicPhotoRequest;
-use App\Http\Requests\Website\Doctor\Clinic\EditClinicRequest;
 use App\Http\Requests\Website\Doctor\Clinic\StoreClinicRequest;
 use App\Http\Requests\Website\Doctor\Clinic\UpdateClinicRequest;
 use App\Models\Address;
@@ -17,7 +15,6 @@ use App\Models\Region;
 use App\Models\Service;
 use App\Models\Workday;
 use App\Traits\uploadTrait;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -149,7 +146,8 @@ class ClinicController extends Controller
      */
     public function show($id)
     {
-        //
+        $workday = Workday::select()->where('clinic_id',$id)->first();
+        return view('website.doctor.clinic.dashboard',compact('workday'));
     }
 
     /**
@@ -261,7 +259,7 @@ class ClinicController extends Controller
             return redirect()->back()->with('error', 'Something went wrong, please try again.');
 
 
-        return redirect()->back()->with('success', 'The clinic has been updated successfully.');
+        return redirect()->route('clinics.index')->with('success', 'The clinic has been updated successfully.');
     }
 
     /**
@@ -301,9 +299,9 @@ class ClinicController extends Controller
         return redirect()->route('clinics.index')->with('success', 'The clinic has been deleted successfully.');
     }
 
-    public function destroyClinicPhoto(destroyClinicPhotoRequest $request)
+    public function destroyClinicPhoto($id)
     {
-        $clinicPhoto = Clinicphoto::select()->where('id', $request->id)->where('clinic_id', $request->clinic_id)->first();
+        $clinicPhoto = Clinicphoto::select()->where('id', $id)->where('clinic_id', session()->pull('clinic_id'))->first();
 
         if (!$clinicPhoto)
             return redirect()->back()->with('error', 'Something went wrong, please try again.');

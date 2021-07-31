@@ -346,7 +346,7 @@ table.table td h2 span {
 }
 .bg-primary,
 .badge-primary {
-	background-color: #007bff !important;
+	background-color: #09e5ab !important;
 }
 a.bg-primary:focus, 
 a.bg-primary:hover, 
@@ -403,7 +403,7 @@ button.bg-danger:hover {
 }
 .text-primary,
 .dropdown-menu > li > a.text-primary {
-	color: #007bff !important;
+	color: #09e5ab !important;
 }
 .text-success,
 .dropdown-menu > li > a.text-success {
@@ -429,8 +429,8 @@ button.bg-danger:hover {
     color: #757575 !important;
 }
 .btn-primary {
-	background-color: #007bff;
-	border: 1px solid #007bff;
+	background-color: #09e5ab;
+	border: 1px solid #09e5ab;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -465,8 +465,8 @@ button.bg-danger:hover {
 	box-shadow: unset;
 }
 .btn-primary.disabled, .btn-primary:disabled {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #09e5ab;
+    border-color: #09e5ab;
     color: #fff;
 }
 .btn-secondary.active:focus:not(:disabled):not(.disabled), 
@@ -650,12 +650,12 @@ button.bg-danger:hover {
     box-shadow: unset;
 }
 .btn-outline-primary {
-	color: #007bff;
-	border-color: #007bff;
+	color: #09e5ab;
+	border-color: #09e5ab;
 }
 .btn-outline-primary:hover {
-	background-color: #007bff;
-	border-color: #007bff;
+	background-color: #09e5ab;
+	border-color: #09e5ab;
 }
 .btn-outline-primary:focus, 
 .btn-outline-primary.focus {
@@ -663,14 +663,14 @@ button.bg-danger:hover {
 }
 .btn-outline-primary.disabled, 
 .btn-outline-primary:disabled {
-	color: #007bff;
+	color: #09e5ab;
 	background-color: transparent;
 }
 .btn-outline-primary:not(:disabled):not(.disabled):active, 
 .btn-outline-primary:not(:disabled):not(.disabled).active,
 .show > .btn-outline-primary.dropdown-toggle {
-	background-color: #007bff;
-	border-color: #007bff;
+	background-color: #09e5ab;
+	border-color: #09e5ab;
 }
 .btn-outline-primary:not(:disabled):not(.disabled):active:focus, 
 .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
@@ -920,15 +920,15 @@ button.bg-danger:hover {
 	margin-bottom: 1.25rem;
 }
 .slider-btn{
-    background: #007bff;
+    background: #09e5ab;
     color: #fff;
-    border: 1px solid #007bff; 
+    border: 1px solid #09e5ab; 
     padding: 8px 16px !important;
 	transition: .5s;
 }
 .slider-btn:hover{
     background: #fff;
-    color: #007bff;
+    color: #09e5ab;
     border: 1px solid #fff; 
     padding: 8px 16px !important; 
 }
@@ -1858,7 +1858,7 @@ button.bg-danger:hover {
 	display: inline-block;
 }
 .header-contact-img i {
-	color: #007bff;
+	color: #09e5ab;
 	font-size: 30px;
 }
 .header-contact-detail {
@@ -1866,7 +1866,7 @@ button.bg-danger:hover {
 	padding-left: 10px;
 }
 .header-contact-detail p.contact-header {
-	color: #007bff;
+	color: #09e5ab;
 	font-size: 13px;
 	font-weight: 400;
 	margin-bottom: 2px;
@@ -1930,8 +1930,8 @@ button.bg-danger:hover {
 	border-radius: 0 0 5px 5px;
 }
 .header-navbar-rht li a.header-login:hover {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #09e5ab;
+    border-color: #09e5ab;
     color: #fff;
 }
 .header-navbar-rht li .dropdown-menu a:hover {
@@ -1941,12 +1941,12 @@ button.bg-danger:hover {
 	background-color: #fff;
 }
 .header-navbar-rht li a.header-login {
-    border: 2px solid #007bff;
+    border: 2px solid #09e5ab;
     border-radius: 4px;
     padding: 10px 15px !important;
     text-align: center;
     font-size: 15px;
-    color: #007bff;
+    color: #09e5ab;
     text-transform: uppercase;
     font-weight: 500;
 }
@@ -2065,7 +2065,7 @@ button.bg-danger:hover {
     font-size: 20px;
 }
 .unread-msg1{
-	background-color: #007bff;
+	background-color: #09e5ab;
     border-radius: 2px;
     color: #272b41;
     font-size: 10px;
@@ -2080,7 +2080,7 @@ button.bg-danger:hover {
 
 .header-top {
 	display: flex;
-	background: #007bff;
+	background: #09e5ab;
 	color: #fff;
 	padding: 8px 30px;
 }
@@ -2104,7 +2104,7 @@ button.bg-danger:hover {
 	margin-right: 5px;
 }
 .search-box-1{
-	background: #007bff;
+	background: #09e5ab;
     padding: 40px 20px;
     border-radius: 10px; 
 	margin-top: -50px;
@@ -2263,7 +2263,7 @@ html.menu-opened body {
 	font-size: 15px;
 }
 .footer .footer-bottom .copyright-text p a {
-	color: #007bff;
+	color: #09e5ab;
 	-webkit-transition: all 0.4s ease 0s;
 	-o-transition: all 0.4s ease 0s;
 	transition: all 0.4s ease 0s;
@@ -2298,7 +2298,7 @@ html.menu-opened body {
 	transition: all 0.4s ease 0s;
 }
 .footer .social-icon ul li a:hover {
-	color: #007bff;
+	color: #09e5ab;
 }
 .policy-menu {
     font-size: 14px;
@@ -2317,7 +2317,7 @@ html.menu-opened body {
     color: #fff;
 }
 .policy-menu li a:hover, .policy-menu li a:focus {
-	color: #007bff;
+	color: #09e5ab;
 }
 .policy-menu li::after {
 	color: #fff;
@@ -2617,7 +2617,7 @@ html.menu-opened body {
     flex: 0 0 46px;
     height: 46px;
     background: #fff;
-    color: #007bff;
+    color: #09e5ab;
 }
 .search-box-3{
     background: #1e5c92;
@@ -3258,7 +3258,7 @@ html.menu-opened body {
 	cursor: pointer;
 }
 .category-image{
-	background: #007bff;
+	background: #09e5ab;
     height: 60px;
     margin: auto;
     width: 60px;
@@ -3510,7 +3510,7 @@ html.menu-opened body {
 	color: #2E3842;
 }
 .doc-location a {
-    color: #007bff;
+    color: #09e5ab;
     font-weight: 500;
 }
 .doctor-widget .doc-name {
@@ -3648,7 +3648,7 @@ html.menu-opened body {
 	margin-bottom: 25px;
 }
 .clinic-direction a {
-    color: #007bff;
+    color: #09e5ab;
     font-weight: 500;
 }
 .doctor-action {
@@ -3668,13 +3668,13 @@ html.menu-opened body {
 	color: #fff;
 }
 .msg-btn:hover, .msg-btn:focus {
-	background-color: #007bff;
-	border-color: #007bff;
+	background-color: #09e5ab;
+	border-color: #09e5ab;
 	color: #fff;
 }
 .call-btn:hover, .call-btn:focus {
-	background-color: #007bff;
-	border-color: #007bff;
+	background-color: #09e5ab;
+	border-color: #09e5ab;
 	color: #fff;
 }
 .user-tabs .nav-tabs > li > a {
@@ -4368,7 +4368,7 @@ html.menu-opened body {
     color: #fff;
     width: 60px;
     height: 60px;
-    border: 2px solid #007bff;
+    border: 2px solid #09e5ab;
     border-radius: 50%;
 	display: -webkit-inline-box;
 	display: -ms-inline-flexbox;
@@ -4378,7 +4378,7 @@ html.menu-opened body {
 	-ms-flex-pack: center;
     font-size: 30px;
     margin-bottom: 30px;
-    background-color: #007bff;
+    background-color: #09e5ab;
 }
 .success-cont h3 {
     font-size: 24px;
@@ -5722,7 +5722,7 @@ html.menu-opened body {
     width: 16px;
 }
 .unread-msg {
-    background-color: #007bff;
+    background-color: #09e5ab;
     border-radius: 2px;
     color: #272b41;
     font-size: 10px;
