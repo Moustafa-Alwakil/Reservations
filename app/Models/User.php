@@ -50,13 +50,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Appointment::class,'user_id','id');
     }
-    public function physicans()
+    public function reviews()
     {
         return $this->belongsToMany(Physican::class,'reviews','user_id','physican_id','id','id')->as('reviews');
     }
     // End Elqouent Relations
     
-    // Define Accesors To Translate The Values Meaning
+    // Define Accesors 
     public function getGenderAttribute($value)
     {
         if($value=='m'){
