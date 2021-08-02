@@ -10,7 +10,7 @@
     <title>@yield('title')</title>
 
     <!-- Favicons -->
-    <link type="image/x-icon" href={{ url('website/website/assets/img/favicon.png') }} rel="icon">
+    <link type="image/x-icon" href={{ url('website/assets/img/favicon.png') }} rel="icon">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href={{ url('website/assets/css/bootstrap.min.css') }}>
@@ -21,6 +21,7 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href={{ url('website/assets/css/style.css') }}>
+    @yield('stylesheets')
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -62,6 +63,9 @@
                     <ul class="main-nav">
                         <li class="has-submenu @if (Request::url()==route('index')) {{ 'active' }} @endif">
                             <a href="{{ route('index') }}">{{ __('index.home') }}<i class="fas"></i></a>
+                        </li>
+                        <li class="has-submenu @if (Request::url()==route('all.clinics')) {{ 'active' }} @endif">
+                            <a href="{{ route('all.clinics') }}">Clinics<i class="fas"></i></a>
                         </li>
                         <li class="has-submenu">
                             <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
@@ -273,6 +277,7 @@
         @yield('bar')
         <!-- /Header -->
         @yield('content')
+        @yield('paginator')
         <!-- Footer -->
         @if (!(Request::url() == route('user.verification.notice') || Request::url() == route('doctor.verification.notice')))
             <footer class="footer">
@@ -427,6 +432,10 @@
 
     <!-- Slick JS -->
     <script src={{ url('website/assets/js/slick.js') }}></script>
+
+    <!-- Sticky Sidebar JS -->
+	<script src="{{url('website/assets/plugins/theia-sticky-sidebar/ResizeSensor.js')}}"></script>
+	<script src="{{url('website/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js')}}"></script>
 
     <!-- Custom JS -->
     <script src={{ url('website/assets/js/script.js') }}></script>

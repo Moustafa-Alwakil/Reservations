@@ -10,11 +10,9 @@ Route::group([
     'namespace' => 'App\Http\Controllers\Website'
 ], function () {
     Route::get('/', 'IndexController@index')->name('index');
+    Route::get('/clinics', 'IndexController@allClinics')->name('all.clinics');
+    Route::get('/clinic/{id}', 'IndexController@clinic')->name('clinic');
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/user/auth.php';
 require __DIR__ . '/doctor/auth.php';

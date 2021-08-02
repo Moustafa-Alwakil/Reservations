@@ -66,7 +66,7 @@ class Physican extends Authenticatable
     {
         return $this->belongsTo(Department::class, 'department_id', 'id');
     }
-    public function users()
+    public function reviews()
     {
         return $this->belongsToMany(User::class, 'reviews', 'physican_id', 'user_id', 'id', 'id')->as('reviews');
     }

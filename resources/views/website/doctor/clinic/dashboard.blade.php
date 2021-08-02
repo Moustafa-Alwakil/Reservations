@@ -6,6 +6,8 @@
     @endphp
     {{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . '']) }}
     - Clinic Dashboard
+@endsection
+@section('stylesheets')
     <link rel="stylesheet" href="{{ url('assets/css/style1.css') }}">
     <link rel="stylesheet" href="{{ url('website/assets/css/feathericon.min.css') }}">
     <link rel="stylesheet" href="{{ url('website/assets/plugins/datatables/datatables.min.css') }}">
@@ -777,16 +779,7 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="card">
-                                                <div class="card-header">
-                                                    <h4 class="card-title">Default Datatable</h4>
-                                                    <p class="card-text">
-                                                        This is the most basic example of the datatables with zero
-                                                        configuration. Use the
-                                                        <code>.datatable</code> class to initialize datatables.
-                                                    </p>
-                                                </div>
                                                 <div class="card-body">
-
                                                     <div class="table-responsive">
                                                         <table class="datatable table table-stripped">
                                                             <thead>
@@ -798,56 +791,62 @@
                                                                     <th>Exception</th>
                                                                 </tr>
                                                             </thead>
-                                                            <form>
-                                                                <tbody>
-                                                                    <?php
-                                                                    $begin_date = new DateTime(date('Y-m-d'));
-                                                                    $end = new DateTime(date('Y-m-d'));
+                                                            <tbody>
+                                                                <?php
+                                                                    function checkTime($start_time,$day)
+                                                                    {
+                                                                        $y = $start_time->modify('+' . $day);
+                                                                        $x = $y->format('Y-m-d H:i');
+                                                                        if ( $x >= date('Y-m-d H:i')) {
+                                                                            checkTime($x,$day);
+                                                                            }
+                                                                            return $x;
+                                                                    }
+                                                                    $begin_date = new DateTime(date('Y-m-d H:i'));
+                                                                    $end = new DateTime(date('Y-m-d')); 
                                                                     $end_date = $end->modify('+6 month');
                                                                     for ($i = $begin_date; $i <= $end_date; $i->modify('+1 day')) {
                                                                         $day = $i->format('Y-m-d');
-                                                                        if ($workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_status'] == 1) {
-                                                                            $start_time = new DateTime(date($day . ' ' . $workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_start_time']));
-                                                                            $end_time = new DateTime(date($day . ' ' . $workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_end_time']));
-                                                                            for ($x = $start_time; $x <= $end_time; $x->modify('+' . $workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_duration'] . ' minute')) {
+                                                                        if ($clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_status'] == 1) {
+                                                                            $start_time = new DateTime(date($day . ' ' . $clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_start_time']));
+                                                                            $end_time = new DateTime(date($day . ' ' . $clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_end_time']));
+                                                                            for($start_time;$start_time->format('Y-m-d H:i')<=date('Y-m-d H:i');$start_time->modify('+' . $clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_duration'] . ' minute')){
+                                                                            }
+                                                                            for ($x = $start_time; $x <= $end_time; $x->modify('+' . $clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_duration'] . ' minute')) {
                                                                                 ?>
-                                                                    <tr>
-                                                                        <td>{{ $x->format('Y-m-d') }}</td>
-                                                                        <td>{{ lcfirst(date('l', strtotime($x->format('Y-m-d')))) }}
-                                                                        </td>
-                                                                        <td>{{ $x->format('H:i') }}</td>
-                                                                        <td>{{ date('H:i', strtotime('+' . $workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_duration'] . ' minute', strtotime($x->format('H:i')))) }}
-                                                                        </td>
-                                                                        <td>
-                                                                            <input type="checkbox" name="date[]"
-                                                                                value="{{ $x->format('Y-m-d') }}">
-                                                                            <input type="hidden"
-                                                                                value="{{ $x->format('H:i') }}"
-                                                                                name="start_time[]">
-                                                                            <input type="hidden"
-                                                                                value="{{ date('H:i', strtotime('+' . $workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_duration'] . ' minute', strtotime($x->format('H:i')))) }}"
-                                                                                name="end_time[]">
-                                                                        </td>
-                                                                    </tr>
-                                                                    <?php
+                                                                <tr>
+                                                                    <td>{{ $x->format('Y-m-d') }}</td>
+                                                                    <td>{{ date('l', strtotime($x->format('Y-m-d'))) }}
+                                                                    </td>
+                                                                    <td>{{ $x->format('h:i A') }}</td>
+                                                                    <td>{{ date('h:i A', strtotime('+' . $clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_duration'] . ' minute', strtotime($x->format('H:i')))) }}
+                                                                    </td>
+                                                                    <td>
+                                                                        <span
+                                                                            class="busy-span{{ $x->format('H:i') }}{{ $x->format('Y-m-d') }}"><span
+                                                                                class="busy{{ $x->format('H:i') }}{{ $x->format('Y-m-d') }}"><a
+                                                                                    href=""
+                                                                                    class="busy-btn btn btn-outline-danger btn-rounded"
+                                                                                    date="{{ $x->format('Y-m-d') }}"
+                                                                                    start_time="{{ $x->format('H:i') }}"
+                                                                                    end_time="{{ date('H:i ', strtotime('+' . $clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_duration'] . ' minute', strtotime($x->format('H:i')))) }}"><i
+                                                                                        class="far fa-bell-slash"></i>
+                                                                                    Busy</a></span></span>
+                                                                    </td>
+                                                                </tr>
+                                                                <?php
                                                                             }
                                                                         }
                                                                     }
                                                                 ?>
-                                                                </tbody>
+                                                            </tbody>
 
                                                         </table>
-                                                        <br>
-                                                        <div class="submit-section submit-btn-bottom">
-                                                            <button type="submit" class="btn btn-primary submit-btn">Save
-                                                                Changes</button>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    </form>
                                 </div>
                                 <!-- /Schedule Exceptions Tab -->
 
@@ -866,4 +865,40 @@
         <script src="{{ url('website/assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
         <script src="{{ url('website/assets/plugins/datatables/datatables.min.js') }}"></script>
         <script src="{{ url('website/assets/js/script1.js') }}"></script>
+
+        <!-- Circle Progress JS -->
+        <script src="{{ url('website/assets/js/circle-progress.min.js') }}"></script>
+
+        <script type='text/javascript'>
+            $(document).ready(function() {
+                $(document).on('click', '.busy-btn', function(e) {
+                        e.preventDefault();
+                        var date = $(this).attr('date');
+                        var start_time = $(this).attr('start_time');
+                        var end_time = $(this).attr('end_time');
+                        $.ajax({
+                                type: 'post',
+                                url: "{{ route('exception.store') }}",
+                                data: {
+                                    '_token': "{{ csrf_token() }}",
+                                    'date': date,
+                                    'start_time': start_time,
+                                    'end_time': end_time,
+                                },
+                                success: function(data) {
+                                    var button = "<span class='busy" + data.start_time data.date +
+                                        "'><a href='' class = 'busy-btn btn btn-danger btn-rounded' date = '" +
+                                        data.date + "' start_time = '" + data.start_time +
+                                        "' end_time = '" + data.end_time +
+                                        "' > < iclass = 'far fa-bell-slash' > < /i>Busy < /a></span > ";
+
+                                    $('.busy' + data.start_time data.date).remove();
+                                    $('.busy-span' + data.start_time data.date).append(button);
+                                },
+                                error: function(reject) {},
+                            }
+                        });
+                });
+            });
+        </script>
     @endsection

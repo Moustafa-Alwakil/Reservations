@@ -146,8 +146,8 @@ class ClinicController extends Controller
      */
     public function show($id)
     {
-        $workday = Workday::select()->where('clinic_id',$id)->first();
-        return view('website.doctor.clinic.dashboard',compact('workday'));
+        $clinic = Clinic::select('id')->where(['id'=>$id , 'physican_id'=> Auth::guard('doc')->user()->id])->with(['appointments','exceptions','workday'])->first();
+        return view('website.doctor.clinic.dashboard',compact('clinic'));
     }
 
     /**

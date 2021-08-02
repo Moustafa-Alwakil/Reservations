@@ -4,7 +4,6 @@ namespace App\Http\Requests\Website\User\Profile;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules;
 use Illuminate\Validation\Rule;
 
 class UpdateProfileRequest extends FormRequest

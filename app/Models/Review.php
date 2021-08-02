@@ -9,11 +9,10 @@ class Review extends Pivot
     protected $table = 'reviews';
     protected $primaryKey = 'id';
     protected $fillable = [
-       'comment','value','physican_id','user_id','created_at','updated_at'
+       'comment','title','value','physican_id','user_id','created_at','updated_at'
     ];
 
     protected $hidden = [
-        'created_at',
         'updated_at',
     ];
     
