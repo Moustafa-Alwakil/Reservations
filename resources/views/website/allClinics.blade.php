@@ -55,7 +55,7 @@
                                 <h4>Gender</h4>
                                 <div>
                                     <label class="custom_check">
-                                        <input type="checkbox" name="gender_type" checked>
+                                        <input type="checkbox" name="gender_type">
                                         <span class="checkmark"></span> Male Doctor
                                     </label>
                                 </div>
@@ -86,37 +86,47 @@
                     <!-- /Search Filter -->
 
                 </div>
-
                 <div class="col-md-12 col-lg-8 col-xl-9">
                     @foreach ($clinics as $clinic)
+                        @php
+                            $totalReview = 0;
+                            foreach ($clinic->physican->reviews as $review) {
+                                $totalReview += $review->value;
+                            }
+                            
+                            $avgRate = round(($totalReview * 5) / ($clinic->physican->reviews_count * 5));
+                        @endphp
                         <!-- Clinic Widget -->
                         <div class="card">
                             <div class="card-body">
                                 <div class="doctor-widget">
                                     <div class="doc-info-left">
                                         <div class="doctor-img">
-                                            <a href="{{route('clinic',['id'=>$clinic->id])}}">
+                                            <a href="{{ route('clinic', ['id' => $clinic->id]) }}">
                                                 <img src="{{ $clinic->physican->info->photo }}" class="img-fluid"
                                                     alt="Doctor Image">
                                             </a>
                                         </div>
                                         <div class="doc-info-cont">
                                             <h4 class="doc-name"><a
-                                                    href="{{route('clinic',['id'=>$clinic->id])}}">{{ ucwords($clinic->name['name_' . LaravelLocalization::getCurrentLocale()]) }}</a>
+                                                    href="{{ route('clinic', ['id' => $clinic->id]) }}">{{ ucwords($clinic->name['name_' . LaravelLocalization::getCurrentLocale()]) }}</a>
                                             </h4>
                                             <p class="doc-speciality">
-                                                Dr. {{ ucwords($clinic->physican->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $clinic->physican->name['lname_' . LaravelLocalization::getCurrentLocale()]) }}
+                                                Dr.
+                                                {{ ucwords($clinic->physican->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $clinic->physican->name['lname_' . LaravelLocalization::getCurrentLocale()]) }}
                                             </p>
                                             <h5 class="doc-department">
                                                 {{ ucwords($clinic->physican->department->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
                                             </h5>
                                             <div class="rating">
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star"></i>
-                                                <span class="d-inline-block average-rating">(17)</span>
+                                                @for ($i = 0; $i < $avgRate; $i++)
+                                                    <i class="fas fa-star filled"></i>
+                                                @endfor
+                                                @for ($i = 0; $i < 5 - $avgRate; $i++)
+                                                    <i class="fas fa-star"></i>
+                                                @endfor
+                                                <span
+                                                    class="d-inline-block average-rating">({{ $clinic->physican->reviews_count }})</span>
                                             </div>
                                             <div class="clinic-details">
                                                 <p class="doc-location"><i class="fas fa-map-marker-alt"></i>
@@ -126,8 +136,7 @@
                                                 <ul class="clinic-gallery">
                                                     @foreach ($clinic->clinicphotos as $clinicphoto)
                                                         <li>
-                                                            <a href="{{$clinicphoto->photo}}"
-                                                                data-fancybox="gallery">
+                                                            <a href="{{ $clinicphoto->photo }}" data-fancybox="gallery">
                                                                 <img src="{{ $clinicphoto->photo }}" alt="Feature">
                                                             </a>
                                                         </li>
@@ -144,18 +153,24 @@
                                     <div class="doc-info-right">
                                         <div class="clini-infos">
                                             <ul>
-                                                <li><i class="far fa-thumbs-up"></i> 98%</li>
-                                                <li><i class="far fa-comment"></i> 17 Feedback</li>
+                                                <li><i class="far fa-thumbs-up"></i>
+                                                    {{ round(($totalReview / ($clinic->physican->reviews_count * 5)) * 100) }}%
+                                                </li>
+                                                <li><i class="far fa-comment"></i> {{ $clinic->physican->reviews_count }}
+                                                    Feedback</li>
                                                 <li><i
                                                         class="fas fa-map-marker-alt"></i>{{ ucwords($clinic->address->region->name['name_' . LaravelLocalization::getCurrentLocale()]) }},
                                                     {{ ucwords($clinic->address->region->city->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
                                                 </li>
-                                                <li><i class="far fa-money-bill-alt"></i> {{ $clinic->examfee->price }} EGP
+                                                <li><i class="far fa-money-bill-alt"></i> {{ $clinic->examfee->price }}
+                                                    EGP
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="clinic-booking">
-                                            <a class="view-pro-btn" href="{{route('clinic',['id'=>$clinic->id])}}">View Profile</a>
+                                            <a class="view-pro-btn"
+                                                href="{{ route('clinic', ['id' => $clinic->id]) }}">View
+                                                Profile</a>
                                             <a class="apt-btn" href="booking.html">Book Appointment</a>
                                         </div>
                                     </div>
@@ -166,9 +181,10 @@
                     @endforeach
                 </div>
             </div>
-
         </div>
-
+    </div>
+    <div class="d-flex justify-content-center">
+        {!! $clinics->links() !!}
     </div>
     <!-- /Page Content -->
 @endsection

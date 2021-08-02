@@ -17,6 +17,14 @@
         <div class="container">
 
             <!-- Doctor Widget -->
+            @php
+                $totalReview = 0;
+                foreach ($clinic->physican->reviews as $review) {
+                    $totalReview += $review->value;
+                }
+                
+                $avgRate = round(($totalReview * 5) / ($clinic->physican->reviews_count * 5));
+            @endphp
             <div class="card">
                 <div class="card-body">
                     <div class="doctor-widget">
@@ -34,12 +42,14 @@
                                     {{ ucwords($clinic->physican->department->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
                                 </p>
                                 <div class="rating">
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span class="d-inline-block average-rating">(35)</span>
+                                    @for ($i = 0; $i < $avgRate; $i++)
+                                        <i class="fas fa-star filled"></i>
+                                    @endfor
+                                    @for ($i = 0; $i < 5 - $avgRate; $i++)
+                                        <i class="fas fa-star"></i>
+                                    @endfor
+                                    <span
+                                        class="d-inline-block average-rating">({{ $clinic->physican->reviews_count }})</span>
                                 </div>
                                 <div class="clinic-details">
                                     <p class="doc-location"><i class="fas fa-map-marker-alt"></i>
@@ -66,8 +76,10 @@
                         <div class="doc-info-right">
                             <div class="clini-infos">
                                 <ul>
-                                    <li><i class="far fa-thumbs-up"></i> 99%</li>
-                                    <li><i class="far fa-comment"></i> 35 Feedback</li>
+                                    <li><i class="far fa-thumbs-up"></i>
+                                        {{ round(($totalReview / ($clinic->physican->reviews_count * 5)) * 100) }}%</li>
+                                    <li><i class="far fa-comment"></i> {{ $clinic->physican->reviews_count }} Feedback
+                                    </li>
                                     <li><i
                                             class="fas fa-map-marker-alt"></i>{{ ucwords($clinic->address->region->name['name_' . LaravelLocalization::getCurrentLocale()]) }},
                                         {{ ucwords($clinic->address->region->city->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
@@ -205,7 +217,8 @@
                                                     <div class="meta-data">
                                                         <span
                                                             class="comment-author">{{ $review->name['fname'] . ' ' . $review->name['lname'] }}</span>
-                                                        <span class="comment-date">{{ date_format(date_create($review->created_at), 'j M Y h:i A') }}</span>
+                                                        <span
+                                                            class="comment-date">{{ date_format(date_create($review->created_at), 'j M Y h:i A') }}</span>
                                                     </div>
                                                     <p class="recommended">{{ $review->title }}</p>
                                                     <p class="comment-content">
@@ -218,6 +231,17 @@
                                                         @for ($i = 0; $i < 5 - $review->value; $i++)
                                                             <i class="fas fa-star"></i>
                                                         @endfor
+                                                        @if ($review->user_id == Auth::guard('web')->user()->id)
+                                                            <br><br>
+                                                            <form method="POST" action="{{ route('review.destroy') }}">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <input type="hidden" name="user_id"
+                                                                    value="{{ $review->user_id }}">
+                                                                <input type="hidden" name="id" value="{{ $review->id }}">
+                                                                <button class="btn btn-sm btn-danger">Delete</button>
+                                                            </form>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -239,7 +263,7 @@
                                     <!-- Write Review Form -->
                                     <form method="POST" action="{{ route('review.store') }}">
                                         @csrf
-                                        <input type="text" name="physican_id" hidden value="{{$clinic->physican->id}}">
+                                        <input type="text" name="physican_id" hidden value="{{ $clinic->physican->id }}">
                                         <div class="form-group">
                                             <label>Review</label>
                                             <div class="star-rating">
@@ -272,7 +296,7 @@
                                             <label>Title of your review</label>
                                             <input class="form-control" type="text"
                                                 placeholder="If you could say it in one sentence, what would you say?"
-                                                name="title" value="{{old('title')}}">
+                                                name="title" value="{{ old('title') }}">
                                         </div>
                                         @error('title')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -280,7 +304,7 @@
                                         <div class="form-group">
                                             <label>Your review</label>
                                             <textarea id="review_desc" maxlength="100" class="form-control"
-                                                name="comment">{{old('comment')}}</textarea>
+                                                name="comment">{{ old('comment') }}</textarea>
 
                                             <div class="d-flex justify-content-between mt-3"><small class="text-muted"><span
                                                         id="chars">100</span> characters
@@ -299,8 +323,8 @@
                                                 </div>
                                             </div>
                                             @error('accept')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="submit-section">
                                             <button type="submit" class="btn btn-primary submit-btn">Add Review</button>
@@ -339,42 +363,7 @@
                                                         <span class="time">07:00 AM - 09:00 PM</span>
                                                     </div>
                                                 </div>
-                                                <div class="listing-day">
-                                                    <div class="day">Monday</div>
-                                                    <div class="time-items">
-                                                        <span class="time">07:00 AM - 09:00 PM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="listing-day">
-                                                    <div class="day">Tuesday</div>
-                                                    <div class="time-items">
-                                                        <span class="time">07:00 AM - 09:00 PM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="listing-day">
-                                                    <div class="day">Wednesday</div>
-                                                    <div class="time-items">
-                                                        <span class="time">07:00 AM - 09:00 PM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="listing-day">
-                                                    <div class="day">Thursday</div>
-                                                    <div class="time-items">
-                                                        <span class="time">07:00 AM - 09:00 PM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="listing-day">
-                                                    <div class="day">Friday</div>
-                                                    <div class="time-items">
-                                                        <span class="time">07:00 AM - 09:00 PM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="listing-day">
-                                                    <div class="day">Saturday</div>
-                                                    <div class="time-items">
-                                                        <span class="time">07:00 AM - 09:00 PM</span>
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="listing-day closed">
                                                     <div class="day">Sunday</div>
                                                     <div class="time-items">

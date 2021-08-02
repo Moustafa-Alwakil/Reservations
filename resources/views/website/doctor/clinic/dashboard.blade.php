@@ -793,15 +793,6 @@
                                                             </thead>
                                                             <tbody>
                                                                 <?php
-                                                                    function checkTime($start_time,$day)
-                                                                    {
-                                                                        $y = $start_time->modify('+' . $day);
-                                                                        $x = $y->format('Y-m-d H:i');
-                                                                        if ( $x >= date('Y-m-d H:i')) {
-                                                                            checkTime($x,$day);
-                                                                            }
-                                                                            return $x;
-                                                                    }
                                                                     $begin_date = new DateTime(date('Y-m-d H:i'));
                                                                     $end = new DateTime(date('Y-m-d')); 
                                                                     $end_date = $end->modify('+6 month');

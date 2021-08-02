@@ -11,5 +11,6 @@ Route::group([
 ], function () {
         Route::group(['prefix' => 'review', 'middleware' => 'auth:web', 'namespace' => 'Review'], function () {
             Route::post('add', 'ReviewController@store')->name('review.store');
+            Route::delete('add', 'ReviewController@destroy')->name('review.destroy');
         });
     });

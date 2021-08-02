@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Clinic;
 use App\Models\Department;
 use App\Models\Physican;
+use App\Models\Review;
 
 class IndexController extends Controller
 {
@@ -26,10 +27,12 @@ class IndexController extends Controller
         }, 'clinicphotos', 'services' => function ($q) {
             $q->select()->where('status', 1);
         }, 'examfee', 'physican' => function ($q) {
-            $q->select('id', 'name', 'department_id')->where('status', 1)->with(['info' => function ($q) {
+            $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
                 $q->select('id', 'photo', 'physican_id');
-            }, 'department']);
-        }])->paginate(1);
+            }, 'department','reviews'=>function($q){
+                $q->select();
+            }]);
+        }])->paginate(10);
         return view('website.allClinics', compact('departments', 'clinics'));
     }
 
@@ -44,7 +47,7 @@ class IndexController extends Controller
         }, 'clinicphotos', 'services' => function ($q) {
             $q->select()->where('status', 1);
         }, 'examfee', 'physican' => function ($q) {
-            $q->select('id', 'name', 'department_id')->where('status', 1)->with(['info' => function ($q) {
+            $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
                 $q->select('id', 'photo', 'about' ,'physican_id');
             }, 'department' , 'experiences'=>function($q){
                 $q->select();
