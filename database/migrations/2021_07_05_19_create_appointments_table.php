@@ -15,9 +15,10 @@ class CreateAppointmentsTable extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
+            $table->text('bookdate');
             $table->date('date');
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->text('start_time');
+            $table->text('end_time');
             $table->tinyInteger('status')->default(0)->comment('0->waiting , 1->accepted , 2->refused');
             $table->foreignId('user_id')->constrained()->OnUpdate('cascade')->onDelete('cascade');
             $table->foreignId('clinic_id')->constrained()->OnUpdate('cascade')->onDelete('cascade');

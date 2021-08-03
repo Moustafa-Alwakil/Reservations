@@ -1,6 +1,6 @@
 @extends('website.layouts.layout')
 @section('title')
-    Clinics
+    {{ ucwords($clinic->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
 @endsection
 @section('stylesheets')
     {{-- <!-- Fancybox CSS --> --}}
@@ -8,9 +8,9 @@
 @endsection
 @section('content')
     @include('website.includes.bar1')
-    {{ $clinic->name['name_' . LaravelLocalization::getCurrentLocale()] }} Profile
+    Clinics
     @include('website.includes.bar2')
-    {{ $clinic->name['name_' . LaravelLocalization::getCurrentLocale()] }} Profile
+    {{ ucwords($clinic->name['name_' . LaravelLocalization::getCurrentLocale()]) }} Profile
     @include('website.includes.bar3')
     <!-- Page Content -->
     <div class="content">
@@ -30,7 +30,7 @@
                     <div class="doctor-widget">
                         <div class="doc-info-left">
                             <div class="doctor-img">
-                                <img src="{{ $clinic->physican->info->photo }}" class="img-fluid" alt="User Image">
+                                <img src="{{ $clinic->physican->info->photo }}" class="img-fluid" alt="Doctor Image">
                             </div>
                             <div class="doc-info-cont">
                                 <h4 class="doc-name">
@@ -89,7 +89,13 @@
                                 </ul>
                             </div>
                             <div class="clinic-booking">
-                                <a class="apt-btn" href="booking.html">Book Appointment</a>
+                                @if (!Auth::guard('doc')->check() && !Auth::guard('web')->check())
+                                    <a class="apt-btn" href="{{ route('user.login') }}">Book Appointment</a>
+                                @endif
+                                @auth('web')
+                                    <a class="apt-btn" href="{{ route('appointment.create', ['id' => $clinic->id]) }}">Book
+                                        Appointment</a>
+                                @endauth
                             </div>
                         </div>
                     </div>
@@ -231,16 +237,20 @@
                                                         @for ($i = 0; $i < 5 - $review->value; $i++)
                                                             <i class="fas fa-star"></i>
                                                         @endfor
-                                                        @if ($review->user_id == Auth::guard('web')->user()->id)
-                                                            <br><br>
-                                                            <form method="POST" action="{{ route('review.destroy') }}">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <input type="hidden" name="user_id"
-                                                                    value="{{ $review->user_id }}">
-                                                                <input type="hidden" name="id" value="{{ $review->id }}">
-                                                                <button class="btn btn-sm btn-danger">Delete</button>
-                                                            </form>
+                                                        @if (Auth::guard('web')->check())
+                                                            @if ($review->user_id == Auth::guard('web')->user()->id)
+                                                                <br><br>
+                                                                <form method="POST"
+                                                                    action="{{ route('review.destroy') }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <input type="hidden" name="user_id"
+                                                                        value="{{ $review->user_id }}">
+                                                                    <input type="hidden" name="id"
+                                                                        value="{{ $review->id }}">
+                                                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                                                </form>
+                                                            @endif
                                                         @endif
                                                     </div>
                                                 </div>
@@ -363,7 +373,7 @@
                                                         <span class="time">07:00 AM - 09:00 PM</span>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="listing-day closed">
                                                     <div class="day">Sunday</div>
                                                     <div class="time-items">

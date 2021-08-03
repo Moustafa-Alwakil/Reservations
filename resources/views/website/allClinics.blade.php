@@ -171,7 +171,12 @@
                                             <a class="view-pro-btn"
                                                 href="{{ route('clinic', ['id' => $clinic->id]) }}">View
                                                 Profile</a>
-                                            <a class="apt-btn" href="booking.html">Book Appointment</a>
+                                            @if (!Auth::guard('doc')->check() && !Auth::guard('web')->check())
+                                                <a class="apt-btn" href="{{ route('user.login') }}">Book Appointment</a>
+                                            @endif
+                                            @auth('web')
+                                                <a class="apt-btn" href="{{ route('appointment.create',['id'=>$clinic->id]) }}">Book Appointment</a>
+                                            @endauth
                                         </div>
                                     </div>
                                 </div>

@@ -38,10 +38,10 @@
                             <nav class="dashboard-menu">
                                 <ul>
                                     @if (Auth::guard('web')->check())
-                                        <li>
-                                            <a href="#">
-                                                <i class="fas fa-columns"></i>
-                                                <span>Dashboard</span>
+                                        <li class="@if (Request::url()==route('appointment.index')) {{ 'active' }} @endif">
+                                            <a href="{{route('appointment.index')}}">
+                                                <i class="far fa-calendar-alt"></i>
+                                                <span>Appointments</span>
                                             </a>
                                         </li>
                                         <li class="@if (Request::url()==route('user.profile')) {{ 'active' }} @endif">

@@ -11,7 +11,7 @@ class Appointment extends Model
     protected $table = 'appointments';
     protected $primaryKey = 'id';
     protected $fillable = [
-       'id','date','start_time','end_time','status','clinic_id','user_id','created_at','updated_at'
+       'id','date','bookdate','start_time','end_time','status','clinic_id','user_id','created_at','updated_at'
     ];
 
     protected $hidden = [
@@ -32,15 +32,4 @@ class Appointment extends Model
     }
     // End Elqouent Relations
     
-    // Define Accesors To Translate The Values Meaning
-    public function getStatusAttribute($value)
-    {
-        if($value==1){
-            return ucwords('accepted');
-        }elseif($value==2){
-            return ucwords('refused'); 
-        };
-        return ucwords('waiting');
-    }
-    // End Accessors
 }

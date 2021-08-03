@@ -16,8 +16,8 @@ class CreateExceptionsTable extends Migration
         Schema::create('exceptions', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->text('start_time');
+            $table->text('end_time');
             $table->foreignId('clinic_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

@@ -184,7 +184,7 @@
                                         <p class="text-muted mb-0">User</p>
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="joj">Appointments</a>
+                                <a class="dropdown-item" href="{{route('appointment.index')}}">Appointments</a>
                                 <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
                                 <form method="POST" action="{{ route('user.logout') }}" class="d-inline">
                                     @csrf<button class="btn btn-link dropdown-item"
@@ -274,10 +274,8 @@
                 </ul>
             </nav>
         </header>
-        @yield('bar')
         <!-- /Header -->
         @yield('content')
-        @yield('paginator')
         <!-- Footer -->
         @if (!(Request::url() == route('user.verification.notice') || Request::url() == route('doctor.verification.notice')))
             <footer class="footer">
