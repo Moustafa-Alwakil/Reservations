@@ -146,7 +146,11 @@ class ClinicController extends Controller
      */
     public function show($id)
     {
-        $clinic = Clinic::select('id')->where(['id'=>$id , 'physican_id'=> Auth::guard('doc')->user()->id])->with(['appointments','exceptions','workday'])->first();
+        $clinic = Clinic::select('id','name')->where(['id'=>$id , 'physican_id'=> Auth::guard('doc')->user()->id])->withCount('appointments')->with(['appointments'=>function($q){
+            $q->select()->with(['user'=>function($q){
+                $q->select('id','name');
+            }]);
+        },'exceptions','workday'])->first();
         return view('website.doctor.clinic.dashboard',compact('clinic'));
     }
 

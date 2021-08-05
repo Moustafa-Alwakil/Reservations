@@ -1,6 +1,6 @@
 @extends('website.layouts.layout')
 @section('title')
-{{__('index.home')}}
+    {{ __('index.home') }}
 @endsection
 @section('content')
     <!-- Home Banner -->
@@ -13,16 +13,26 @@
                 </div>
 
                 <!-- Search -->
-                <div class="search-box">
-                    <form action="https://doccure-html.dreamguystech.com/template/search.html">
+                <div class="search-box d-flex justify-content-center">
+                    <form method="get" action="{{route('show.clinics.bylocation')}}">
                         <div class="form-group search-location">
-                            <input type="text" class="form-control" placeholder="Search Location">
-                            <span class="form-text">Based on your Location</span>
+                            <select class="form-control select" name="city_id" id="city">
+                                <option selected disabled>Selecty City
+                                </option>
+                                @isset($cities)
+                                    @foreach ($cities['data'] as $city)
+                                        <option value="{{ $city->id }}">
+                                            {{ $city->name['name_' . LaravelLocalization::getCurrentLocale()] }}
+                                        </option>
+                                    @endforeach
+                                @endisset
+                            </select>
                         </div>
-                        <div class="form-group search-info">
-                            <input type="text" class="form-control"
-                                placeholder="Search Doctors, Clinics, Hospitals, Diseases Etc">
-                            <span class="form-text">Ex : Dental or Sugar Check up etc</span>
+                        <div class="form-group search-location">
+                            <select class="form-control select" name="region_id" id="region">
+                                <option selected disabled>Select Region
+                                </option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary search-btn mt-0"><i class="fas fa-search"></i>
                             <span>Search</span></button>
@@ -100,7 +110,8 @@
                         <!-- Slider Item -->
                         <div class="speicality-item text-center">
                             <div class="speicality-img">
-                                <img src="website/assets/img/specialities/specialities-01.png" class="img-fluid" alt="Speciality">
+                                <img src="website/assets/img/specialities/specialities-01.png" class="img-fluid"
+                                    alt="Speciality">
                                 <span><i class="fa fa-circle" aria-hidden="true"></i></span>
                             </div>
                             <p>Urology</p>
@@ -110,7 +121,8 @@
                         <!-- Slider Item -->
                         <div class="speicality-item text-center">
                             <div class="speicality-img">
-                                <img src="website/assets/img/specialities/specialities-02.png" class="img-fluid" alt="Speciality">
+                                <img src="website/assets/img/specialities/specialities-02.png" class="img-fluid"
+                                    alt="Speciality">
                                 <span><i class="fa fa-circle" aria-hidden="true"></i></span>
                             </div>
                             <p>Neurology</p>
@@ -120,7 +132,8 @@
                         <!-- Slider Item -->
                         <div class="speicality-item text-center">
                             <div class="speicality-img">
-                                <img src="website/assets/img/specialities/specialities-03.png" class="img-fluid" alt="Speciality">
+                                <img src="website/assets/img/specialities/specialities-03.png" class="img-fluid"
+                                    alt="Speciality">
                                 <span><i class="fa fa-circle" aria-hidden="true"></i></span>
                             </div>
                             <p>Orthopedic</p>
@@ -130,7 +143,8 @@
                         <!-- Slider Item -->
                         <div class="speicality-item text-center">
                             <div class="speicality-img">
-                                <img src="website/assets/img/specialities/specialities-04.png" class="img-fluid" alt="Speciality">
+                                <img src="website/assets/img/specialities/specialities-04.png" class="img-fluid"
+                                    alt="Speciality">
                                 <span><i class="fa fa-circle" aria-hidden="true"></i></span>
                             </div>
                             <p>Cardiologist</p>
@@ -140,7 +154,8 @@
                         <!-- Slider Item -->
                         <div class="speicality-item text-center">
                             <div class="speicality-img">
-                                <img src="website/assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">
+                                <img src="website/assets/img/specialities/specialities-05.png" class="img-fluid"
+                                    alt="Speciality">
                                 <span><i class="fa fa-circle" aria-hidden="true"></i></span>
                             </div>
                             <p>Dentist</p>
@@ -655,8 +670,9 @@
                             <ul class="entry-meta meta-item">
                                 <li>
                                     <div class="post-author">
-                                        <a href="doctor-profile.html"><img src="website/assets/img/doctors/doctor-thumb-01.jpg"
-                                                alt="Post Author"> <span>Dr. Ruby Perrin</span></a>
+                                        <a href="doctor-profile.html"><img
+                                                src="website/assets/img/doctors/doctor-thumb-01.jpg" alt="Post Author">
+                                            <span>Dr. Ruby Perrin</span></a>
                                     </div>
                                 </li>
                                 <li><i class="far fa-clock"></i> 4 Dec 2019</li>
@@ -682,8 +698,9 @@
                             <ul class="entry-meta meta-item">
                                 <li>
                                     <div class="post-author">
-                                        <a href="doctor-profile.html"><img src="website/assets/img/doctors/doctor-thumb-02.jpg"
-                                                alt="Post Author"> <span>Dr. Darren Elder</span></a>
+                                        <a href="doctor-profile.html"><img
+                                                src="website/assets/img/doctors/doctor-thumb-02.jpg" alt="Post Author">
+                                            <span>Dr. Darren Elder</span></a>
                                     </div>
                                 </li>
                                 <li><i class="far fa-clock"></i> 3 Dec 2019</li>
@@ -709,8 +726,9 @@
                             <ul class="entry-meta meta-item">
                                 <li>
                                     <div class="post-author">
-                                        <a href="doctor-profile.html"><img src="website/assets/img/doctors/doctor-thumb-03.jpg"
-                                                alt="Post Author"> <span>Dr. Deborah Angel</span></a>
+                                        <a href="doctor-profile.html"><img
+                                                src="website/assets/img/doctors/doctor-thumb-03.jpg" alt="Post Author">
+                                            <span>Dr. Deborah Angel</span></a>
                                     </div>
                                 </li>
                                 <li><i class="far fa-clock"></i> 3 Dec 2019</li>
@@ -736,8 +754,9 @@
                             <ul class="entry-meta meta-item">
                                 <li>
                                     <div class="post-author">
-                                        <a href="doctor-profile.html"><img src="website/assets/img/doctors/doctor-thumb-04.jpg"
-                                                alt="Post Author"> <span>Dr. Sofia Brient</span></a>
+                                        <a href="doctor-profile.html"><img
+                                                src="website/assets/img/doctors/doctor-thumb-04.jpg" alt="Post Author">
+                                            <span>Dr. Sofia Brient</span></a>
                                     </div>
                                 </li>
                                 <li><i class="far fa-clock"></i> 2 Dec 2019</li>
@@ -758,4 +777,52 @@
         </div>
     </section>
     <!-- /Blog Section -->
+@endsection
+@php
+$locale = LaravelLocalization::getCurrentLocale();
+@endphp
+@section('scripts')
+    <script type='text/javascript'>
+        $(document).ready(function() {
+
+            // Department Change
+            $('#city').change(function() {
+
+                // Department id
+                var id = $(this).val();
+
+                // Empty the dropdown
+                $('#region').find('option').not(':first').remove();
+
+                // AJAX request 
+                $.ajax({
+                    url: 'getregions/' + id,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(response) {
+
+                        var len = 0;
+                        if (response['data'] != null) {
+                            len = response['data'].length;
+                        }
+
+                        if (len > 0) {
+                            // Read data and create <option >
+                            for (var i = 0; i < len; i++) {
+                                console.log(len);
+                                var id = response['data'][i].id;
+                                var name = response['data'][i].name;
+
+                                var option = "<option value='" + id + "'>" + name
+                                    .name_<?php echo $locale; ?> + "</option>";
+
+                                $("#region").append(option);
+                            }
+                        }
+
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

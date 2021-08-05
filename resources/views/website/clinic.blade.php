@@ -368,19 +368,53 @@
                                                 <div class="listing-day current">
                                                     <div class="day">Today <span>{{ date('j M Y') }}</span></div>
                                                     <div class="time-items">
-                                                        <span class="open-status"><span class="badge bg-success-light">Open
-                                                                Now</span></span>
-                                                        <span class="time">07:00 AM - 09:00 PM</span>
+                                                        <span class="open-status">
+                                                            @if ($clinic->workday->available[lcfirst(date('l'))][lcfirst(date('D')) . '_status'] == 1 && $clinic->workday->available[lcfirst(date('l'))][lcfirst(date('D')) . '_end_time'] > date('H:i'))
+                                                                <span class="badge bg-success-light">Open</span>
+                                                        </span>
+                                                        <span
+                                                            class="time">{{ date_format(date_create($clinic->workday->available[lcfirst(date('l'))][lcfirst(date('D')) . '_start_time']), 'h:i A') }}
+                                                            -
+                                                            {{ date_format(date_create($clinic->workday->available[lcfirst(date('l'))][lcfirst(date('D')) . '_end_time']), 'h:i A') }}</span>
+                                                    @elseif($clinic->workday->available[lcfirst(date('l'))][lcfirst(date('D')).'_status']==
+                                                        0)
+                                                        <span class="badge bg-danger-light">Closed</span></span>
+                                                    @else
+                                                        <span class="badge bg-danger-light">Closed</span></span>
+                                                        <span
+                                                            class="time">{{ date_format(date_create($clinic->workday->available[lcfirst(date('l'))][lcfirst(date('D')) . '_start_time']), 'h:i A') }}
+                                                            -
+                                                            {{ date_format(date_create($clinic->workday->available[lcfirst(date('l'))][lcfirst(date('D')) . '_end_time']), 'h:i A') }}</span>
+                                                        @endif
                                                     </div>
                                                 </div>
-
-                                                <div class="listing-day closed">
-                                                    <div class="day">Sunday</div>
-                                                    <div class="time-items">
-                                                        <span class="time"><span
-                                                                class="badge bg-danger-light">Closed</span></span>
-                                                    </div>
-                                                </div>
+                                                <?php
+                                                                    $begin = new DateTime(date('Y-m-d'));
+                                                                    $end = new DateTime(date('Y-m-d')); 
+                                                                    $begin_date = $begin->modify('+1 day');
+                                                                    $end_date = $end->modify('+6 day');
+                                                                    for ($i = $begin_date; $i <= $end_date; $i->modify('+1 day')) {
+                                                                        $day = $i->format('Y-m-d');
+                                                                        ?>
+                                                                        @if($clinic->workday->available[lcfirst(date_format(date_create($day),'l'))][lcfirst(date_format(date_create($day),'D')) . '_status'] == 0)
+                                                                        <div class="listing-day closed">
+                                                                            <div class="day">{{date_format(date_create($day),'l')}}</div>
+                                                                            <div class="time-items">
+                                                                                <span class="time"><span
+                                                                                        class="badge bg-danger-light">Closed</span></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        @else
+                                                                        <div class="listing-day closed">
+                                                                            <div class="day">{{date_format(date_create($day),'l')}}</div>
+                                                                            <div class="time-items">
+                                                                                <span class="time">{{date_format(date_create($clinic->workday->available[lcfirst(date_format(date_create($day),'l'))][lcfirst(date_format(date_create($day),'D')) . '_start_time']),'h:i A')}} - {{date_format(date_create($clinic->workday->available[lcfirst(date_format(date_create($day),'l'))][lcfirst(date_format(date_create($day),'D')) . '_end_time']),'h:i A')}}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        @endif
+                                                <?php
+                                                                    }
+                                                                ?>
                                             </div>
                                         </div>
                                     </div>

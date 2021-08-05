@@ -78,6 +78,8 @@
                                     <tbody>
                                         <?php
                                         $a = 1;
+                                        $appoinment_date=[];
+                                        $appoinment_start=[];
                                         foreach ($clinic->appointments as $appointment){
                                             if(!$appointment->status == 3){
                                                 $appoinment_date[$a] = $appointment->date;
@@ -86,6 +88,8 @@
                                             }
                                             }
                                         $b= 1;
+                                        $exception_date = [];
+                                        $exception_start = [];
                                             foreach ($clinic->exceptions as $exception){
                                             $exception_date[$b] = $exception->date;
                                             $exception_start[$b] = $exception->start_time;

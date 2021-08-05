@@ -80,7 +80,7 @@
                                                                         class="d-block text-info">{{ date_format(date_create($appointment->start_time), 'h:i A') }}</span>
                                                                 </td>
                                                                 <td>{{ $appointment->bookdate }}</td>
-                                                                <td>{{ $appointment->clinic->examfee->price }}</td>
+                                                                <td>{{ $appointment->clinic->examfee->price }} EGP</td>
                                                                 <td>
                                                                     @if ($appointment->status == 1)
                                                                         <span

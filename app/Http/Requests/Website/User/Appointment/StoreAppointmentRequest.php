@@ -28,6 +28,7 @@ class StoreAppointmentRequest extends FormRequest
     {
         $clinics = Clinic::select('id')->where(['review' => 1, 'status' => 1])->get();
         $i = 0;
+        $available_clinics_id = [];
         foreach ($clinics as $clinic) {
             $available_clinics_id[$i] = $clinic->id;
             $i++;

@@ -32,7 +32,7 @@ class StoreRegisterRequest extends FormRequest
             'lname_en' => 'required|string|max:25',
             'email' => 'required|string|email|max:50|unique:physicans',
             'gender' => ['required', Rule::in(['m', 'f']),],
-            'birthdate' => ['required', 'date', 'after_or_equal:' . date_sub(now(), date_interval_create_from_date_string("80 years"))->format('Y-m-d'), 'before_or_equal:' . date_sub(now(), date_interval_create_from_date_string("26 years"))->format('Y-m-d')],
+            'birthdate' => ['required', 'date', 'after_or_equal:' . date_sub(now(), date_interval_create_from_date_string("80 years"))->format('Y-m-d'), 'before_or_equal:' . date_sub(now(), date_interval_create_from_date_string("22 years"))->format('Y-m-d')],
             'password' => ['required', 'confirmed', Rules\Password::defaults(), 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/'],
         ];
     }
