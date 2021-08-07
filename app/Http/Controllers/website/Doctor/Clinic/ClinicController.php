@@ -150,7 +150,9 @@ class ClinicController extends Controller
             $q->select(DB::raw("CONCAT(appointments.date,' ',appointments.start_time)  AS datetime"), 'id', 'clinic_id', 'user_id', 'date', 'bookdate', 'start_time', 'end_time', 'status')->where('date', '>=', date('Y-m-d'))->orderby('date','asc')->orderby('start_time','asc')->with(['user' => function ($q) {
                 $q->select('id', 'name');
             }]);
-        }, 'exceptions', 'workday'])->first();
+        }, 'exceptions'=>function($q){
+            $q->select(DB::raw("CONCAT(exceptions.date,' ',exceptions.start_time)  AS datetime"), 'id', 'clinic_id', 'date', 'start_time', 'end_time');
+        }, 'workday'])->first();
         return view('website.doctor.clinic.dashboard', compact('clinic'));
     }
 

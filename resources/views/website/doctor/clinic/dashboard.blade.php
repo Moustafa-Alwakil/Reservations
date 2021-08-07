@@ -246,7 +246,14 @@
                                                             </thead>
                                                             <tbody>
                                                                 <?php
-                                                                    use App\Models\Appointment;
+                                                                $a = 1;
+                                                                $appoinment_datetime=[];
+                                                                foreach ($clinic->appointments as $appointment){
+                                                                    if(!$appointment->status == 0 || $appointment->status == 1){
+                                                                        $appoinment_datetime[$a] = $appointment->datetime;
+                                                                        $a++;
+                                                                    }
+                                                                 }
                                                                     $begin_date = new DateTime(date('Y-m-d H:i'));
                                                                     $end = new DateTime(date('Y-m-d')); 
                                                                     $end_date = $end->modify('+5 month');
@@ -258,8 +265,7 @@
                                                                             for($start_time;$start_time->format('Y-m-d H:i')<=date('Y-m-d H:i');$start_time->modify('+' . $clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_duration'] . ' minute')){
                                                                             }
                                                                             for ($x = $start_time; $x <= $end_time; $x->modify('+' . $clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_duration'] . ' minute')) {
-                                                                                $appt = Appointment::select()->where(['date'=>$x->format('Y-m-d'),'start_time' => $x->format('H:i'),'status'=>1 , 'clinic_id'=>$clinic->id])->first();
-                                                                                if($appt){
+                                                                                if ( array_search($x->format('Y-m-d H:i'),$appoinment_datetime) ){
                                                                                     continue;
                                                                                 }
                                                                                 ?>

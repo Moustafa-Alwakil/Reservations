@@ -39,7 +39,9 @@ class AppointmentController extends Controller
             }, 'reviews' => function ($q) {
                 $q->select();
             }]);
-        }, 'workday', 'appointments', 'exceptions'])->first();
+        }, 'workday', 'appointments'=>function($q){
+            $q->select()->where('date','>=',date('Y-m-d'));
+        }, 'exceptions'])->first();
         return view('website.user.appointment.create', compact('clinic'));
     }
 
