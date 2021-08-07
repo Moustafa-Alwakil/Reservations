@@ -8,6 +8,7 @@ use App\Models\City;
 use App\Models\Clinic;
 use App\Models\Department;
 use App\Models\Region;
+use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
@@ -25,6 +26,30 @@ class IndexController extends Controller
         return response()->json($regions);
     }
 
+    public function allClinics()
+    {
+        $departments = Department::select()->where('status', 1)->get();
+        $clinics = Clinic::select('id', 'name', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['address' => function ($q) {
+            $q->select('id', 'clinic_id', 'region_id')->with(['region' => function ($q) {
+                $q->select()->where('status', 1);
+            }, 'region.city' => function ($q) {
+                $q->select()->where('status', 1);
+            }]);
+        }, 'clinicphotos', 'services' => function ($q) {
+            $q->select()->where('status', 1);
+        }, 'examfee', 'physican' => function ($q) {
+            $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
+                $q->select('id', 'photo', 'physican_id');
+            }, 'department' => function ($q) {
+                $q->select()->where('status', 1);
+            }, 'reviews' => function ($q) {
+                $q->select();
+            }]);
+        }])->paginate(10);
+        return view('website.allClinics', compact('departments', 'clinics'));
+    }
+
+
     public function showClinicsByLocation(ShowClinicsByLocationRequest $request)
     {
         if (!$request->city_id && !$request->region_id) {
@@ -40,12 +65,15 @@ class IndexController extends Controller
             }, 'examfee', 'physican' => function ($q) {
                 $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
                     $q->select('id', 'photo', 'physican_id');
-                }, 'department', 'reviews' => function ($q) {
+                }, 'department' => function ($q) {
+                    $q->select()->where('status', 1);
+                }, 'reviews' => function ($q) {
                     $q->select();
                 }]);
             }])->paginate(10);
             return view('website.allClinics', compact('departments', 'clinics'));
         }
+
         if ($request->has('city_id') && $request->has('region_id')) {
             $availableRegions = City::select('id')->where(['status' => 1, 'id' => $request->city_id])->with(['regions' => function ($q) {
                 $q->select('id', 'city_id');
@@ -56,16 +84,21 @@ class IndexController extends Controller
                 $available_regions_id[$i] = $region->id;
                 $i++;
             }
+
             if (in_array($request->region_id, $available_regions_id)) {
                 $departments = Department::select()->where('status', 1)->get();
-                $clinicsByRegion = Region::where(['status' => 1, 'id' => $request->region_id])->with(['city', 'addresses' => function ($q) {
+                $clinicsByRegion = Region::where(['status' => 1, 'id' => $request->region_id])->with(['city' => function ($q) {
+                    $q->select()->where('status', 1);
+                }, 'addresses' => function ($q) {
                     $q->select()->with(['clinic' => function ($q) {
                         $q->select('id', 'name', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['clinicphotos', 'services' => function ($q) {
                             $q->select()->where('status', 1);
                         }, 'examfee', 'physican' => function ($q) {
                             $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
                                 $q->select('id', 'photo', 'physican_id');
-                            }, 'department', 'reviews' => function ($q) {
+                            }, 'department' => function ($q) {
+                                $q->select()->where('status', 1);
+                            }, 'reviews' => function ($q) {
                                 $q->select();
                             }]);
                         }]);
@@ -85,13 +118,16 @@ class IndexController extends Controller
                 }, 'examfee', 'physican' => function ($q) {
                     $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
                         $q->select('id', 'photo', 'physican_id');
-                    }, 'department', 'reviews' => function ($q) {
+                    }, 'department' => function ($q) {
+                        $q->select()->where('status', 1);
+                    }, 'reviews' => function ($q) {
                         $q->select();
                     }]);
                 }])->paginate(10);
                 return view('website.allClinics', compact('departments', 'clinics'));
             }
         }
+
         if ($request->has('city_id')) {
             $departments = Department::select()->where('status', 1)->get();
             $clinicsByCity = City::where(['status' => 1, 'id' => $request->city_id])->with(['regions' => function ($q) {
@@ -102,7 +138,9 @@ class IndexController extends Controller
                         }, 'examfee', 'physican' => function ($q) {
                             $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
                                 $q->select('id', 'photo', 'physican_id');
-                            }, 'department', 'reviews' => function ($q) {
+                            }, 'department' => function ($q) {
+                                $q->select()->where('status', 1);
+                            }, 'reviews' => function ($q) {
                                 $q->select();
                             }]);
                         }]);
@@ -111,16 +149,21 @@ class IndexController extends Controller
             }])->first();
             return view('website.allClinics', compact('departments', 'clinicsByCity'));
         }
+
         if ($request->has('region_id')) {
             $departments = Department::select()->where('status', 1)->get();
-            $clinicsByRegion = Region::where(['status' => 1, 'id' => $request->region_id])->with(['city', 'addresses' => function ($q) {
+            $clinicsByRegion = Region::where(['status' => 1, 'id' => $request->region_id])->with(['city' => function ($q) {
+                $q->select()->where('status', 1);
+            }, 'addresses' => function ($q) {
                 $q->select()->with(['clinic' => function ($q) {
                     $q->select('id', 'name', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['clinicphotos', 'services' => function ($q) {
                         $q->select()->where('status', 1);
                     }, 'examfee', 'physican' => function ($q) {
                         $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
                             $q->select('id', 'photo', 'physican_id');
-                        }, 'department', 'reviews' => function ($q) {
+                        }, 'department' => function ($q) {
+                            $q->select()->where('status', 1);
+                        }, 'reviews' => function ($q) {
                             $q->select();
                         }]);
                     }]);
@@ -130,30 +173,9 @@ class IndexController extends Controller
         }
     }
 
-    public function allClinics()
+    public function clinicsFilter(Request $request)
     {
-
-        if (isset($_GET['region']))
-            return $_GET['region'];
-        if (isset($_GET['region']) && isset($_GET['city']))
-            return $_GET['city'];
-        $departments = Department::select()->where('status', 1)->get();
-        $clinics = Clinic::select('id', 'name', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['address' => function ($q) {
-            $q->select('id', 'clinic_id', 'region_id')->with(['region' => function ($q) {
-                $q->select()->where('status', 1);
-            }, 'region.city' => function ($q) {
-                $q->select()->where('status', 1);
-            }]);
-        }, 'clinicphotos', 'services' => function ($q) {
-            $q->select()->where('status', 1);
-        }, 'examfee', 'physican' => function ($q) {
-            $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
-                $q->select('id', 'photo', 'physican_id');
-            }, 'department', 'reviews' => function ($q) {
-                $q->select();
-            }]);
-        }])->paginate(10);
-        return view('website.allClinics', compact('departments', 'clinics'));
+        return $request;
     }
 
     public function clinic($id)
@@ -169,12 +191,18 @@ class IndexController extends Controller
         }, 'examfee', 'physican' => function ($q) {
             $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
                 $q->select('id', 'photo', 'about', 'physican_id');
-            }, 'department', 'experiences' => function ($q) {
+            }, 'department' => function ($q) {
+                $q->select()->where('status', 1);
+            }, 'experiences' => function ($q) {
                 $q->select();
             }, 'reviews' => function ($q) {
                 $q->select();
             }]);
         }, 'workday'])->first();
+
+        if (!$clinic || !$clinic->address->region || !$clinic->address->region->city || !$clinic->physican || !$clinic->physican->department)
+            return redirect()->back();
+            
         return view('website.clinic', compact('clinic'));
     }
 }

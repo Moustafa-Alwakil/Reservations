@@ -68,6 +68,10 @@
                                 </div>
                                 <div class="clinic-services">
                                     @foreach ($clinic->services as $service)
+                                    @php
+                                        if(!$service)
+                                        continue;
+                                    @endphp
                                         <span>{{ ucwords($service->name['name_' . LaravelLocalization::getCurrentLocale()]) }}</span>
                                     @endforeach
                                 </div>
@@ -176,6 +180,10 @@
                                         <h4>Clinic Services</h4>
                                         <ul class="clearfix">
                                             @foreach ($clinic->services as $service)
+                                            @php
+                                            if(!$service)
+                                            continue;
+                                        @endphp
                                                 <li>{{ ucwords($service->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
                                                 </li>
                                             @endforeach
