@@ -62,7 +62,7 @@
                     </div>
                     <ul class="main-nav">
                         <li class="has-submenu @if (Request::url()==route('index')) {{ 'active' }} @endif">
-                            <a href="{{ route('index') }}">{{ __('index.home') }}<i class="fas"></i></a>
+                            <a href="{{ route('index') }}">Home<i class="fas"></i></a>
                         </li>
                         <li class="has-submenu @if (Request::url()==route('all.clinics')) {{ 'active' }} @endif">
                             <a href="{{ route('all.clinics') }}">Clinics<i class="fas"></i></a>
