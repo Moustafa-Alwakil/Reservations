@@ -138,7 +138,7 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($clinic->appointments as $appointment)
-                                                            @if ($appointment->status == 0 && abs(strtotime($appointment->start_time) - time()) / 60 > abs(strtotime(date('H:i')) - time()) / 60 && date_format(date_create($appointment->date), 'Y-m-d') >= date('Y-m-d'))
+                                                            @if ($appointment->status == 0 && $appointment->datetime > date('Y-m-d H:i'))
                                                                 <tr id="apptRow{{ $appointment->id }}">
                                                                     <td>
                                                                         <a>{{ ucwords($appointment->user->name['fname']) . ' ' . ucwords($appointment->user->name['lname']) }}</a>
@@ -205,7 +205,7 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($clinic->appointments as $appointment)
-                                                            @if ($appointment->status == 1 && abs(strtotime($appointment->start_time) - time()) / 60 > abs(strtotime(date('H:i')) - time()) / 60 && date_format(date_create($appointment->date), 'Y-m-d') >= date('Y-m-d'))
+                                                            @if ($appointment->status == 1 && $appointment->datetime > date('Y-m-d H:i'))
                                                                 <tr>
                                                                     <td>{{ ucwords($appointment->user->name['fname']) . ' ' . ucwords($appointment->user->name['lname']) }}
                                                                     </td>
@@ -234,21 +234,22 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="table-responsive">
-                                                        <table class="datatable table table-stripped">
+                                                        <table class="datatable table table-stripped text-center">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Date</th>
                                                                     <th>Day</th>
                                                                     <th>Start Time</th>
                                                                     <th>End Time</th>
-                                                                    <th>Exception</th>
+                                                                    <th>Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 <?php
+                                                                    use App\Models\Appointment;
                                                                     $begin_date = new DateTime(date('Y-m-d H:i'));
                                                                     $end = new DateTime(date('Y-m-d')); 
-                                                                    $end_date = $end->modify('+6 month');
+                                                                    $end_date = $end->modify('+5 month');
                                                                     for ($i = $begin_date; $i <= $end_date; $i->modify('+1 day')) {
                                                                         $day = $i->format('Y-m-d');
                                                                         if ($clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_status'] == 1) {
@@ -257,6 +258,10 @@
                                                                             for($start_time;$start_time->format('Y-m-d H:i')<=date('Y-m-d H:i');$start_time->modify('+' . $clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_duration'] . ' minute')){
                                                                             }
                                                                             for ($x = $start_time; $x <= $end_time; $x->modify('+' . $clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_duration'] . ' minute')) {
+                                                                                $appt = Appointment::select()->where(['date'=>$x->format('Y-m-d'),'start_time' => $x->format('H:i'),'status'=>1 , 'clinic_id'=>$clinic->id])->first();
+                                                                                if($appt){
+                                                                                    continue;
+                                                                                }
                                                                                 ?>
                                                                 <tr>
                                                                     <td>{{ $x->format('Y-m-d') }}</td>

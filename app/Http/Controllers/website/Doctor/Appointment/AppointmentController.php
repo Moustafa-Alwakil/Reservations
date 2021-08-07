@@ -6,7 +6,6 @@ use App\Events\Website\Doctor\Appointment\AppointmentConfirmed;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\Doctor\Appointment\UpdateAppointmentRequest;
 use App\Models\Appointment;
-use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
@@ -33,7 +32,6 @@ class AppointmentController extends Controller
                     'status' => false,
                 ]);
             }
-
             event(new AppointmentConfirmed($appointment));
 
             return response()->json([

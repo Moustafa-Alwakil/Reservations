@@ -16,7 +16,7 @@ use App\Models\Service;
 use App\Models\Workday;
 use App\Traits\uploadTrait;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 
 class ClinicController extends Controller
 {
@@ -146,12 +146,12 @@ class ClinicController extends Controller
      */
     public function show($id)
     {
-        $clinic = Clinic::select('id','name')->where(['id'=>$id , 'physican_id'=> Auth::guard('doc')->user()->id])->withCount('appointments')->with(['appointments'=>function($q){
-            $q->select()->with(['user'=>function($q){
-                $q->select('id','name');
+        $clinic = Clinic::select('id', 'name')->where(['id' => $id, 'physican_id' => Auth::guard('doc')->user()->id])->withCount('appointments')->with(['appointments' => function ($q) {
+            $q->select(DB::raw("CONCAT(appointments.date,' ',appointments.start_time)  AS datetime"), 'id', 'clinic_id', 'user_id', 'date', 'bookdate', 'start_time', 'end_time', 'status')->where('date', '>=', date('Y-m-d'))->orderby('date','asc')->orderby('start_time','asc')->with(['user' => function ($q) {
+                $q->select('id', 'name');
             }]);
-        },'exceptions','workday'])->first();
-        return view('website.doctor.clinic.dashboard',compact('clinic'));
+        }, 'exceptions', 'workday'])->first();
+        return view('website.doctor.clinic.dashboard', compact('clinic'));
     }
 
     /**

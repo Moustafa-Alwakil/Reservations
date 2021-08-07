@@ -137,7 +137,7 @@
 
                                     <!-- About Details -->
                                     <div class="widget about-widget">
-                                        <h4 class="widget-title">About Me</h4>
+                                        <h4 class="widget-title">About Doctor</h4>
                                         <p>{{ $clinic->physican->info->about['about_' . LaravelLocalization::getCurrentLocale()] }}
                                         </p>
                                     </div>
@@ -352,6 +352,11 @@
 
                                 </div>
                                 <!-- /Write Review -->
+                            @elseif(Auth::guard('doc')->check())
+                            <div class="write-review">
+                                <h4>Sorry, Only patients can write a review.
+                                </h4>
+                            </div>
                             @else
                                 <div class="write-review">
                                     <h4>You have to login to be able to review this clinic, <a
