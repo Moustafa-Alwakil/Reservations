@@ -127,7 +127,7 @@
                                         <p class="text-muted mb-0">Doctor</p>
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="joj">Dashboard</a>
+                                <a class="dropdown-item" href="{{ route('clinics.index') }}">Dashboard</a>
                                 <a class="dropdown-item" href="{{ route('doctor.profile') }}">Profile</a>
                                 <form method="POST" action="{{ route('doctor.logout') }}" class="d-inline">
                                     @csrf<button class="btn btn-link dropdown-item"

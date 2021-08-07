@@ -138,7 +138,7 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($clinic->appointments as $appointment)
-                                                            @if ($appointment->status == 0 && $appointment->start_time > date('H:i') && $appointment->date == date('Y-m-d'))
+                                                            @if ($appointment->status == 0 && abs(strtotime($appointment->start_time) - time()) / 60 > abs(strtotime(date('H:i')) - time()) / 60 && date_format(date_create($appointment->date), 'Y-m-d') >= date('Y-m-d'))
                                                                 <tr id="apptRow{{ $appointment->id }}">
                                                                     <td>
                                                                         <a>{{ ucwords($appointment->user->name['fname']) . ' ' . ucwords($appointment->user->name['lname']) }}</a>
@@ -205,7 +205,7 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($clinic->appointments as $appointment)
-                                                            @if ($appointment->status == 1 && $appointment->start_time > date('H:i') && $appointment->date == date('Y-m-d'))
+                                                            @if ($appointment->status == 1 && abs(strtotime($appointment->start_time) - time()) / 60 > abs(strtotime(date('H:i')) - time()) / 60 && date_format(date_create($appointment->date), 'Y-m-d') >= date('Y-m-d'))
                                                                 <tr>
                                                                     <td>{{ ucwords($appointment->user->name['fname']) . ' ' . ucwords($appointment->user->name['lname']) }}
                                                                     </td>
