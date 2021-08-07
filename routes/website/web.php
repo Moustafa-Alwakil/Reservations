@@ -12,7 +12,7 @@ Route::group([
     Route::get('/', 'IndexController@index')->name('index');
     Route::get('/clinics', 'IndexController@allClinics')->name('all.clinics');
     Route::get('/clinics/search', 'IndexController@showClinicsByLocation')->name('show.clinics.bylocation');
-    Route::get('/clinics/search/c', 'IndexController@clinicsFilter')->name('clinics.filter');
+    Route::get('/clinics/search/filter', 'IndexController@clinicsFilter')->name('clinics.filter');
     Route::get('/clinic/{id}', 'IndexController@clinic')->name('clinic');
     Route::get('getregions/{id}', 'IndexController@getRegions');
 });

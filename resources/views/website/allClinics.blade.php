@@ -25,21 +25,6 @@
     @isset($clinicsByRegion)
         Clinics Search
     @endisset
-    </div>
-    <div class="col-md-4 col-12 d-md-block d-none">
-        <div class="sort-by">
-            <span class="sort-title">Sort by</span>
-            <span class="sortby-fliter">
-                <select class="select">
-                    <option>Select</option>
-                    <option class="sorting">Rating</option>
-                    <option class="sorting">Popular</option>
-                    <option class="sorting">Latest</option>
-                    <option class="sorting">Free</option>
-                </select>
-            </span>
-        </div>
-    </div>
     @include('website.includes.bar3')
     <!-- Page Content -->
     <div class="content">
@@ -56,6 +41,16 @@
                             </div>
                             <div class="card-body">
                                 <div class="filter-widget">
+                                    @if (isset($_GET))
+                                        @if(isset($_GET['city_id']))
+                                        <input type="hidden" name="city_id" value="{{$_GET['city_id']}}">
+                                        @endif
+                                    @endif
+                                    @if (isset($_GET))
+                                    @if(isset($_GET['region_id']))
+                                    <input type="hidden" name="city_id" value="{{$_GET['region_id']}}">
+                                    @endif
+                                @endif
                                     <h4>Gender</h4>
                                     <div>
                                         <label class="custom_check">
@@ -75,7 +70,7 @@
                                     @foreach ($departments as $department)
                                         <div>
                                             <label class="custom_check">
-                                                <input type="checkbox" name="id[]" value="{{ $department->id }}">
+                                                <input type="checkbox" name="service_id[]" value="{{ $department->id }}">
                                                 <span class="checkmark"></span>
                                                 {{ $department->name['name_' . LaravelLocalization::getCurrentLocale()] }}
                                             </label>

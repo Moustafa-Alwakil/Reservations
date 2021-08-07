@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Website\ClinicsFilterRequest;
 use App\Http\Requests\Website\ShowClinicsByLocationRequest;
 use App\Models\City;
 use App\Models\Clinic;
 use App\Models\Department;
 use App\Models\Region;
-use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
@@ -173,9 +173,29 @@ class IndexController extends Controller
         }
     }
 
-    public function clinicsFilter(Request $request)
+    public function clinicsFilter(ClinicsFilterRequest $request)
     {
-        return $request;
+        if (!$request->city_id && !$request->region_id && !$request->male && !$request->female && !$request->id) {
+            $departments = Department::select()->where('status', 1)->get();
+            $clinics = Clinic::select('id', 'name', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['address' => function ($q) {
+                $q->select('id', 'clinic_id', 'region_id')->with(['region' => function ($q) {
+                    $q->select()->where('status', 1);
+                }, 'region.city' => function ($q) {
+                    $q->select()->where('status', 1);
+                }]);
+            }, 'clinicphotos', 'services' => function ($q) {
+                $q->select()->where('status', 1);
+            }, 'examfee', 'physican' => function ($q) {
+                $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
+                    $q->select('id', 'photo', 'physican_id');
+                }, 'department' => function ($q) {
+                    $q->select()->where('status', 1);
+                }, 'reviews' => function ($q) {
+                    $q->select();
+                }]);
+            }])->paginate(10);
+            return view('website.allClinics', compact('departments', 'clinics'));
+        }
     }
 
     public function clinic($id)
@@ -202,7 +222,7 @@ class IndexController extends Controller
 
         if (!$clinic || !$clinic->address->region || !$clinic->address->region->city || !$clinic->physican || !$clinic->physican->department)
             return redirect()->back();
-            
+
         return view('website.clinic', compact('clinic'));
     }
 }
