@@ -18,22 +18,22 @@ class ReviewController extends Controller
         $storeReview = Review::create($data);
 
         if (!$storeReview)
-            return redirect()->back()->with('error', 'Something went wrong, please try again.');
+            return redirect()->back()->with('error', __('website\includes\sessionDisplay.wrong'));
 
-        return redirect()->back()->with('success', 'Thanks for reviewing.');
+        return redirect()->back()->with('success', __('website\includes\sessionDisplay.review'));
     }
     public function destroy(DestroyReviewRequest $request)
     {
         $review = Review::find($request->id);
 
         if (!$review)
-            return redirect()->back()->with('error', 'Something went wrong, please try again.');
+            return redirect()->back()->with('error', __('website\includes\sessionDisplay.wrong'));
 
         $deleteReview = $review->delete();
 
         if (!$deleteReview)
-            return redirect()->back()->with('error', 'Something went wrong, please try again.');
+            return redirect()->back()->with('error', __('website\includes\sessionDisplay.wrong'));
 
-        return redirect()->back()->with('success', 'You have successfully deleted your review.');
+        return redirect()->back()->with('success', __('website\includes\sessionDisplay.deletereview'));
     }
 }

@@ -44,18 +44,18 @@ class ProfileController extends Controller
             // check if the updation process failed
             // if not then redierct with success messgae
             if (!$store)
-                return redirect()->route('user.profile')->with('error', 'Something went wrong, Please try again');
+                return redirect()->route('user.profile')->with('error', __('website\includes\sessionDisplay.wrong'));
 
-            return redirect()->route('user.profile')->with('success', 'Successfuly Updated');
+            return redirect()->route('user.profile')->with('success', __('website\includes\sessionDisplay.successupdate'));
         } else {
             $store = User::where('id', Auth::guard('web')->user()->id)->update($data);
 
             // check if the updation process success
             // if not then redierct with error messgae
             if (!$store)
-                return redirect()->route('user.profile')->with('error', 'Something went wrong, Please try again');
+                return redirect()->route('user.profile')->with('error', __('website\includes\sessionDisplay.wrong'));
 
-            return redirect()->route('user.profile')->with('success', 'Successfuly Updated');
+            return redirect()->route('user.profile')->with('success', __('website\includes\sessionDisplay.successupdate'));
         }
     }
 }

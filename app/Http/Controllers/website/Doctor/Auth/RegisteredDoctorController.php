@@ -46,7 +46,7 @@ class RegisteredDoctorController extends Controller
         // check if the insertation process failed
         // if not then complete the register process
         if (!$doctor)
-            return redirect()->route('doctor.register')->with('error', 'Something went wrong, Please try again');
+            return redirect()->route('doctor.register')->with('error', __('website\includes\sessionDisplay.wrong'));
 
         Auth::guard('doc')->login($doctor);
 

@@ -5,13 +5,13 @@
     $name = Auth::guard('web')->user()->name;
     @endphp
     {{ ucwords($name['fname'] . ' ' . $name['lname']) }}
-    - Appointments
+    - {{__('website\user\appointment\appointment.appts')}}
 @endsection
 @section('content')
     @include('website.includes.bar1')
-    Profile
+    {{__('website\user\appointment\appointment.profile')}}
     @include('website.includes.bar2')
-    Appointments
+    {{__('website\user\appointment\appointment.appts')}}
     @include('website.includes.bar3')
     <!-- Page Content -->
     <div class="content">
@@ -27,7 +27,7 @@
                                 <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
                                     <li class="nav-item">
                                         <a class="nav-link active" href="#pat_appointments"
-                                            data-toggle="tab">Appointments</a>
+                                            data-toggle="tab">{{__('website\user\appointment\appointment.appts')}}</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -47,13 +47,13 @@
                                                 <table class="table table-hover table-center mb-0 text-center">
                                                     <thead>
                                                         <tr>
-                                                            <th>Doctor</th>
-                                                            <th>Clinic</th>
-                                                            <th>Appt Date</th>
-                                                            <th>Booking Date</th>
-                                                            <th>Price</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
+                                                            <th>{{__('website\user\appointment\appointment.doctor')}}</th>
+                                                            <th>{{__('website\user\appointment\appointment.clinic')}}</th>
+                                                            <th>{{__('website\user\appointment\appointment.apptdate')}}</th>
+                                                            <th>{{__('website\user\appointment\appointment.bookdate')}}</th>
+                                                            <th>{{__('website\user\appointment\appointment.price')}}</th>
+                                                            <th>{{__('website\user\appointment\appointment.status')}}</th>
+                                                            <th>{{__('website\user\appointment\appointment.action')}}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -84,28 +84,27 @@
                                                                 <td>
                                                                     @if ($appointment->status == 1)
                                                                         <span
-                                                                            class="badge badge-pill bg-success-light">Confirmed</span>
+                                                                            class="badge badge-pill bg-success-light">{{__('website\user\appointment\appointment.confirmed')}}</span>
                                                                     @elseif($appointment->status == 0)
                                                                         <span
-                                                                            class="badge badge-pill bg-warning-light">Pending</span>
+                                                                            class="badge badge-pill bg-warning-light">{{__('website\user\appointment\appointment.pending')}}</span>
                                                                     @elseif($appointment->status == 2)
                                                                         <span
-                                                                            class="badge badge-pill bg-danger-light">Refused</span>
+                                                                            class="badge badge-pill bg-danger-light">{{__('website\user\appointment\appointment.refused')}}</span>
                                                                     @elseif($appointment->status == 3)
                                                                         <span
-                                                                            class="badge badge-pill bg-secondary-light">Canceled</span>
+                                                                            class="badge badge-pill bg-secondary-light">{{__('website\user\appointment\appointment.canceled')}}</span>
                                                                     @endif
                                                                 </td>
                                                                 <td>
-                                                                    @if ($appointment->status == 0 || $appointment->status == 1)
+                                                                    @if (($appointment->status == 0 || $appointment->status == 1) && $appointment->datetime > date('Y-m-d H:i'))
                                                                         <form method="POST"
                                                                             action="{{route('appointment.update')}}">
                                                                             @csrf
                                                                             <input type="hidden" name="id"
                                                                                 value="{{ $appointment->id }}">
                                                                             <button type="submit" class="btn btn-warning"><i
-                                                                                    class="fas fa-bookmark"></i> Cancel This
-                                                                                Appointment</button>
+                                                                                    class="fas fa-bookmark"></i> {{__('website\user\appointment\appointment.cancelappt')}}</button>
                                                                         </form>
                                                                     @endif
                                                                 </td>

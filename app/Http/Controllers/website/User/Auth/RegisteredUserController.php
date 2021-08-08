@@ -48,7 +48,7 @@ class RegisteredUserController extends Controller
         // check if the insertation process failed
         // if not then complete the register process
         if (!$user)
-            return redirect()->route('user.register')->with('error', 'Something went wrong, Please try again');
+            return redirect()->route('user.register')->with('error', __('website\includes\sessionDisplay.wrong'));
 
         Auth::guard('web')->login($user);
 

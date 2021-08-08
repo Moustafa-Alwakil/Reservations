@@ -4,13 +4,13 @@
     @php
     $name = Auth::guard('web')->user()->name;
     @endphp
-    {{ ucwords($name['fname'] . ' ' . $name['lname']) }} - Profile
+    {{ ucwords($name['fname'] . ' ' . $name['lname']) }} - {{__('website\user\profile\profile.profile')}}
 @endsection
 @section('content')
     @include('website.includes.bar1')
-    Profile
+    {{__('website\user\profile\profile.profile')}}
     @include('website.includes.bar2')
-    Profile Settings
+    {{__('website\user\profile\profile.profileset')}}
     @include('website.includes.bar3')
     <!-- Page Content -->
     <div class="content">
@@ -27,7 +27,7 @@
                                 <div class="row form-row">
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
-                                            <label>First Name</label>
+                                            <label>{{__('website\user\profile\profile.fname')}}</label>
                                             <input type="text" class="form-control" name="fname"
                                                 value="{{ $user->name['fname'] }}">
                                         </div>
@@ -37,7 +37,7 @@
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
-                                            <label>Last Name</label>
+                                            <label>{{__('website\user\profile\profile.lname')}}</label>
                                             <input type="text" class="form-control" name="lname"
                                                 value="{{ $user->name['lname'] }}">
                                         </div>
@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
-                                            <label>Date of Birth</label>
+                                            <label>{{__('website\user\profile\profile.birthdate')}}</label>
                                             <div class="">
                                                 <input type="date" class="form-control datetimepicker" name="birthdate"
                                                     value="{{ $user->birthdate }}">
@@ -60,11 +60,11 @@
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
-                                            <label>gender</label>
+                                            <label>{{__('website\user\profile\profile.gender')}}</label>
                                             <select class="form-control select" name="gender">
-                                                <option @if ($user->gender == 'Male') {{ 'selected' }} @endif value="m">Male
+                                                <option @if ($user->gender == 'Male') {{ 'selected' }} @endif value="m">{{__('website\user\profile\profile.male')}}
                                                 </option>
-                                                <option @if ($user->gender == 'Female') {{ 'selected' }} @endif value="f">Female
+                                                <option @if ($user->gender == 'Female') {{ 'selected' }} @endif value="f">{{__('website\user\profile\profile.female')}}
                                                 </option>
                                             </select>
                                         </div>
@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
-                                            <label>Email</label>
+                                            <label>{{__('website\user\profile\profile.email')}}</label>
                                             <input type="email" class="form-control" name="email"
                                                 value="{{ $user->email }}">
                                         </div>
@@ -84,7 +84,7 @@
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
-                                            <label>Phone</label>
+                                            <label>{{__('website\user\profile\profile.phone')}}</label>
                                             <input type="tel" name="phone" value="{{ $user->phone }}"
                                                 class="form-control">
                                         </div>
@@ -93,24 +93,23 @@
                                         @enderror
                                     </div>
                                     <div class="submit-section">
-                                        <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                                        <button type="submit" class="btn btn-primary submit-btn">{{__('website\user\profile\profile.save')}}</button>
                                     </div>
                             </form>
                             <!-- /Profile Settings Form -->
                             <br><br><br>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <p class="text-center">Account status</p>
+                                    <p class="text-center">{{__('website\user\profile\profile.accstat')}}</p>
                                     @if ($user->email_verified_at == null)
-                                        <div class="alert alert-warning">The account isn't verified, please check
-                                            yor mail inbox to verify your account.
+                                        <div class="alert alert-warning">{{__('website\user\profile\profile.msg2')}}
                                             <form method="POST" action="{{ route('user.verification.send') }}">
                                                 @csrf
-                                                <button class="btn btn-link">Resend Verification Email</button>
+                                                <button class="btn btn-link">{{__('website\user\profile\profile.resend')}}</button>
                                             </form>
                                         </div>
                                     @else
-                                        <div class="alert alert-success">Your account is verified.</div>
+                                        <div class="alert alert-success">{{__('website\user\profile\profile.msg1')}}</div>
                                     @endif
                                 </div>
                             </div>

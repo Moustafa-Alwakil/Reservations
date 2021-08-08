@@ -7,14 +7,14 @@ use App\Http\Requests\Website\User\Appointment\StoreAppointmentRequest;
 use App\Http\Requests\Website\User\Appointment\UpdateAppointmentRequest;
 use App\Models\Appointment;
 use App\Models\Clinic;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
 {
     public function index()
     {
-        $appointments = Appointment::where('user_id', Auth::guard('web')->user()->id)->with(['clinic' => function ($q) {
+        $appointments = Appointment::select(DB::raw("CONCAT(appointments.date,' ',appointments.start_time)  AS datetime"), 'id', 'clinic_id', 'user_id', 'date', 'bookdate', 'start_time', 'end_time', 'status')->where('user_id', Auth::guard('web')->user()->id)->with(['clinic' => function ($q) {
             $q->select('id', 'name', 'physican_id')->with(['physican' => function ($q) {
                 $q->select('id', 'name', 'department_id')->with(['info' => function ($q) {
                     $q->select('id', 'photo', 'physican_id');
@@ -53,9 +53,9 @@ class AppointmentController extends Controller
         $storeAppointment = Appointment::create($data);
 
         if (!$storeAppointment)
-            return redirect()->back()->with('error', 'Something went wrong, please try again.');
+            return redirect()->back()->with('error', __('website\includes\sessionDisplay.wrong'));
 
-        return redirect()->route('appointment.index')->with('success', 'You have successfully booked an appointment.');
+        return redirect()->route('appointment.index')->with('success', __('website\includes\sessionDisplay.successbook'));
     }
 
     public function update(UpdateAppointmentRequest $request)
@@ -63,8 +63,8 @@ class AppointmentController extends Controller
         $updateAppointment = Appointment::where(['id'=>$request->id , 'user_id' => Auth::guard('web')->user()->id])->update(['status'=>3]);
 
         if(!$updateAppointment)
-            return redirect()->route('appointment.index')->with('error','Something went wrong, please try again.');
+            return redirect()->route('appointment.index')->with('error',__('website\includes\sessionDisplay.wrong'));
 
-            return redirect()->route('appointment.index')->with('success','You have been canceled your booking successfully.');
+            return redirect()->route('appointment.index')->with('success',__('website\includes\sessionDisplay.successcancle'));
     }
 }

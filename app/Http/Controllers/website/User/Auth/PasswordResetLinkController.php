@@ -40,7 +40,7 @@ class PasswordResetLinkController extends Controller
         );
 
         return $status == Password::RESET_LINK_SENT
-                    ? back()->with('success','Reset link sent successfuly, please check your email inbox')
-                    : back()->with('error','Something went wrong, please try again');
+                    ? back()->with('success',__('website\includes\sessionDisplay.resetlink'))
+                    : back()->with('error',__('website\includes\sessionDisplay.wrong'));
     }
 }
