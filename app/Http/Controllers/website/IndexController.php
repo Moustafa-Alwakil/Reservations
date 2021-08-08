@@ -29,7 +29,7 @@ class IndexController extends Controller
     public function allClinics()
     {
         $departments = Department::select()->where('status', 1)->get();
-        $clinics = Clinic::select('id', 'name', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['address' => function ($q) {
+        $clinics = Clinic::select('id', 'name','phone', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['address' => function ($q) {
             $q->select('id', 'clinic_id', 'region_id')->with(['region' => function ($q) {
                 $q->select()->where('status', 1);
             }, 'region.city' => function ($q) {
@@ -54,7 +54,7 @@ class IndexController extends Controller
     {
         if (!$request->city_id && !$request->region_id) {
             $departments = Department::select()->where('status', 1)->get();
-            $clinics = Clinic::select('id', 'name', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['address' => function ($q) {
+            $clinics = Clinic::select('id', 'name', 'phone', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['address' => function ($q) {
                 $q->select('id', 'clinic_id', 'region_id')->with(['region' => function ($q) {
                     $q->select()->where('status', 1);
                 }, 'region.city' => function ($q) {
@@ -91,7 +91,7 @@ class IndexController extends Controller
                     $q->select()->where('status', 1);
                 }, 'addresses' => function ($q) {
                     $q->select()->with(['clinic' => function ($q) {
-                        $q->select('id', 'name', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['clinicphotos', 'services' => function ($q) {
+                        $q->select('id', 'name', 'phone', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['clinicphotos', 'services' => function ($q) {
                             $q->select()->where('status', 1);
                         }, 'examfee', 'physican' => function ($q) {
                             $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
@@ -107,7 +107,7 @@ class IndexController extends Controller
                 return view('website.allClinics', compact('departments', 'clinicsByRegion'));
             } else {
                 $departments = Department::select()->where('status', 1)->get();
-                $clinics = Clinic::select('id', 'name', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['address' => function ($q) {
+                $clinics = Clinic::select('id', 'name', 'phone', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['address' => function ($q) {
                     $q->select('id', 'clinic_id', 'region_id')->with(['region' => function ($q) {
                         $q->select()->where('status', 1);
                     }, 'region.city' => function ($q) {
@@ -133,7 +133,7 @@ class IndexController extends Controller
             $clinicsByCity = City::where(['status' => 1, 'id' => $request->city_id])->with(['regions' => function ($q) {
                 $q->select()->where('status', 1)->with(['addresses' => function ($q) {
                     $q->select()->with(['clinic' => function ($q) {
-                        $q->select('id', 'name', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['clinicphotos', 'services' => function ($q) {
+                        $q->select('id', 'name', 'phone', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['clinicphotos', 'services' => function ($q) {
                             $q->select()->where('status', 1);
                         }, 'examfee', 'physican' => function ($q) {
                             $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
@@ -156,7 +156,7 @@ class IndexController extends Controller
                 $q->select()->where('status', 1);
             }, 'addresses' => function ($q) {
                 $q->select()->with(['clinic' => function ($q) {
-                    $q->select('id', 'name', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['clinicphotos', 'services' => function ($q) {
+                    $q->select('id', 'name', 'phone', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['clinicphotos', 'services' => function ($q) {
                         $q->select()->where('status', 1);
                     }, 'examfee', 'physican' => function ($q) {
                         $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
@@ -177,7 +177,7 @@ class IndexController extends Controller
     {
         if (!$request->city_id && !$request->region_id && !$request->male && !$request->female && !$request->id) {
             $departments = Department::select()->where('status', 1)->get();
-            $clinics = Clinic::select('id', 'name', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['address' => function ($q) {
+            $clinics = Clinic::select('id', 'name', 'phone', 'physican_id')->where(['status' => 1, 'review' => 1])->with(['address' => function ($q) {
                 $q->select('id', 'clinic_id', 'region_id')->with(['region' => function ($q) {
                     $q->select()->where('status', 1);
                 }, 'region.city' => function ($q) {
@@ -200,7 +200,7 @@ class IndexController extends Controller
 
     public function clinic($id)
     {
-        $clinic = Clinic::select('id', 'name', 'physican_id')->where(['status' => 1, 'review' => 1, 'id' => $id])->with(['address' => function ($q) {
+        $clinic = Clinic::select('id', 'name', 'phone', 'physican_id')->where(['status' => 1, 'review' => 1, 'id' => $id])->with(['address' => function ($q) {
             $q->select()->with(['region' => function ($q) {
                 $q->select()->where('status', 1);
             }, 'region.city' => function ($q) {

@@ -172,6 +172,8 @@
                                                             class="fas fa-map-marker-alt"></i>{{ ucwords($clinic->address->region->name['name_' . LaravelLocalization::getCurrentLocale()]) }},
                                                         {{ ucwords($clinic->address->region->city->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
                                                     </li>
+                                                    <li><i class="fas fa-phone-square-alt"></i> {{ $clinic->phone }}
+                                                </li>
                                                     <li><i class="far fa-money-bill-alt"></i>
                                                         {{ $clinic->examfee->price }}
                                                         EGP
@@ -293,6 +295,8 @@
                                                                     class="fas fa-map-marker-alt"></i>{{ ucwords($region->name['name_' . LaravelLocalization::getCurrentLocale()]) }},
                                                                 {{ ucwords($clinicsByCity->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
                                                             </li>
+                                                            <li><i class="fas fa-phone-square-alt"></i> {{ $address->clinic->phone }}
+                                                            </li>
                                                             <li><i class="far fa-money-bill-alt"></i>
                                                                 {{ $address->clinic->examfee->price }}
                                                                 EGP
@@ -408,6 +412,8 @@
                                                         <li><i
                                                                 class="fas fa-map-marker-alt"></i>{{ ucwords($clinicsByRegion->name['name_' . LaravelLocalization::getCurrentLocale()]) }},
                                                             {{ ucwords($clinicsByRegion->city->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
+                                                        </li>
+                                                        <li><i class="fas fa-phone-square-alt"></i> {{ $address->clinic->phone }}
                                                         </li>
                                                         <li><i class="far fa-money-bill-alt"></i>
                                                             {{ $address->clinic->examfee->price }}

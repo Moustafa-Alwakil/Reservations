@@ -88,6 +88,8 @@
                                             class="fas fa-map-marker-alt"></i>{{ ucwords($clinic->address->region->name['name_' . LaravelLocalization::getCurrentLocale()]) }},
                                         {{ ucwords($clinic->address->region->city->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
                                     </li>
+                                    <li><i class="fas fa-phone-square-alt"></i> {{ $clinic->phone }}
+                                    </li>
                                     <li><i class="far fa-money-bill-alt"></i> {{ $clinic->examfee->price }} EGP
                                     </li>
                                 </ul>
