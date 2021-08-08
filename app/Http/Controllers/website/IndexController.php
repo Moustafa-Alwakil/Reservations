@@ -8,6 +8,7 @@ use App\Http\Requests\Website\ShowClinicsByLocationRequest;
 use App\Models\City;
 use App\Models\Clinic;
 use App\Models\Department;
+use App\Models\Physican;
 use App\Models\Region;
 
 class IndexController extends Controller
@@ -49,6 +50,15 @@ class IndexController extends Controller
         return view('website.allClinics', compact('departments', 'clinics'));
     }
 
+    public function terms()
+    {
+        return view('website.terms');
+    }
+
+    public function policy()
+    {
+        return view('website.policy');
+    }
 
     public function showClinicsByLocation(ShowClinicsByLocationRequest $request)
     {

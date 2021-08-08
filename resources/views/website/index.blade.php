@@ -1,6 +1,6 @@
 @extends('website.layouts.layout')
 @section('title')
-    {{ __('index.home') }}
+    Home
 @endsection
 @section('content')
     <!-- Home Banner -->

@@ -15,6 +15,8 @@ Route::group([
     Route::get('/clinics/search/filter', 'IndexController@clinicsFilter')->name('clinics.filter');
     Route::get('/clinic/{id}', 'IndexController@clinic')->name('clinic');
     Route::get('getregions/{id}', 'IndexController@getRegions');
+    Route::get('/terms', 'IndexController@terms')->name('terms');
+    Route::get('/policy', 'IndexController@policy')->name('policy');
 });
 
 require __DIR__ . '/user/auth.php';

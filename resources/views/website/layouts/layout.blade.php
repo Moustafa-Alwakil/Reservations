@@ -61,6 +61,7 @@
                         </a>
                     </div>
                     <ul class="main-nav">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <li class="has-submenu @if (Request::url()==route('index')) {{ 'active' }} @endif">
                             <a href="{{ route('index') }}">Home<i class="fas"></i></a>
                         </li>
@@ -271,8 +272,8 @@
                                     <!-- Copyright Menu -->
                                     <div class="copyright-menu">
                                         <ul class="policy-menu">
-                                            <li><a href="term-condition.html">Terms and Conditions</a></li>
-                                            <li><a href="privacy-policy.html">Policy</a></li>
+                                            <li><a href="{{route('terms')}}">Terms and Conditions</a></li>
+                                            <li><a href="{{route('policy')}}">Policy</a></li>
                                         </ul>
                                     </div>
                                     <!-- /Copyright Menu -->
