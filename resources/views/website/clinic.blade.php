@@ -8,9 +8,9 @@
 @endsection
 @section('content')
     @include('website.includes.bar1')
-    Clinics
+    {{__('website\layouts\layout.clinics')}}
     @include('website.includes.bar2')
-    {{ ucwords($clinic->name['name_' . LaravelLocalization::getCurrentLocale()]) }} Profile
+    {{ ucwords($clinic->name['name_' . LaravelLocalization::getCurrentLocale()]) }} {{__('website\clinic.profile')}}
     @include('website.includes.bar3')
     <!-- Page Content -->
     <div class="content">
@@ -96,11 +96,10 @@
                             </div>
                             <div class="clinic-booking">
                                 @if (!Auth::guard('doc')->check() && !Auth::guard('web')->check())
-                                    <a class="apt-btn" href="{{ route('user.login') }}">Book Appointment</a>
+                                    <a class="apt-btn" href="{{ route('user.login') }}">{{__('website\allClinics.book')}}</a>
                                 @endif
                                 @auth('web')
-                                    <a class="apt-btn" href="{{ route('appointment.create', ['id' => $clinic->id]) }}">Book
-                                        Appointment</a>
+                                    <a class="apt-btn" href="{{ route('appointment.create', ['id' => $clinic->id]) }}">{{__('website\allClinics.book')}}</a>
                                 @endauth
                             </div>
                         </div>
@@ -117,13 +116,13 @@
                     <nav class="user-tabs mb-4">
                         <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#doc_overview" data-toggle="tab">Overview</a>
+                                <a class="nav-link active" href="#doc_overview" data-toggle="tab">{{__('website\clinic.overview')}}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#doc_reviews" data-toggle="tab">Reviews</a>
+                                <a class="nav-link" href="#doc_reviews" data-toggle="tab">{{__('website\clinic.reviews')}}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#doc_business_hours" data-toggle="tab">Business Hours</a>
+                                <a class="nav-link" href="#doc_business_hours" data-toggle="tab">{{__('website\clinic.bushour')}}</a>
                             </li>
                         </ul>
                     </nav>
@@ -139,7 +138,7 @@
 
                                     <!-- About Details -->
                                     <div class="widget about-widget">
-                                        <h4 class="widget-title">About Doctor</h4>
+                                        <h4 class="widget-title">{{__('website\clinic.about')}}</h4>
                                         <p>{{ $clinic->physican->info->about['about_' . LaravelLocalization::getCurrentLocale()] }}
                                         </p>
                                     </div>
@@ -147,7 +146,7 @@
 
                                     <!-- Experience Details -->
                                     <div class="widget experience-widget">
-                                        <h4 class="widget-title">Work & Experience</h4>
+                                        <h4 class="widget-title">{{__('website\clinic.ex')}}</h4>
                                         <div class="experience-box">
                                             <ul class="experience-list">
                                                 @foreach ($clinic->physican->experiences as $experience)
@@ -165,7 +164,7 @@
                                                                     - @if ($experience->end_date)
                                                                         {{ date_format(date_create($experience->end_date), 'Y') }}
                                                                     @else
-                                                                        Present
+                                                                    {{__('website\clinic.present')}}
                                                                     @endif
                                                                 </span>
                                                             </div>
@@ -179,7 +178,7 @@
 
                                     <!-- Services List -->
                                     <div class="service-list">
-                                        <h4>Clinic Services</h4>
+                                        <h4>{{__('website\clinic.services')}}</h4>
                                         <ul class="clearfix">
                                             @foreach ($clinic->services as $service)
                                             @php
@@ -195,7 +194,7 @@
 
                                     <!-- Loction -->
                                     <div class="service-list">
-                                        <h4>Clinic Sepcific Location</h4>
+                                        <h4>{{__('website\clinic.address')}}</h4><br>
                                         <ul class="clearfix">
                                             <p><i class="fas fa-map-marker-alt"></i>
                                                 {{ $clinic->address->street['street_' . LaravelLocalization::getCurrentLocale()] }}
@@ -207,7 +206,7 @@
                                                 {{ $clinic->address->region->name['name_' . LaravelLocalization::getCurrentLocale()] }}
                                                 ,
                                                 {{ $clinic->address->region->city->name['name_' . LaravelLocalization::getCurrentLocale()] }})
-                                            </p>
+                                            <br><br><i class="fas fa-map-marked-alt"></i> {{__('website\clinic.landmark')}}: {{ $clinic->address->landmark['landmark_' . LaravelLocalization::getCurrentLocale()] }}</p>
                                         </ul>
                                     </div>
                                     <!-- /Loction -->
@@ -258,7 +257,7 @@
                                                                         value="{{ $review->user_id }}">
                                                                     <input type="hidden" name="id"
                                                                         value="{{ $review->id }}">
-                                                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                                                    <button class="btn btn-sm btn-danger">{{__('website\clinic.del')}}</button>
                                                                 </form>
                                                             @endif
                                                         @endif
@@ -276,7 +275,7 @@
                             @if (Auth::guard('web')->check())
                                 <!-- Write Review -->
                                 <div class="write-review">
-                                    <h4>Write a review for <strong>Dr.
+                                    <h4>{{__('website\clinic.writerev')}} <strong>{{__('website\clinic.dr')}} 
                                             {{ ucwords($clinic->physican->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $clinic->physican->name['lname_' . LaravelLocalization::getCurrentLocale()]) }}</strong>
                                     </h4>
 
@@ -285,7 +284,7 @@
                                         @csrf
                                         <input type="text" name="physican_id" hidden value="{{ $clinic->physican->id }}">
                                         <div class="form-group">
-                                            <label>Review</label>
+                                            <label>{{__('website\clinic.review')}} </label>
                                             <div class="star-rating">
                                                 <input id="star-5" type="radio" name="value" value="5">
                                                 <label for="star-5" title="5 stars">
@@ -313,7 +312,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label>Title of your review</label>
+                                            <label>{{__('website\clinic.reviewtitle')}} </label>
                                             <input class="form-control" type="text"
                                                 placeholder="If you could say it in one sentence, what would you say?"
                                                 name="title" value="{{ old('title') }}">
@@ -322,13 +321,12 @@
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                         <div class="form-group">
-                                            <label>Your review</label>
+                                            <label>{{__('website\clinic.yourreview')}} </label>
                                             <textarea id="review_desc" maxlength="100" class="form-control"
                                                 name="comment">{{ old('comment') }}</textarea>
 
                                             <div class="d-flex justify-content-between mt-3"><small class="text-muted"><span
-                                                        id="chars">100</span> characters
-                                                    remaining</small></div>
+                                                        id="chars">100</span> {{__('website\clinic.100char')}} </small></div>
                                         </div>
                                         @error('comment')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -338,8 +336,7 @@
                                             <div class="terms-accept">
                                                 <div class="custom-checkbox">
                                                     <input type="checkbox" id="terms_accept" name="accept" value="1">
-                                                    <label for="terms_accept">I have read and accept <a href="#">Terms
-                                                            &amp; Conditions</a></label>
+                                                    <label for="terms_accept">{{__('website\clinic.read')}} <a href="{{route('terms')}}">{{__('website\clinic.terms')}} </a></label>
                                                 </div>
                                             </div>
                                             @error('accept')
@@ -347,7 +344,7 @@
                                             @enderror
                                         </div>
                                         <div class="submit-section">
-                                            <button type="submit" class="btn btn-primary submit-btn">Add Review</button>
+                                            <button type="submit" class="btn btn-primary submit-btn">{{__('website\clinic.addreview')}}</button>
                                         </div>
                                     </form>
                                     <!-- /Write Review Form -->
@@ -356,14 +353,13 @@
                                 <!-- /Write Review -->
                             @elseif(Auth::guard('doc')->check())
                             <div class="write-review">
-                                <h4>Sorry, Only patients can write a review.
+                                <h4>{{__('website\clinic.reviewmsg2')}} 
                                 </h4>
                             </div>
                             @else
                                 <div class="write-review">
-                                    <h4>You have to login to be able to review this clinic, <a
-                                            href="{{ route('user.login') }}" class="text-primary">Click here to
-                                            login.</a>
+                                    <h4>{{__('website\clinic.reviewmsg1')}} <a
+                                            href="{{ route('user.login') }}" class="text-primary">{{__('website\clinic.click')}}</a>
                                     </h4>
                                 </div>
                             @endif
@@ -381,11 +377,11 @@
                                         <div class="widget-content">
                                             <div class="listing-hours">
                                                 <div class="listing-day current">
-                                                    <div class="day">Today <span>{{ date('j M Y') }}</span></div>
+                                                    <div class="day">{{__('website\clinic.today')}} <span>{{ date('j M Y') }}</span></div>
                                                     <div class="time-items">
                                                         <span class="open-status">
                                                             @if ($clinic->workday->available[lcfirst(date('l'))][lcfirst(date('D')) . '_status'] == 1 && $clinic->workday->available[lcfirst(date('l'))][lcfirst(date('D')) . '_end_time'] > date('H:i'))
-                                                                <span class="badge bg-success-light">Open</span>
+                                                                <span class="badge bg-success-light">{{__('website\clinic.open')}}</span>
                                                         </span>
                                                         <span
                                                             class="time">{{ date_format(date_create($clinic->workday->available[lcfirst(date('l'))][lcfirst(date('D')) . '_start_time']), 'h:i A') }}
@@ -393,9 +389,9 @@
                                                             {{ date_format(date_create($clinic->workday->available[lcfirst(date('l'))][lcfirst(date('D')) . '_end_time']), 'h:i A') }}</span>
                                                     @elseif($clinic->workday->available[lcfirst(date('l'))][lcfirst(date('D')).'_status']==
                                                         0)
-                                                        <span class="badge bg-danger-light">Closed</span></span>
+                                                        <span class="badge bg-danger-light">{{__('website\clinic.closed')}}</span></span>
                                                     @else
-                                                        <span class="badge bg-danger-light">Closed</span></span>
+                                                        <span class="badge bg-danger-light">{{__('website\clinic.closed')}}</span></span>
                                                         <span
                                                             class="time">{{ date_format(date_create($clinic->workday->available[lcfirst(date('l'))][lcfirst(date('D')) . '_start_time']), 'h:i A') }}
                                                             -
@@ -413,15 +409,15 @@
                                                                         ?>
                                                                         @if($clinic->workday->available[lcfirst(date_format(date_create($day),'l'))][lcfirst(date_format(date_create($day),'D')) . '_status'] == 0)
                                                                         <div class="listing-day closed">
-                                                                            <div class="day">{{date_format(date_create($day),'l')}}</div>
+                                                                            <div class="day">{{__('website\clinic.'.date_format(date_create($day),'l'))}}</div>
                                                                             <div class="time-items">
                                                                                 <span class="time"><span
-                                                                                        class="badge bg-danger-light">Closed</span></span>
+                                                                                        class="badge bg-danger-light">{{__('website\clinic.closed')}}</span></span>
                                                                             </div>
                                                                         </div>
                                                                         @else
                                                                         <div class="listing-day closed">
-                                                                            <div class="day">{{date_format(date_create($day),'l')}}</div>
+                                                                            <div class="day">{{__('website\clinic.'.date_format(date_create($day),'l'))}}</div>
                                                                             <div class="time-items">
                                                                                 <span class="time">{{date_format(date_create($clinic->workday->available[lcfirst(date_format(date_create($day),'l'))][lcfirst(date_format(date_create($day),'D')) . '_start_time']),'h:i A')}} - {{date_format(date_create($clinic->workday->available[lcfirst(date_format(date_create($day),'l'))][lcfirst(date_format(date_create($day),'D')) . '_end_time']),'h:i A')}}</span>
                                                                             </div>

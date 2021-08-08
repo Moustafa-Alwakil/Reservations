@@ -42,7 +42,7 @@
                                                     $h = 0;
                                                     $patients = [];
                                                     foreach ($clinic->appointments as $appointment) {
-                                                        if ($appointment->status == 1 && $appointment->date == date('Y-m-d')) {
+                                                        if ($appointment->status == 1 && $appointment->datetime > date('Y-m-d H:i')) {
                                                             $l++;
                                                         }
                                                     }
@@ -68,9 +68,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="dash-widget-info">
-                                                    <h6>Today Appointments</h6>
+                                                    <h6>Upcoming Appointments</h6>
                                                     <h3>{{ $l }}</h3>
-                                                    <p class="text-muted">Today</p>
                                                 </div>
                                             </div>
                                         </div>

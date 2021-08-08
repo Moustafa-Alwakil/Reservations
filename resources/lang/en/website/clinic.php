@@ -1,0 +1,43 @@
+<?php
+
+
+return [
+
+'profile'=>'Profile',
+'overview' => 'Overview',
+'about' => 'About Doctor',
+'ex' => 'Work & Experience',
+'present' => 'Present',
+'services' => 'Clinic Services',
+'address' => 'Clinic Specific Location',
+'build' => 'Building no.',
+'floor' => 'Floor no. ',
+'apart' => 'Apartment no.',
+'landmark' => 'Landmark',
+'reviews' => 'Reviews',
+'reviewmsg1'=>'You have to login to be able to review this clinic,',
+'click'=>'Click here to login.',
+'reviewmsg2'=>'Sorry, Only patients can write a review.',
+'del'=>'Delete Review',
+'writerev'=>'Write a review for',
+'dr'=>'Dr.',
+'review'=>'Review',
+'reviewtitle'=>'Review Title',
+'yourreview'=>'Your Review',
+'100char'=>'characters remaining',
+'read'=>'I have read and accept',
+'terms'=>'Terms & Conditions',
+'addreview'=>'Add Review',
+'bushour'=>'Business Hours',
+'today'=>'Today',
+'Saturday'=>'Saturday',
+'Sunday'=>'Sunday',
+'Monday'=>'Monday',
+'Tuesday'=>'Tuesday',
+'Wednesday'=>'Wednesday',
+'Thursday'=>'Tuesday',
+'Friday'=>'Friday',
+'closed'=>'Closed',
+'open'=>'Open',
+
+];

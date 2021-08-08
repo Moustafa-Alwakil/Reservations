@@ -1,6 +1,6 @@
 @extends('website.layouts.layout')
 @section('title')
-    Clinics
+{{__('website\layouts\layout.clinics')}}
 @endsection
 @section('stylesheets')
     {{-- <!-- Datetimepicker CSS --> --}}
@@ -14,16 +14,16 @@
 @endsection
 @section('content')
     @include('website.includes.bar1')
-    All Clinics
+    {{__('website\layouts\layout.clinics')}}
     @include('website.includes.bar2')
     @isset($clinics)
-        All Clinics
+    {{__('website\allClinics.all')}}
     @endisset
     @isset($clinicsByCity)
-        Clinics Search
+    {{__('website\allClinics.clinicsearch')}}
     @endisset
     @isset($clinicsByRegion)
-        Clinics Search
+    {{__('website\allClinics.clinicsearch')}}
     @endisset
     @include('website.includes.bar3')
     <!-- Page Content -->
@@ -37,7 +37,7 @@
                     <form method="GET" action="{{ route('clinics.filter') }}">
                         <div class="card search-filter">
                             <div class="card-header">
-                                <h4 class="card-title mb-0">Search Filter</h4>
+                                <h4 class="card-title mb-0">    {{__('website\allClinics.searchfilter')}}</h4>
                             </div>
                             <div class="card-body">
                                 <div class="filter-widget">
@@ -51,22 +51,22 @@
                                     <input type="hidden" name="city_id" value="{{$_GET['region_id']}}">
                                     @endif
                                 @endif
-                                    <h4>Gender</h4>
+                                    <h4>    {{__('website\allClinics.gender')}}</h4>
                                     <div>
                                         <label class="custom_check">
                                             <input type="checkbox" name="male" value="m">
-                                            <span class="checkmark"></span> Male Doctor
+                                            <span class="checkmark"></span>     {{__('website\allClinics.male')}}
                                         </label>
                                     </div>
                                     <div>
                                         <label class="custom_check">
                                             <input type="checkbox" name="female" value="f">
-                                            <span class="checkmark"></span> Female Doctor
+                                            <span class="checkmark"></span>     {{__('website\allClinics.female')}}
                                         </label>
                                     </div>
                                 </div>
                                 <div class="filter-widget">
-                                    <h4>Select Specialist</h4>
+                                    <h4>    {{__('website\allClinics.spec')}}</h4>
                                     @foreach ($departments as $department)
                                         <div>
                                             <label class="custom_check">
@@ -78,7 +78,7 @@
                                     @endforeach
                                 </div>
                                 <div class="btn-search">
-                                    <button type="submit" class="btn btn-block">Search</button>
+                                    <button type="submit" class="btn btn-block">    {{__('website\allClinics.search')}}</button>
                                 </div>
                             </div>
                         </div>
@@ -182,16 +182,13 @@
                                             </div>
                                             <div class="clinic-booking">
                                                 <a class="view-pro-btn"
-                                                    href="{{ route('clinic', ['id' => $clinic->id]) }}">View
-                                                    Profile</a>
+                                                    href="{{ route('clinic', ['id' => $clinic->id]) }}">{{__('website\allClinics.profile')}}</a>
                                                 @if (!Auth::guard('doc')->check() && !Auth::guard('web')->check())
-                                                    <a class="apt-btn" href="{{ route('user.login') }}">Book
-                                                        Appointment</a>
+                                                    <a class="apt-btn" href="{{ route('user.login') }}">{{__('website\allClinics.book')}}</a>
                                                 @endif
                                                 @auth('web')
                                                     <a class="apt-btn"
-                                                        href="{{ route('appointment.create', ['id' => $clinic->id]) }}">Book
-                                                        Appointment</a>
+                                                        href="{{ route('appointment.create', ['id' => $clinic->id]) }}">{{__('website\allClinics.book')}}</a>
                                                 @endauth
                                             </div>
                                         </div>
@@ -305,16 +302,13 @@
                                                     </div>
                                                     <div class="clinic-booking">
                                                         <a class="view-pro-btn"
-                                                            href="{{ route('clinic', ['id' => $address->clinic->id]) }}">View
-                                                            Profile</a>
+                                                            href="{{ route('clinic', ['id' => $address->clinic->id]) }}">{{__('website\allClinics.profile')}}</a>
                                                         @if (!Auth::guard('doc')->check() && !Auth::guard('web')->check())
-                                                            <a class="apt-btn" href="{{ route('user.login') }}">Book
-                                                                Appointment</a>
+                                                            <a class="apt-btn" href="{{ route('user.login') }}">{{__('website\allClinics.book')}}</a>
                                                         @endif
                                                         @auth('web')
                                                             <a class="apt-btn"
-                                                                href="{{ route('appointment.create', ['id' => $address->clinic->id]) }}">Book
-                                                                Appointment</a>
+                                                                href="{{ route('appointment.create', ['id' => $address->clinic->id]) }}">{{__('website\allClinics.book')}}</a>
                                                         @endauth
                                                     </div>
                                                 </div>
@@ -423,16 +417,13 @@
                                                 </div>
                                                 <div class="clinic-booking">
                                                     <a class="view-pro-btn"
-                                                        href="{{ route('clinic', ['id' => $address->clinic->id]) }}">View
-                                                        Profile</a>
+                                                        href="{{ route('clinic', ['id' => $address->clinic->id]) }}">{{__('website\allClinics.profile')}}</a>
                                                     @if (!Auth::guard('doc')->check() && !Auth::guard('web')->check())
-                                                        <a class="apt-btn" href="{{ route('user.login') }}">Book
-                                                            Appointment</a>
+                                                        <a class="apt-btn" href="{{ route('user.login') }}">{{__('website\allClinics.book')}}</a>
                                                     @endif
                                                     @auth('web')
                                                         <a class="apt-btn"
-                                                            href="{{ route('appointment.create', ['id' => $address->clinic->id]) }}">Book
-                                                            Appointment</a>
+                                                            href="{{ route('appointment.create', ['id' => $address->clinic->id]) }}">{{__('website\allClinics.book')}}</a>
                                                     @endauth
                                                 </div>
                                             </div>

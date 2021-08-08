@@ -1,6 +1,6 @@
 @extends('website.layouts.layout')
 @section('title')
-    Home
+{{__('website\layouts\layout.home')}}
 @endsection
 @section('content')
     <!-- Home Banner -->
@@ -8,8 +8,8 @@
         <div class="container-fluid">
             <div class="banner-wrapper">
                 <div class="banner-header text-center">
-                    <h1>Search Doctor, Make an Appointment</h1>
-                    <p>Discover the best doctors, clinic & hospital the city nearest to you.</p>
+                    <h1>{{__('website\index.s1')}}</h1>
+                    <p>{{__('website\index.s2')}}</p>
                 </div>
 
                 <!-- Search -->
@@ -17,7 +17,7 @@
                     <form method="get" action="{{route('show.clinics.bylocation')}}">
                         <div class="form-group search-location">
                             <select class="form-control select" name="city_id" id="city">
-                                <option selected disabled>Selecty City
+                                <option selected disabled>{{__('website\index.sc')}}
                                 </option>
                                 @isset($cities)
                                     @foreach ($cities['data'] as $city)
@@ -30,12 +30,12 @@
                         </div>
                         <div class="form-group search-location">
                             <select class="form-control select" name="region_id" id="region">
-                                <option selected disabled>Select Region
+                                <option selected disabled>{{__('website\index.sr')}}
                                 </option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary search-btn mt-0"><i class="fas fa-search"></i>
-                            <span>Search</span></button>
+                            <span></span></button>
                     </form>
                 </div>
                 <!-- /Search -->
@@ -50,7 +50,7 @@
             <div class="row">
                 <div class="col-md-9 m-auto">
                     <div class="section-header text-center">
-                        <h2>What are you looking for?</h2>
+                        <h2>{{__('website\index.ques')}}</h2>
                     </div>
                     <div class="row d-flex justify-content-center">
                         <div class="col-lg-4 mb-3">
@@ -58,8 +58,8 @@
                                 <img src="website/assets/img/doctors/doctor-07.jpg" alt="" class="img-fluid">
                                 <div class="doctor-book-card-content tile-card-content-1">
                                     <div>
-                                        <h3 class="card-title mb-0">Visit a Doctor</h3>
-                                        <a href="{{route('all.clinics')}}" class="btn book-btn1 px-3 py-2 mt-3" tabindex="0">Book Now</a>
+                                        <h3 class="card-title mb-0">{{__('website\index.visit')}}</h3>
+                                        <a href="{{route('all.clinics')}}" class="btn book-btn1 px-3 py-2 mt-3" tabindex="0">{{__('website\index.book')}}</a>
                                     </div>
                                 </div>
                             </div>

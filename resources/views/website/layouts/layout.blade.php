@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from doccure-html.dreamguystech.com/template/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Mar 2021 19:27:44 GMT -->
+<!-- Mirrored from doccure-html.dreamguystech.com/template/layout.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Mar 2021 19:27:44 GMT -->
 
 <head>
 
@@ -63,10 +63,10 @@
                     <ul class="main-nav">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <li class="has-submenu @if (Request::url()==route('index')) {{ 'active' }} @endif">
-                            <a href="{{ route('index') }}">Home<i class="fas"></i></a>
+                            <a href="{{ route('index') }}">{{__('website\layouts\layout.home')}}<i class="fas"></i></a>
                         </li>
                         <li class="has-submenu @if (Request::url()==route('all.clinics')) {{ 'active' }} @endif">
-                            <a href="{{ route('all.clinics') }}">Clinics<i class="fas"></i></a>
+                            <a href="{{ route('all.clinics') }}">{{__('website\layouts\layout.clinics')}}<i class="fas"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -88,14 +88,14 @@
                                 <div class="user-header">
                                     <div class="user-text">
                                         <h6>{{ ucwords($name['fname'] . ' ' . $name['lname']) }}</h6>
-                                        <p class="text-muted mb-0">User</p>
+                                        <p class="text-muted mb-0">{{__('website\layouts\layout.user')}}</p>
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="{{route('appointment.index')}}">Appointments</a>
-                                <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
+                                <a class="dropdown-item" href="{{route('appointment.index')}}">{{__('website\layouts\layout.appts')}}</a>
+                                <a class="dropdown-item" href="{{ route('user.profile') }}">{{__('website\layouts\layout.profile')}}</a>
                                 <form method="POST" action="{{ route('user.logout') }}" class="d-inline">
                                     @csrf<button class="btn btn-link dropdown-item"
-                                        href="{{ route('user.logout') }}">Logout</button>
+                                        href="{{ route('user.logout') }}">{{__('website\layouts\layout.logout')}}</button>
                                 </form>
                             </div>
                         </li>
@@ -125,14 +125,14 @@
                                     <div class="user-text">
                                         <h6>{{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . '']) }}
                                         </h6>
-                                        <p class="text-muted mb-0">Doctor</p>
+                                        <p class="text-muted mb-0">{{__('website\layouts\layout.doctor')}}</p>
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="{{ route('clinics.index') }}">Dashboard</a>
-                                <a class="dropdown-item" href="{{ route('doctor.profile') }}">Profile</a>
+                                <a class="dropdown-item" href="{{ route('clinics.index') }}">{{__('website\layouts\layout.dashboard')}}</a>
+                                <a class="dropdown-item" href="{{ route('doctor.profile') }}">{{__('website\layouts\layout.login')}}</a>
                                 <form method="POST" action="{{ route('doctor.logout') }}" class="d-inline">
                                     @csrf<button class="btn btn-link dropdown-item"
-                                        href="{{ route('doctor.logout') }}">Logout</button>
+                                        href="{{ route('doctor.logout') }}">{{__('website\layouts\layout.logout')}}</button>
                                 </form>
                             </div>
                         </li>
@@ -140,23 +140,23 @@
                         <li class="nav-item dropdown has-arrow logged-item">
                             <a class="dropdown-toggle nav-link" data-toggle="dropdown">
                                 <span class="user-img">
-                                    User
+                                    {{__('website\layouts\layout.user')}}
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="{{ route('user.login') }}">Login</a>
-                                <a class="dropdown-item" href="{{ route('user.register') }}">Register</a>
+                                <a class="dropdown-item" href="{{ route('user.login') }}">{{__('website\layouts\layout.login')}}</a>
+                                <a class="dropdown-item" href="{{ route('user.register') }}">{{__('website\layouts\layout.register')}}</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown has-arrow logged-item">
                             <a class="dropdown-toggle nav-link" data-toggle="dropdown">
                                 <span class="user-img">
-                                    Doctor
+                                    {{__('website\layouts\layout.doctor')}}
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="{{ route('doctor.login') }}">Login</a>
-                                <a class="dropdown-item" href="{{ route('doctor.register') }}">Register</a>
+                                <a class="dropdown-item" href="{{ route('doctor.login') }}">{{__('website\layouts\layout.login')}}</a>
+                                <a class="dropdown-item" href="{{ route('doctor.register') }}">{{__('website\layouts\layout.register')}}</a>
                             </div>
                         </li>
                     @endif
@@ -164,7 +164,7 @@
                     <li class="nav-item dropdown has-arrow logged-item">
                         <a class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <span class="user-img">
-                                Language
+                                {{__('website\layouts\layout.lang')}}
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -199,9 +199,7 @@
                                         <img src={{ url('website/assets/img/footer-logo.png') }} alt="logo">
                                     </div>
                                     <div class="footer-about-content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor
-                                            incididunt ut labore et dolore magna aliqua. </p>
+                                        <p>{{__('website\layouts\layout.lorem')}} </p>
                                         <div class="social-icon">
                                             <ul>
                                                 <li>
@@ -230,19 +228,15 @@
 
                                 <!-- Footer Widget -->
                                 <div class="footer-widget footer-contact">
-                                    <h2 class="footer-title">Contact Us</h2>
+                                    <h2 class="footer-title">{{__('website\layouts\layout.contactus')}}</h2>
                                     <div class="footer-contact-info">
-                                        <div class="footer-address">
-                                            <span><i class="fas fa-map-marker-alt"></i></span>
-                                            <p> 3556 Beech Street, San Francisco,<br> California, CA 94108 </p>
-                                        </div>
                                         <p>
                                             <i class="fas fa-phone-alt"></i>
-                                            +1 315 369 5943
+                                            +2 010 155 154 50
                                         </p>
                                         <p class="mb-0">
                                             <i class="fas fa-envelope"></i>
-                                            doccure@example.com
+                                            moustafaalwakil@gmail.com
                                         </p>
                                     </div>
                                 </div>
@@ -264,7 +258,7 @@
                             <div class="row">
                                 <div class="col-md-6 col-lg-6">
                                     <div class="copyright-text">
-                                        <p class="mb-0">&copy; 2020 Doccure. All rights reserved.</p>
+                                        <p class="mb-0">&copy; 2021 Doccure. {{__('website\layouts\layout.rights')}}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-6">
@@ -272,8 +266,8 @@
                                     <!-- Copyright Menu -->
                                     <div class="copyright-menu">
                                         <ul class="policy-menu">
-                                            <li><a href="{{route('terms')}}">Terms and Conditions</a></li>
-                                            <li><a href="{{route('policy')}}">Policy</a></li>
+                                            <li><a href="{{route('terms')}}">{{__('website\layouts\layout.terms')}}</a></li>
+                                            <li><a href="{{route('policy')}}">{{__('website\layouts\layout.policy')}}</a></li>
                                         </ul>
                                     </div>
                                     <!-- /Copyright Menu -->
@@ -312,6 +306,6 @@
     @yield('scripts')
 </body>
 
-<!-- Mirrored from doccure-html.dreamguystech.com/template/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Mar 2021 19:28:08 GMT -->
+<!-- Mirrored from doccure-html.dreamguystech.com/template/layout.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Mar 2021 19:28:08 GMT -->
 
 </html>
