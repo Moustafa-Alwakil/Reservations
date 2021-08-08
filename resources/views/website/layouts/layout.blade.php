@@ -111,7 +111,7 @@
                                         <img class="rounded-circle" src="{{ $info->photo }}" width="31"
                                             alt="Profile Picture">
                                     @endif
-                                    {{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . '']) }}
+                                    {{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale()]) }}
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
@@ -123,13 +123,13 @@
                                         </div>
                                     @endif
                                     <div class="user-text">
-                                        <h6>{{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . '']) }}
+                                        <h6>{{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale()]) }}
                                         </h6>
                                         <p class="text-muted mb-0">{{__('website\layouts\layout.doctor')}}</p>
                                     </div>
                                 </div>
                                 <a class="dropdown-item" href="{{ route('clinics.index') }}">{{__('website\layouts\layout.dashboard')}}</a>
-                                <a class="dropdown-item" href="{{ route('doctor.profile') }}">{{__('website\layouts\layout.login')}}</a>
+                                <a class="dropdown-item" href="{{ route('doctor.profile') }}">{{__('website\layouts\layout.profile')}}</a>
                                 <form method="POST" action="{{ route('doctor.logout') }}" class="d-inline">
                                     @csrf<button class="btn btn-link dropdown-item"
                                         href="{{ route('doctor.logout') }}">{{__('website\layouts\layout.logout')}}</button>

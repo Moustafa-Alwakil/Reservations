@@ -1,6 +1,6 @@
 @extends('website.layouts.layout')
 @section('title')
-    New Password
+{{__('website\doctor\auth\resetPass.doctorreset')}}
 @endsection
 @section('content')
     <!-- Page Content -->
@@ -19,8 +19,7 @@
                             </div>
                             <div class="col-md-12 col-lg-6 login-right">
                                 <div class="login-header">
-                                    <h3>Forgot Password?</h3>
-                                    <p class="small text-muted">Enter your email to get a password reset link</p>
+                                    <h3>{{__('website\doctor\auth\resetPass.forgot')}}</h3>
                                 </div>
                                 @include('website.includes.sessionDisplay')
                                 <!-- Forgot Password Form -->
@@ -30,31 +29,29 @@
                                     <div class="form-group form-focus">
                                         <input type="email" class="form-control floating" name="email"
                                             value="{{ old('email', $request->email) }}">
-                                        <label class="focus-label">Email</label>
+                                        <label class="focus-label">{{__('website\doctor\auth\resetPass.email')}}</label>
                                     </div>
                                     @error('email')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <div class="form-group form-focus">
                                         <input type="password" class="form-control floating" name="password">
-                                        <label class="focus-label">Password</label>
+                                        <label class="focus-label">{{__('website\doctor\auth\register.pass')}}</label>
                                     </div>
                                     @error('password')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <div class="form-group form-focus">
                                         <input type="password" class="form-control floating" name="password_confirmation">
-                                        <label class="focus-label">Confirm Password</label>
+                                        <label class="focus-label">{{__('website\doctor\auth\register.conpass')}}</label>
                                     </div>
                                     @error('password_confirmation')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <div class="text-right">
-                                        <a class="forgot-link" href="{{ route('doctor.login') }}">Remember your
-                                            password?</a>
+                                        <a class="forgot-link" href="{{ route('doctor.login') }}">{{__('website\doctor\auth\resetPass.ques')}}</a>
                                     </div>
-                                    <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Reset
-                                        Password</button>
+                                    <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">{{__('website\doctor\auth\resetPass.reset')}}</button>
                                 </form>
                                 <!-- /Forgot Password Form -->
 

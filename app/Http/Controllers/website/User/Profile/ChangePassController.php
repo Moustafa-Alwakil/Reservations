@@ -36,12 +36,12 @@ class ChangePassController extends Controller
                 // check if the password updation process failed 
                 // if not then redierct with success messgae
                 if (!$user)
-                    return redirect()->route('user.changepass')->with('error', 'Something went wrong, Please try again');
+                    return redirect()->route('user.changepass')->with('error', __('website\includes\sessionDisplay.wrong'));
 
-                return redirect()->route('user.changepass')->with('success', 'You have Successfully changed Your password');
+                return redirect()->route('user.changepass')->with('success', __('website\includes\sessionDisplay.successpass'));
             } else
-                return redirect()->route('user.changepass')->with('error', 'New password can not be the old password!');
+                return redirect()->route('user.changepass')->with('error', __('website\includes\sessionDisplay.newpass'));
         } else
-            return redirect()->route('user.changepass')->with('error', 'The old password is not correct');
+            return redirect()->route('user.changepass')->with('error', __('website\includes\sessionDisplay.oldpass'));
     }
 }

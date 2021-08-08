@@ -38,14 +38,8 @@ class StoreRegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'fname.required' => 'The first name field is required',
-            'fname.max' => 'The first name must not be greater than 25 characters.',
-            'fname.string' => 'The first name must be a string.',
-            'lname.required' => 'The last name field is required',
-            'lname.max' => 'The last name must not be greater than 25 characters.',
-            'lname.string' => 'The last name must be a string.',
-            'birthdate.before_or_equal' => 'You must be at least 15 years old.',
-            'birthdate.after_or_equal' => 'Invalid birthdate',
+            'birthdate.before_or_equal' => __('validation.birthdate.before_or_equal'),
+            'birthdate.after_or_equal' => __('validation.birthdate.after_or_equal'),
         ];
     }
 }

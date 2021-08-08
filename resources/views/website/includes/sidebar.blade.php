@@ -28,7 +28,7 @@
                                                 $date = date_create(Auth::user()->birthdate);
                                                 $diff = date_diff($date, date_create(date('Y-m-d')));
                                             @endphp
-                                            {{ date_format($date, 'j M Y') }}, {{ $diff->format('%y Years') }}
+                                            {{ date_format($date, 'j M Y') }}, {{ $diff->format('%y '.__('website\includes\sidebar.years')) }}
                                         </h5>
                                     </div>
                                 </div>
@@ -41,19 +41,19 @@
                                         <li class="@if (Request::url()==route('appointment.index')) {{ 'active' }} @endif">
                                             <a href="{{route('appointment.index')}}">
                                                 <i class="far fa-calendar-alt"></i>
-                                                <span>Appointments</span>
+                                                <span>{{__('website\includes\sidebar.appts')}}</span>
                                             </a>
                                         </li>
                                         <li class="@if (Request::url()==route('user.profile')) {{ 'active' }} @endif">
                                             <a href="{{ route('user.profile') }}">
                                                 <i class="fas fa-user-cog"></i>
-                                                <span>Profile Settings</span>
+                                                <span>{{__('website\includes\sidebar.profile')}}</span>
                                             </a>
                                         </li>
                                         <li class="@if (Request::url()==route('user.changepass')) {{ 'active' }} @endif">
                                             <a href="{{ route('user.changepass') }}">
                                                 <i class="fas fa-lock"></i>
-                                                <span>Change Password</span>
+                                                <span>{{__('website\includes\sidebar.changepass')}}</span>
                                             </a>
                                         </li>
                                         <li>
@@ -61,7 +61,7 @@
                                                 @csrf<button class="btn btn-link dropdown-item btn-lg bg-primary"
                                                     href="{{ route('user.logout') }}">
                                                     <i class="fas fa-sign-out-alt"></i>
-                                                    <span>Logout</span>
+                                                    <span>{{__('website\includes\sidebar.logout')}}</span>
                                                 </button>
                                             </form>
                                         </li>
@@ -69,37 +69,37 @@
                                         <li class="@if (Request::url()==route('clinics.index')) {{ 'active' }} @endif">
                                             <a href="{{ route('clinics.index') }}">
                                                 <i class="fas fa-clinic-medical"></i>
-                                                <span>Clinics</span>
+                                                <span>{{__('website\includes\sidebar.clinics')}}</span>
                                             </a>
                                         </li>
                                         <li class="@if (Request::url()==route('doctor.profile')) {{ 'active' }} @endif">
                                             <a href="{{ route('doctor.profile') }}">
                                                 <i class="fas fa-user-cog"></i>
-                                                <span>General Profile</span>
+                                                <span>{{__('website\includes\sidebar.profile')}}</span>
                                             </a>
                                         </li>
                                         <li class="@if (Request::url()==route('doctor.info')) {{ 'active' }} @endif">
                                             <a href="{{ route('doctor.info') }}">
                                                 <i class="fas fa-info-circle"></i>
-                                                <span>Doctor Information</span>
+                                                <span>{{__('website\includes\sidebar.info')}}</span>
                                             </a>
                                         </li>
                                         <li class="@if (Request::url()==route('doctor.certificate')) {{ 'active' }} @endif">
                                             <a href="{{ route('doctor.certificate') }}">
                                                 <i class="fas fa-user-graduate"></i>
-                                                <span>Doctor Certificates</span>
+                                                <span>{{__('website\includes\sidebar.cert')}}</span>
                                             </a>
                                         </li>
                                         <li class="@if (Request::url()==route('doctor.experience')) {{ 'active' }} @endif">
                                             <a href="{{ route('doctor.experience') }}">
                                                 <i class="fas fa-briefcase"></i>
-                                                <span>Doctor Experiences</span>
+                                                <span>{{__('website\includes\sidebar.exp')}}</span>
                                             </a>
                                         </li>
                                         <li class="@if (Request::url()==route('doctor.changepass')) {{ 'active' }} @endif">
                                             <a href="{{ route('doctor.changepass') }}">
                                                 <i class="fas fa-lock"></i>
-                                                <span>Change Password</span>
+                                                <span>{{__('website\includes\sidebar.changepass')}}</span>
                                             </a>
                                         </li>
                                         <li>
@@ -108,7 +108,7 @@
                                                 @csrf<button class="btn btn-link dropdown-item btn-lg bg-primary"
                                                     href="{{ route('doctor.logout') }}">
                                                     <i class="fas fa-sign-out-alt"></i>
-                                                    <span>Logout</span>
+                                                    <span>{{__('website\includes\sidebar.logout')}}</span>
                                                 </button>
                                             </form>
                                         </li>

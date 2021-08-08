@@ -1,6 +1,6 @@
 @extends('website.layouts.layout')
 @section('title')
-    Login
+    {{__('website\user\auth\login.userlogin')}}
 @endsection
 @section('content')
     <!-- Page Content -->
@@ -17,7 +17,7 @@
                             </div>
                             <div class="col-md-12 col-lg-6 login-right">
                                 <div class="login-header">
-                                    <h3>User <span>Login</span></h3>
+                                    <h3>{{__('website\user\auth\login.userlogin')}}</h3>
                                 </div>
                                 @include('website.includes.sessionDisplay')
                                 <form method="POST" action="{{ route('store.user.login') }}">
@@ -25,25 +25,24 @@
                                     <div class="form-group form-focus">
                                         <input type="email" class="form-control floating" name="email"
                                             value="{{ old('email') }}">
-                                        <label class="focus-label">Email</label>
+                                        <label class="focus-label">{{__('website\user\auth\login.email')}}</label>
                                     </div>
                                     @error('email')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <div class="form-group form-focus">
                                         <input type="password" class="form-control floating" name="password">
-                                        <label class="focus-label">Password</label>
+                                        <label class="focus-label">{{__('website\user\auth\login.pass')}}</label>
                                     </div>
                                     @error('password')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <div class="text-right">
-                                        <a class="forgot-link" href="{{ route('user.password.request') }}">Forgot Password
-                                            ?</a>
+                                        <a class="forgot-link" href="{{ route('user.password.request') }}">{{__('website\user\auth\login.forgot')}}</a>
                                     </div>
-                                    <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Login</button>
-                                    <div class="text-center dont-have">Don’t have an account? <a
-                                            href="{{ route('user.register') }}">Register</a></div>
+                                    <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">{{__('website\user\auth\login.login')}}</button>
+                                    <div class="text-center dont-have">{{__('website\user\auth\login.ques')}} <a
+                                            href="{{ route('user.register') }}">{{__('website\user\auth\login.reg')}}</a></div>
                                 </form>
                             </div>
                         </div>

@@ -121,7 +121,9 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
-
+    'birthdate.before_or_equal' => 'You must be at least 15 years old.',
+    'birthdate.after_or_equal' => 'Invalid birthdate',
+    'doc.birthdate.before_or_equal' => 'You must be at least 26 years old.',
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -150,6 +152,14 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'fname' => 'First name',
+        'lname' => 'Last name',
+        'fname_ar' => 'First name (Arabic)',
+        'lname_ar' => 'Last name (Arabic)',
+        'fname_en' => 'First name (English)',
+        'lname_en' => 'Last name (English)',
+        'oldpassword' => 'Old Password',
+    ],
 
 ];
