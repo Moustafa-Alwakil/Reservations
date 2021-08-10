@@ -16,7 +16,7 @@ class AppointmentConfirmation extends Mailable
      *
      * @return void
      */
-    private $appointment;
+    public $appointment;
 
     public function __construct($appointment)
     {
@@ -30,6 +30,6 @@ class AppointmentConfirmation extends Mailable
      */
     public function build()
     {
-        return $this->view('website.mail.appointmentConfirmation')->with($this->appointment);
+        return $this->view('website.mail.appointmentConfirmation');
     }
 }

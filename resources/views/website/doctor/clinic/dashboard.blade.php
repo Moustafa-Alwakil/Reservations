@@ -151,30 +151,16 @@
                                                                     <td>{{ $clinic->examfee->price }} EGP</td>
                                                                     <td>
                                                                         <div class="table-action">
-                                                                            <form id="ApptFormUpdate" method="POST"
-                                                                                action="" class="d-inline">
-                                                                                @csrf
-                                                                                <input type="hidden" name="id"
-                                                                                    value="{{ $appointment->id }}">
-                                                                                <input type="hidden" name="status"
-                                                                                    value="1">
-                                                                                <button id="update" type="submit"
-                                                                                    class="btn btn-sm bg-success-light">
-                                                                                    <i class="fas fa-check"></i> Accept
-                                                                                </button>
-                                                                            </form>
-                                                                            <form id="ApptFormUpdate" method="POST"
-                                                                                action="" class="d-inline">
-                                                                                @csrf
-                                                                                <input type="hidden" name="id"
-                                                                                    value="{{ $appointment->id }}">
-                                                                                <input type="hidden" name="status"
-                                                                                    value="2">
-                                                                                <button id="update" type="submit"
-                                                                                    class="btn btn-sm bg-danger-light">
-                                                                                    <i class="fas fa-times"></i> Refuse
-                                                                                </button>
-                                                                                <form>
+                                                                            <button id="update" type="submit" status="1"
+                                                                                appointment_id="{{ $appointment->id }}"
+                                                                                class="ApptUpdate {{ $loop->index }} btn btn-sm bg-success-light">
+                                                                                <i class="fas fa-check"></i> Accept
+                                                                            </button>
+                                                                            <button id="update" type="submit" status="2"
+                                                                                appointment_id="{{ $appointment->id }}"
+                                                                                class="ApptUpdate btn btn-sm bg-danger-light">
+                                                                                <i class="fas fa-times"></i> Refuse
+                                                                            </button>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -246,11 +232,20 @@
                                                             <tbody>
                                                                 <?php
                                                                 $a = 1;
+                                                                $b=0;
+                                                                $c=1;
                                                                 $appoinment_datetime=[];
                                                                 foreach ($clinic->appointments as $appointment){
-                                                                    if(!$appointment->status == 0 || $appointment->status == 1){
+                                                                    if($appointment->status == 0 || $appointment->status == 1){
                                                                         $appoinment_datetime[$a] = $appointment->datetime;
                                                                         $a++;
+                                                                    }
+                                                                 }
+                                                                 $exception_datetime=[];
+                                                                foreach ($clinic->exceptions as $exception){
+                                                                    if($exception->datetime > date('Y-m-d H:i')){
+                                                                        $exception_datetime[$c] = $exception->datetime;
+                                                                        $c++;
                                                                     }
                                                                  }
                                                                     $begin_date = new DateTime(date('Y-m-d H:i'));
@@ -276,19 +271,38 @@
                                                                     <td>{{ date('h:i A', strtotime('+' . $clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_duration'] . ' minute', strtotime($x->format('H:i')))) }}
                                                                     </td>
                                                                     <td>
-                                                                        <span
-                                                                            class="busy-span{{ $x->format('H:i') }}{{ $x->format('Y-m-d') }}"><span
-                                                                                class="busy{{ $x->format('H:i') }}{{ $x->format('Y-m-d') }}"><a
-                                                                                    href=""
-                                                                                    class="busy-btn btn btn-outline-danger btn-rounded"
-                                                                                    date="{{ $x->format('Y-m-d') }}"
-                                                                                    start_time="{{ $x->format('H:i') }}"
-                                                                                    end_time="{{ date('H:i ', strtotime('+' . $clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_duration'] . ' minute', strtotime($x->format('H:i')))) }}"><i
-                                                                                        class="far fa-bell-slash"></i>
-                                                                                    Busy</a></span></span>
+                                                                        @if (array_search($x->format('Y-m-d H:i'), $exception_datetime))
+                                                                            <span
+                                                                                class="busy-span{{ $b }}"><span
+                                                                                    class="busy{{ $b }}"><button
+                                                                                        type="submit"
+                                                                                        class="unbusyBtn btn btn-danger btn-rounded"
+                                                                                        b="{{ $b }}"
+                                                                                        clinic_id="{{ request()->route('clinic') }}"
+                                                                                        date="{{ $x->format('Y-m-d ') }}"
+                                                                                        start_time="{{ $x->format('H:i') }}"
+                                                                                        end_time="{{ date('H:i ', strtotime('+' . $clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_duration'] . ' minute', strtotime($x->format('H:i')))) }}"><i
+                                                                                            class="far fa-bell"></i>
+                                                                                        Unbusy</button></span></span>
                                                                     </td>
                                                                 </tr>
+                                                            @else
+                                                                <span class="busy-span{{ $b }}"><span
+                                                                        class="busy{{ $b }}"><button
+                                                                            type="submit"
+                                                                            class="busyBtn btn btn-outline-danger btn-rounded"
+                                                                            b="{{ $b }}"
+                                                                            clinic_id="{{ request()->route('clinic') }}"
+                                                                            date="{{ $x->format('Y-m-d ') }}"
+                                                                            start_time="{{ $x->format('H:i') }}"
+                                                                            end_time="{{ date('H:i ', strtotime('+' . $clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_duration'] . ' minute', strtotime($x->format('H:i')))) }}"><i
+                                                                                class="far fa-bell-slash"></i>
+                                                                            Busy</button></span></span>
+                                                                </td>
+                                                                </tr>
+                                                                @endif
                                                                 <?php
+                                                                $b++;
                                                                             }
                                                                         }
                                                                     }
@@ -323,52 +337,144 @@
         <!-- Circle Progress JS -->
         <script src="{{ url('website/assets/js/circle-progress.min.js') }}"></script>
 
-        <script type='text/javascript'>
-            $(document).ready(function() {
-                $(document).on('click', '.busy-btn', function(e) {
-                        e.preventDefault();
-                        var date = $(this).attr('date');
-                        var start_time = $(this).attr('start_time');
-                        var end_time = $(this).attr('end_time');
-                        $.ajax({
-                                type: 'post',
-                                url: "{{ route('exception.store') }}",
-                                data: {
-                                    '_token': "{{ csrf_token() }}",
-                                    'date': date,
-                                    'start_time': start_time,
-                                    'end_time': end_time,
-                                },
-                                success: function(data) {
-                                    var button = "<span class='busy" + data.start_time data.date +
-                                        "'><a href='' class = 'busy-btn btn btn-danger btn-rounded' date = '" +
-                                        data.date + "' start_time = '" + data.start_time +
-                                        "' end_time = '" + data.end_time +
-                                        "' > < iclass = 'far fa-bell-slash' > < /i>Busy < /a></span > ";
+        {{-- <script>
+            $(document).on('click', '.busyBtn', function(e) {
+                e.preventDefault();
+                alert('dk');
+                var date = $(this).attr('date');
+                var start_time = $(this).attr('start_time');
+                var end_time = $(this).attr('end_time');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                        type: 'post',
+                        url: "{{ route('exception.store') }}",
+                        data: {
+                            '_token': "{{ csrf_token() }}",
+                            'date': date,
+                            'start_time': start_time,
+                            'end_time': end_time,
+                        },
+                        success: function(data) {
+                            var button = "<span class='busy" + data.start_time data.date +
+                                "'><a href='' class = 'busy-btn btn btn-danger btn-rounded' date = '" +
+                                data.date + "' start_time = '" + data.start_time +
+                                "' end_time = '" + data.end_time +
+                                "' > < iclass = 'far fa-bell-slash' > < /i>Busy < /a></span > ";
 
-                                    $('.busy' + data.start_time data.date).remove();
-                                    $('.busy-span' + data.start_time data.date).append(button);
-                                },
-                                error: function(reject) {},
-                            }
-                        });
+                            $('.busy' + data.start_time data.date).remove();
+                            $('.busy-span' + data.start_time data.date).append(button);
+                        },
+                        error: function(reject) {},
+                    }
+                });
+            });
+        </script> --}}
+        <script>
+            $(document).on('click', '.ApptUpdate', function(e) {
+                e.preventDefault();
+                var status = $(this).attr('status');
+                var appt_id = $(this).attr('appointment_id');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: "{{ route('doctor.appointment.update') }}",
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                        'status': status,
+                        'id': appt_id,
+                    },
+                    success: function(data) {
+                        if (data.status == true) {
+                            console.log(data.user);
+                            $('#apptRow' + data.id).remove();
+                        }
+                    },
+                    error: function(reject) {}
                 });
             });
         </script>
         <script>
-            $(document).on('click', '#update', function(e) {
+            $(document).on('click', '.busyBtn', function(e) {
                 e.preventDefault();
-                var formData = new FormData($('#ApptFormUpdate')[0]);
+                var date = $(this).attr('date');
+                var start_time = $(this).attr('start_time');
+                var end_time = $(this).attr('end_time');
+                var clinic_id = $(this).attr('clinic_id');
+                var b = $(this).attr('b');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 $.ajax({
                     type: 'post',
-                    url: "{{ route('doctor.appointment.update') }}",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    cache: false,
+                    url: "{{ route('exception.store') }}",
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                        'clinic_id': clinic_id,
+                        'date': date,
+                        'start_time': start_time,
+                        'end_time': end_time,
+                        'b': b,
+                    },
                     success: function(data) {
                         if (data.status == true) {
-                            $('#apptRow' + data.id).remove();
+                            var button = "<span class='busy" + data.b +
+                                "'><buttton class = 'unbusyBtn btn btn-danger btn-rounded' date = '" +
+                                data.date + "' clinic_id = '" + data.clinic_id+ "' b = '" + data.b + "' start_time = '" + data.start_time +
+                                "' end_time = '" + data.end_time +
+                                "' > <i class = 'far fa-bell' > </i> Unbusy</button></span > ";
+
+                            $('.busy' + data.b).remove();
+                            $('.busy-span' + data.b).append(button);
+                        }
+                    },
+                    error: function(reject) {}
+                });
+            });
+        </script>
+        <script>
+            $(document).on('click', '.unbusyBtn', function(e) {
+                e.preventDefault();
+                var date = $(this).attr('date');
+                var start_time = $(this).attr('start_time');
+                var end_time = $(this).attr('end_time');
+                var clinic_id = $(this).attr('clinic_id');
+                var b = $(this).attr('b');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: "{{ route('exception.destroy') }}",
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                        'clinic_id': clinic_id,
+                        'date': date,
+                        'start_time': start_time,
+                        'end_time': end_time,
+                        'b': b,
+                    },
+                    success: function(data) {
+                        if (data.status == true) {
+                            var button = "<span class='busy" + data.b +
+                                "'><buttton class = 'busyBtn btn btn-outline-danger btn-rounded' date = '" +
+                                data.date + "' clinic_id = '" + data.clinic_id+ "' b = '" + data.b + "' start_time = '" + data.start_time +
+                                "' end_time = '" + data.end_time +
+                                "' > <i class = 'far fa-bell-slash' > </i> Busy</button></span > ";
+
+                            $('.busy' + data.b).remove();
+                            $('.busy-span' + data.b).append(button);
                         }
                     },
                     error: function(reject) {}

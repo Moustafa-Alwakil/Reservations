@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Listeners\Website\Doctor\Appointment\SendConfirmMail;
+use App\Events\Website\Doctor\Appointment\AppointmentConfirmed;
 use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
@@ -27,6 +29,10 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Event::listen(
+            AppointmentConfirmed::class,
+            [SendConfirmMail::class, 'handle']
+        );
+    
     }
 }

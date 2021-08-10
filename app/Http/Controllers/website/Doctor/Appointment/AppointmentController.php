@@ -32,6 +32,7 @@ class AppointmentController extends Controller
                     'status' => false,
                 ]);
             }
+
             event(new AppointmentConfirmed($appointment));
 
             return response()->json([

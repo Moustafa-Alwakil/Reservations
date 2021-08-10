@@ -730,11 +730,11 @@ $locale = LaravelLocalization::getCurrentLocale();
 
                 // AJAX request 
                 $.ajax({
-                    url: 'edit/getregions/' + id,
+                    url: '{{route('clinics.index')}}/edit/getregions/{{$clinic->id}}/'+id,
                     type: 'get',
                     dataType: 'json',
                     success: function(response) {
-
+                        console.log(response);
                         var len = 0;
                         if (response['data'] != null) {
                             len = response['data'].length;

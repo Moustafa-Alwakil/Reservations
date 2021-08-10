@@ -25,7 +25,7 @@ class StoreReviewRequest extends FormRequest
      */
     public function rules()
     {
-        $doctors = Physican::select('id')->where( 'status', 1)->get();
+        $doctors = Physican::select()->where( 'status', 1)->get();
         $i = 0;
         $available_doctors_id = [];
         foreach ($doctors as $doctor) {

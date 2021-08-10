@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Website\User\Appointment;
+namespace App\Http\Requests\Website\Doctor\Exception;
 
 use App\Models\Clinic;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class StoreAppointmentRequest extends FormRequest
+class DestroyExceptionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,19 +26,19 @@ class StoreAppointmentRequest extends FormRequest
      */
     public function rules()
     {
-        $clinics = Clinic::select()->where(['review' => 1, 'status' => 1])->get();
-        $i = 0;
-        $available_clinics_id = [];
+        $clinics= Clinic::select()->where(['physican_id'=>Auth::guard('doc')->user()->id])->get();
+        $i=0;
+        $available_clinics_id=[];
         foreach ($clinics as $clinic) {
             $available_clinics_id[$i] = $clinic->id;
             $i++;
         }
         return [
-            'date' => 'required|date_format:Y-m-d',
-            'bookdate' => 'required',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i',
-            'clinic_id' =>[ 'required',Rule::in($available_clinics_id),'exists:clinics,id'],
+            'b'=>'required',
+            'clinic_id'=>['required','exists:clinics,id',Rule::in($available_clinics_id),'integer'],
+            'date'=> 'required|after_or_equal:today|date_format:Y-m-d',
+            'start_time'=> 'required|after:'.date('H:i').'|date_format:H:i',
+            'end_time'=> 'required|after:start_time|date_format:H:i',
         ];
     }
 }

@@ -56,6 +56,7 @@
                                         {{ ucwords($clinic->address->region->name['name_' . LaravelLocalization::getCurrentLocale()]) }},
                                         {{ ucwords($clinic->address->region->city->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
                                     </p>
+                                    <p class="text-muted mt-2 mb-0"><i class="fas fa-phone-square-alt"></i> {{ $clinic->phone }}</p>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +82,7 @@
                                         $appoinment_date=[];
                                         $appoinment_start=[];
                                         foreach ($clinic->appointments as $appointment){
-                                            if(!$appointment->status == 3){
+                                            if(($appointment->status == 0 || $appointment->status == 1) && ){
                                                 $appoinment_date[$a] = $appointment->date;
                                                 $appoinment_start[$a] = $appointment->start_time;
                                                 $a++;
@@ -119,7 +120,7 @@
                                             <td>{{ $x->format('h:i A') }}</td>
                                             <td>{{ date('h:i A', strtotime('+' . $clinic->workday->available[lcfirst(date('l', strtotime($day)))][lcfirst(date('D', strtotime($day))) . '_duration'] . ' minute', strtotime($x->format('H:i')))) }}
                                             </td>
-                                            <td class="text-lg text-warning">Already Booked</td>
+                                            <td class="text-lg text-warning">Not Available</td>
                                         </tr>
                                     @else
                                         <tr>

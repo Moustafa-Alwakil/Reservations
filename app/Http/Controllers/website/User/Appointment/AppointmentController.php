@@ -27,7 +27,7 @@ class AppointmentController extends Controller
 
     public function create($id)
     {
-        $clinic = Clinic::select('id', 'name', 'physican_id')->where(['status' => 1, 'review' => 1, 'id' => $id])->with(['address' => function ($q) {
+        $clinic = Clinic::select('id', 'name', 'phone','physican_id')->where(['status' => 1, 'review' => 1, 'id' => $id])->with(['address' => function ($q) {
             $q->select('id', 'region_id', 'clinic_id')->with(['region' => function ($q) {
                 $q->select()->where('status', 1);
             }, 'region.city' => function ($q) {

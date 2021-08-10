@@ -26,14 +26,14 @@ class ShowClinicsByLocationRequest extends FormRequest
      */
     public function rules()
     {
-        $cities = City::select('id')->where( 'status', 1)->get();
+        $cities = City::select()->where( 'status', 1)->get();
         $i = 0;
         $available_cities_id = [];
         foreach ($cities as $city) {
             $available_cities_id[$i] = $city->id;
             $i++;
         }
-        $regions = Region::select('id')->where( 'status', 1)->get();
+        $regions = Region::select()->where( 'status', 1)->get();
         $l = 0;
         $available_regions_id = [];
         foreach ($regions as $region) {

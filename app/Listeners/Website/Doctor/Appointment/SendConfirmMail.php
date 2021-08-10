@@ -29,6 +29,6 @@ class SendConfirmMail
     public function handle(AppointmentConfirmed $event)
     {
 
-        Mail::to($event->appointment->user)->send(new AppointmentConfirmation($event->appointment));
+        Mail::to($event->appointment->user->email)->send(new AppointmentConfirmation($event->appointment));
     }
 }

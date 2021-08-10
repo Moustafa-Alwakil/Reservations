@@ -26,7 +26,7 @@ class UpdateAppointmentRequest extends FormRequest
     {
         return [
             'id' => 'required|exists:appointments',
-            'status' => ['required', Rule::in([1,2]),],
+            'status' => ['required', Rule::in([1,2])],
         ];
     }
 }

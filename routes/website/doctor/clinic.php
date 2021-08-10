@@ -15,6 +15,6 @@ Route::group([
         Route::resource('clinics', 'ClinicController');
         Route::get('clinics/create/getregions/{id}', 'ClinicController@getRegions');
         Route::get('clinics/edit/photo/destroy/{id}', 'ClinicController@destroyClinicPhoto')->name('clinic.destroyphoto');
-        Route::get('clinics/'. session()->pull('clinic_id').'/edit/getregions/{id}', 'ClinicController@getRegions');
+        Route::get('clinics/edit/getregions/{clinic}/{id}', 'ClinicController@getRegions')->name('clinicjskj');
     });
 });

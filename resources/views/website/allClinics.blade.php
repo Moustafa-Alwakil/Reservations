@@ -1,6 +1,6 @@
 @extends('website.layouts.layout')
 @section('title')
-{{__('website\layouts\layout.clinics')}}
+    {{ __('website\layouts\layout.clinics') }}
 @endsection
 @section('stylesheets')
     {{-- <!-- Datetimepicker CSS --> --}}
@@ -14,17 +14,17 @@
 @endsection
 @section('content')
     @include('website.includes.bar1')
-    {{__('website\layouts\layout.clinics')}}
+    {{ __('website\layouts\layout.clinics') }}
     @include('website.includes.bar2')
     @isset($clinics)
-    {{__('website\allClinics.all')}}
+        {{ __('website\allClinics.all') }}
     @endisset
-    @isset($clinicsByCity)
-    {{__('website\allClinics.clinicsearch')}}
+    @isset($clinicsByLocation)
+        {{ __('website\allClinics.clinicsearch') }}
     @endisset
-    @isset($clinicsByRegion)
-    {{__('website\allClinics.clinicsearch')}}
-    @endisset
+    {{-- @isset($clinicsByRegion)
+        {{ __('website\allClinics.clinicsearch') }}
+    @endisset --}}
     @include('website.includes.bar3')
     <!-- Page Content -->
     <div class="content">
@@ -37,36 +37,36 @@
                     <form method="GET" action="{{ route('clinics.filter') }}">
                         <div class="card search-filter">
                             <div class="card-header">
-                                <h4 class="card-title mb-0">    {{__('website\allClinics.searchfilter')}}</h4>
+                                <h4 class="card-title mb-0"> {{ __('website\allClinics.searchfilter') }}</h4>
                             </div>
                             <div class="card-body">
                                 <div class="filter-widget">
                                     @if (isset($_GET))
-                                        @if(isset($_GET['city_id']))
-                                        <input type="hidden" name="city_id" value="{{$_GET['city_id']}}">
+                                        @if (isset($_GET['city_id']))
+                                            <input type="hidden" name="city_id" value="{{ $_GET['city_id'] }}">
                                         @endif
                                     @endif
                                     @if (isset($_GET))
-                                    @if(isset($_GET['region_id']))
-                                    <input type="hidden" name="city_id" value="{{$_GET['region_id']}}">
+                                        @if (isset($_GET['region_id']))
+                                            <input type="hidden" name="city_id" value="{{ $_GET['region_id'] }}">
+                                        @endif
                                     @endif
-                                @endif
-                                    <h4>    {{__('website\allClinics.gender')}}</h4>
+                                    <h4> {{ __('website\allClinics.gender') }}</h4>
                                     <div>
                                         <label class="custom_check">
                                             <input type="checkbox" name="male" value="m">
-                                            <span class="checkmark"></span>     {{__('website\allClinics.male')}}
+                                            <span class="checkmark"></span> {{ __('website\allClinics.male') }}
                                         </label>
                                     </div>
                                     <div>
                                         <label class="custom_check">
                                             <input type="checkbox" name="female" value="f">
-                                            <span class="checkmark"></span>     {{__('website\allClinics.female')}}
+                                            <span class="checkmark"></span> {{ __('website\allClinics.female') }}
                                         </label>
                                     </div>
                                 </div>
                                 <div class="filter-widget">
-                                    <h4>    {{__('website\allClinics.spec')}}</h4>
+                                    <h4> {{ __('website\allClinics.spec') }}</h4>
                                     @foreach ($departments as $department)
                                         <div>
                                             <label class="custom_check">
@@ -78,7 +78,8 @@
                                     @endforeach
                                 </div>
                                 <div class="btn-search">
-                                    <button type="submit" class="btn btn-block">    {{__('website\allClinics.search')}}</button>
+                                    <button type="submit" class="btn btn-block">
+                                        {{ __('website\allClinics.search') }}</button>
                                 </div>
                             </div>
                         </div>
@@ -173,7 +174,7 @@
                                                         {{ ucwords($clinic->address->region->city->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
                                                     </li>
                                                     <li><i class="fas fa-phone-square-alt"></i> {{ $clinic->phone }}
-                                                </li>
+                                                    </li>
                                                     <li><i class="far fa-money-bill-alt"></i>
                                                         {{ $clinic->examfee->price }}
                                                         EGP
@@ -182,13 +183,14 @@
                                             </div>
                                             <div class="clinic-booking">
                                                 <a class="view-pro-btn"
-                                                    href="{{ route('clinic', ['id' => $clinic->id]) }}">{{__('website\allClinics.profile')}}</a>
+                                                    href="{{ route('clinic', ['id' => $clinic->id]) }}">{{ __('website\allClinics.profile') }}</a>
                                                 @if (!Auth::guard('doc')->check() && !Auth::guard('web')->check())
-                                                    <a class="apt-btn" href="{{ route('user.login') }}">{{__('website\allClinics.book')}}</a>
+                                                    <a class="apt-btn"
+                                                        href="{{ route('user.login') }}">{{ __('website\allClinics.book') }}</a>
                                                 @endif
                                                 @auth('web')
                                                     <a class="apt-btn"
-                                                        href="{{ route('appointment.create', ['id' => $clinic->id]) }}">{{__('website\allClinics.book')}}</a>
+                                                        href="{{ route('appointment.create', ['id' => $clinic->id]) }}">{{ __('website\allClinics.book') }}</a>
                                                 @endauth
                                             </div>
                                         </div>
@@ -198,7 +200,119 @@
                             <!-- /Clinic Widget -->
                         @endforeach
                     @endisset
-                    @isset($clinicsByCity)
+                    @isset($clinicsByLocation)
+                    @foreach ($clinicsByLocation as $clinic)
+                        @php
+                            if (!$clinic->physican || !$clinic->address->region || !$clinic->address->region->city || !$clinic->physican->department) {
+                                continue;
+                            }
+                            $totalReview = 0;
+                            foreach ($clinic->physican->reviews as $review) {
+                                $totalReview += $review->value;
+                            }
+                            
+                            $avgRate = round(($totalReview * 5) / ($clinic->physican->reviews_count * 5));
+                        @endphp
+                        <!-- Clinic Widget -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="doctor-widget">
+                                    <div class="doc-info-left">
+                                        <div class="doctor-img">
+                                            <a href="{{ route('clinic', ['id' => $clinic->id]) }}">
+                                                <img src="{{ $clinic->physican->info->photo }}" class="img-fluid"
+                                                    alt="Doctor Image">
+                                            </a>
+                                        </div>
+                                        <div class="doc-info-cont">
+                                            <h4 class="doc-name"><a
+                                                    href="{{ route('clinic', ['id' => $clinic->id]) }}">{{ ucwords($clinic->name['name_' . LaravelLocalization::getCurrentLocale()]) }}</a>
+                                            </h4>
+                                            <p class="doc-speciality">
+                                                Dr.
+                                                {{ ucwords($clinic->physican->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $clinic->physican->name['lname_' . LaravelLocalization::getCurrentLocale()]) }}
+                                            </p>
+                                            <h5 class="doc-department">
+                                                {{ ucwords($clinic->physican->department->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
+                                            </h5>
+                                            <div class="rating">
+                                                @for ($i = 0; $i < $avgRate; $i++)
+                                                    <i class="fas fa-star filled"></i>
+                                                @endfor
+                                                @for ($i = 0; $i < 5 - $avgRate; $i++)
+                                                    <i class="fas fa-star"></i>
+                                                @endfor
+                                                <span
+                                                    class="d-inline-block average-rating">({{ $clinic->physican->reviews_count }})</span>
+                                            </div>
+                                            <div class="clinic-details">
+                                                <p class="doc-location"><i class="fas fa-map-marker-alt"></i>
+                                                    {{ ucwords($clinic->address->region->name['name_' . LaravelLocalization::getCurrentLocale()]) }},
+                                                    {{ ucwords($clinic->address->region->city->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
+                                                </p>
+                                                <ul class="clinic-gallery">
+                                                    @foreach ($clinic->clinicphotos as $clinicphoto)
+                                                        <li>
+                                                            <a href="{{ $clinicphoto->photo }}" data-fancybox="gallery">
+                                                                <img src="{{ $clinicphoto->photo }}" alt="Feature">
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                            <div class="clinic-services">
+                                                @foreach ($clinic->services as $service)
+                                                    @php
+                                                        if (!$service) {
+                                                            continue;
+                                                        }
+                                                    @endphp
+                                                    <span>{{ ucwords($service->name['name_' . LaravelLocalization::getCurrentLocale()]) }}</span>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="doc-info-right">
+                                        <div class="clini-infos">
+                                            <ul>
+                                                <li><i class="far fa-thumbs-up"></i>
+                                                    {{ round(($totalReview / ($clinic->physican->reviews_count * 5)) * 100) }}%
+                                                </li>
+                                                <li><i class="far fa-comment"></i>
+                                                    {{ $clinic->physican->reviews_count }}
+                                                    Feedback</li>
+                                                <li><i
+                                                        class="fas fa-map-marker-alt"></i>{{ ucwords($clinic->address->region->name['name_' . LaravelLocalization::getCurrentLocale()]) }},
+                                                    {{ ucwords($clinic->address->region->city->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
+                                                </li>
+                                                <li><i class="fas fa-phone-square-alt"></i> {{ $clinic->phone }}
+                                                </li>
+                                                <li><i class="far fa-money-bill-alt"></i>
+                                                    {{ $clinic->examfee->price }}
+                                                    EGP
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="clinic-booking">
+                                            <a class="view-pro-btn"
+                                                href="{{ route('clinic', ['id' => $clinic->id]) }}">{{ __('website\allClinics.profile') }}</a>
+                                            @if (!Auth::guard('doc')->check() && !Auth::guard('web')->check())
+                                                <a class="apt-btn"
+                                                    href="{{ route('user.login') }}">{{ __('website\allClinics.book') }}</a>
+                                            @endif
+                                            @auth('web')
+                                                <a class="apt-btn"
+                                                    href="{{ route('appointment.create', ['id' => $clinic->id]) }}">{{ __('website\allClinics.book') }}</a>
+                                            @endauth
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Clinic Widget -->
+                    @endforeach
+                @endisset
+                    {{-- @isset($clinicsByCity)
                         @foreach ($clinicsByCity->regions as $region)
                             @php
                                 if (!$region) {
@@ -292,7 +406,8 @@
                                                                     class="fas fa-map-marker-alt"></i>{{ ucwords($region->name['name_' . LaravelLocalization::getCurrentLocale()]) }},
                                                                 {{ ucwords($clinicsByCity->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
                                                             </li>
-                                                            <li><i class="fas fa-phone-square-alt"></i> {{ $address->clinic->phone }}
+                                                            <li><i class="fas fa-phone-square-alt"></i>
+                                                                {{ $address->clinic->phone }}
                                                             </li>
                                                             <li><i class="far fa-money-bill-alt"></i>
                                                                 {{ $address->clinic->examfee->price }}
@@ -302,13 +417,14 @@
                                                     </div>
                                                     <div class="clinic-booking">
                                                         <a class="view-pro-btn"
-                                                            href="{{ route('clinic', ['id' => $address->clinic->id]) }}">{{__('website\allClinics.profile')}}</a>
+                                                            href="{{ route('clinic', ['id' => $address->clinic->id]) }}">{{ __('website\allClinics.profile') }}</a>
                                                         @if (!Auth::guard('doc')->check() && !Auth::guard('web')->check())
-                                                            <a class="apt-btn" href="{{ route('user.login') }}">{{__('website\allClinics.book')}}</a>
+                                                            <a class="apt-btn"
+                                                                href="{{ route('user.login') }}">{{ __('website\allClinics.book') }}</a>
                                                         @endif
                                                         @auth('web')
                                                             <a class="apt-btn"
-                                                                href="{{ route('appointment.create', ['id' => $address->clinic->id]) }}">{{__('website\allClinics.book')}}</a>
+                                                                href="{{ route('appointment.create', ['id' => $address->clinic->id]) }}">{{ __('website\allClinics.book') }}</a>
                                                         @endauth
                                                     </div>
                                                 </div>
@@ -319,8 +435,8 @@
                                 @endforeach
                             @endif
                         @endforeach
-                    @endisset
-                    @isset($clinicsByRegion)
+                    @endisset --}}
+                    {{-- @isset($clinicsByRegion)
                         @if ($clinicsByRegion->addresses)
                             @foreach ($clinicsByRegion->addresses as $address)
                                 @php
@@ -433,7 +549,7 @@
                                 <!-- /Clinic Widget -->
                             @endforeach
                         @endif
-                    @endisset
+                    @endisset --}}
                 </div>
             </div>
         </div>
@@ -442,7 +558,8 @@
         @isset($clinics)
             {!! $clinics->links() !!}
         @endisset
-        @isset($clinicsByCity)
+        @isset($clinicsByLocation)
+            {!! $clinicsByLocation->links() !!}
         @endisset
     </div>
     <!-- /Page Content -->

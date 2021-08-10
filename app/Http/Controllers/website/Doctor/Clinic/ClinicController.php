@@ -49,11 +49,9 @@ class ClinicController extends Controller
         return view('website.doctor.clinic.create', compact('services', 'cities'));
     }
 
-    public function getRegions($id)
+    public function getRegions($clinic,$id)
     {
-
-        $regions['data'] = Region::select('name', 'id')->where('city_id', $id)->get();
-
+        $regions['data'] = Region::select('name', 'id')->where(['city_id'=> $id, 'status'=> 1])->get();
         return response()->json($regions);
     }
     /**
@@ -151,7 +149,7 @@ class ClinicController extends Controller
                 $q->select('id', 'name');
             }]);
         }, 'exceptions'=>function($q){
-            $q->select(DB::raw("CONCAT(exceptions.date,' ',exceptions.start_time)  AS datetime"), 'id', 'clinic_id', 'date', 'start_time', 'end_time');
+            $q->select(DB::raw("CONCAT(exceptions.date,' ',exceptions.start_time)  AS datetime"), 'id', 'clinic_id', 'date', 'start_time', 'end_time')->where('date', '>=', date('Y-m-d'));
         }, 'workday'])->first();
         return view('website.doctor.clinic.dashboard', compact('clinic'));
     }
@@ -169,7 +167,6 @@ class ClinicController extends Controller
         }])->where('id', $id)->where('physican_id', Auth::guard('doc')->user()->id)->first();
         $cities['data'] = City::select()->where('status', 1)->get();
         $services = Service::select()->where('status', 1)->where('department_id', Auth::guard('doc')->user()->department_id)->get();
-        session(['clinic_id' => $clinic->id]);
         return view('website.doctor.clinic.edit', compact('clinic', 'services', 'cities'));
     }
 

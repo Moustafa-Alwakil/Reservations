@@ -26,7 +26,7 @@ class UpdateClinicRequest extends FormRequest
      */
     public function rules()
     {
-        $services = Service::select('id')->where('department_id', Auth::guard('doc')->user()->department_id)->get();
+        $services = Service::select()->where('department_id', Auth::guard('doc')->user()->department_id)->get();
         $i = 0;
         $available_services_id=[];
         foreach ($services as $service) {
@@ -37,7 +37,7 @@ class UpdateClinicRequest extends FormRequest
             // clinic basic info
             'name_ar' => 'required|string|min:4|max:25',
             'name_en' => 'required|string|min:4|max:25',
-            'phone' => ['required', 'numeric', 'digits_between:7,15', Rule::unique('clinics')->ignore(session()->pull('clinic_id'))],
+            'phone' => ['required', 'numeric', 'digits_between:7,15', Rule::unique('clinics')->ignore(request()->route('clinic'))],
             'status' => ['required', Rule::in([0, 1])],
             'photo.*' => 'mimes:png,jpg,jpeg|max:4000|image',
             'license' => 'mimes:png,jpg,jpeg|max:4000|image',

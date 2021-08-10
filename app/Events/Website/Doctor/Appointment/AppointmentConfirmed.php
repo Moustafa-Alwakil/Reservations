@@ -24,7 +24,7 @@ class AppointmentConfirmed
 
     public $appointment;
 
-    public function __construct(Appointment $appointment)
+    public function __construct($appointment)
     {
         $this->appointment = $appointment;
     }

@@ -780,10 +780,7 @@ END RESPONSIVE STYLES
                                                                                                         bgcolor="transparent"
                                                                                                         align="center">
                                                                                                         <a
-                                                                                                            style="color: #ffffff;">Thanks
-                                                                                                            for using
-                                                                                                            our
-                                                                                                            website.</a>
+                                                                                                            style="color: #ffffff;">{{__('website\mail\appointmentConfirmation.thanks')}}</a>
                                                                                                     </td>
                                                                                                 </tr>
                                                                                             </tbody>
@@ -825,11 +822,9 @@ END RESPONSIVE STYLES
                                                                                 <tr>
                                                                                     <td class="esd-block-text"
                                                                                         align="left">
-                                                                                        <h1 style="color: #4a7eb0;">Your
-                                                                                            Appointment with
+                                                                                        <h1 style="color: #4a7eb0;">{{__('website\mail\appointmentConfirmation.title')}}
                                                                                             {{ ucwords($appointment->clinic->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
-                                                                                            has
-                                                                                            been confirmed</h1>
+                                                                                            {{__('website\mail\appointmentConfirmation.conf')}}</h1>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -854,7 +849,7 @@ END RESPONSIVE STYLES
                                                                                         align="left">
                                                                                         <p
                                                                                             style="font-size: 16px; line-height: 150%;">
-                                                                                            Hi,
+                                                                                            {{__('website\mail\appointmentConfirmation.hi')}},
                                                                                             {{ ucwords($appointment->user->name['fname']) . ' ' . ucwords($appointment->user->name['lname']) }},
                                                                                         </p>
                                                                                     </td>
@@ -863,16 +858,16 @@ END RESPONSIVE STYLES
                                                                                     <td class="esd-block-text"
                                                                                         align="left">
                                                                                         <p>
-                                                                                            Your appointment with
+                                                                                            {{__('website\mail\appointmentConfirmation.yourapp1')}}
                                                                                             {{ ucwords($appointment->clinic->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
-                                                                                            has been confirmed.<br>
-                                                                                            Your appointment date is
+                                                                                            {{__('website\mail\appointmentConfirmation.conf')}}.<br>
+                                                                                            {{__('website\mail\appointmentConfirmation.yourapp2')}}
                                                                                             {{ date_format(date_create($appointment->date), 'j M Y') }}.<br>
-                                                                                            Your appointment time is
+                                                                                            {{__('website\mail\appointmentConfirmation.yourapp3')}}
                                                                                             {{ date_format(date_create($appointment->start_time), 'h:i A') }}.<br>
-                                                                                            The price is
+                                                                                            {{__('website\mail\appointmentConfirmation.price')}}
                                                                                             <b>{{ $appointment->clinic->examfee->price }}
-                                                                                                EGP.</b><br>
+                                                                                                {{__('website\mail\appointmentConfirmation.conc')}}.</b><br>
                                                                                         </p>
                                                                                     </td>
                                                                                 </tr>
@@ -883,8 +878,7 @@ END RESPONSIVE STYLES
                                                                                                 href="{{ route('appointment.index') }}"
                                                                                                 class="es-button es-button-1628357584486"
                                                                                                 target="_blank"
-                                                                                                style="border-width: 10px 25px;">Go
-                                                                                                to Dashboard</a></span>
+                                                                                                style="border-width: 10px 25px;">{{__('website\mail\appointmentConfirmation.btn')}}</a></span>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>

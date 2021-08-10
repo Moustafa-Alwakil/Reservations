@@ -26,7 +26,7 @@ class StoreClinicRequest extends FormRequest
      */
     public function rules()
     {
-        $services= Service::select('id')->where(['department_id'=>Auth::guard('doc')->user()->department_id,'status'=>1])->get();
+        $services= Service::select()->where(['department_id'=>Auth::guard('doc')->user()->department_id,'status'=>1])->get();
         $i=0;
         $available_services_id=[];
         foreach ($services as $service) {
