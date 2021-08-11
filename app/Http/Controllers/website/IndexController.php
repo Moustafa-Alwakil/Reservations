@@ -8,9 +8,7 @@ use App\Http\Requests\Website\ShowClinicsByLocationRequest;
 use App\Models\City;
 use App\Models\Clinic;
 use App\Models\Department;
-use App\Models\Physican;
 use App\Models\Region;
-use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
