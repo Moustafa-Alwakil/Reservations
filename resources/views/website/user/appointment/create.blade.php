@@ -82,7 +82,7 @@
                                         $appoinment_date=[];
                                         $appoinment_start=[];
                                         foreach ($clinic->appointments as $appointment){
-                                            if(($appointment->status == 0 || $appointment->status == 1) && ){
+                                            if($appointment->status == 0 || $appointment->status == 1){
                                                 $appoinment_date[$a] = $appointment->date;
                                                 $appoinment_start[$a] = $appointment->start_time;
                                                 $a++;
