@@ -42,7 +42,7 @@
                                     </div>
                                     <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">{{__('website\doctor\auth\login.login')}}</button>
                                     <div class="text-center dont-have">{{__('website\doctor\auth\login.ques')}} <a
-                                            href="{{ route('doctor.register') }}">{{__('website\doctor\auth\login.doctorlogin')}}</a></div>
+                                            href="{{ route('doctor.register') }}">{{__('website\doctor\auth\login.reg')}}</a></div>
                                 </form>
                             </div>
                         </div>

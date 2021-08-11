@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Physican extends Authenticatable
+class Physican extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
     protected $table = 'physicans';

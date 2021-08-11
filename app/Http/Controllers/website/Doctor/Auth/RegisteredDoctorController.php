@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\Doctor\Auth\StoreRegisterRequest;
 use App\Models\Physican;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 
 class RegisteredDoctorController extends Controller
@@ -50,7 +51,7 @@ class RegisteredDoctorController extends Controller
 
         Auth::guard('doc')->login($doctor);
 
-        $doctor->sendEmailVerificationNotification();
+        event(new Registered($doctor));
 
         return redirect(RouteServiceProvider::INDEX);
     }

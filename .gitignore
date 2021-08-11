@@ -44,6 +44,8 @@
 /vendor/tijsverkoyen
 /vendor/vlucas
 /vendor/voku
+/vendor/nette
+/vendor/dflydev
 /vendor/webmozart
 /vendor/autoload.php
 /vendor/laravel/breeze
