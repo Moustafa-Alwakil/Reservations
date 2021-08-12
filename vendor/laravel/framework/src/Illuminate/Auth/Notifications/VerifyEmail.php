@@ -78,7 +78,6 @@ class VerifyEmail extends Notification
 
     function routeName()
     {
-
     }
     protected function verificationUrl($notifiable)
     {
@@ -104,8 +103,16 @@ class VerifyEmail extends Notification
                     'hash' => sha1($notifiable->getEmailForVerification()),
                 ]
             );
+        } elseif (Auth::guard('admin')->check()) {
+            return URL::temporarySignedRoute(
+                'admin.verification.verify',
+                Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
+                [
+                    'id' => $notifiable->getKey(),
+                    'hash' => sha1($notifiable->getEmailForVerification()),
+                ]
+            );
         }
-
     }
 
     /**

@@ -15,14 +15,19 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if(Request::is('*/user/*')){
+        if(Request::is('*/user/*')||Request::is('*/user')||Request::is('user/*')||Request::is('user')){
             if (! $request->expectsJson()) {
                 return route('user.login');
             }
         }
-        if(Request::is('*/doctor/*')){
+        if(Request::is('*/doctor/*')||Request::is('*/doctor')||Request::is('doctor/*')||Request::is('doctor')){
             if (! $request->expectsJson()) {
                 return route('doctor.login');
+            }
+        }
+        if(Request::is('*/admin/*')||Request::is('*/admin')||Request::is('admin/*')||Request::is('admin')){
+            if (! $request->expectsJson()) {
+                return route('admin.login');
             }
         }
     }

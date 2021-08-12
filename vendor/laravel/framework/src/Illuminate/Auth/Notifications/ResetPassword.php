@@ -77,6 +77,11 @@ class ResetPassword extends Notification
                     'token' => $this->token,
                     'email' => $notifiable->getEmailForPasswordReset(),
                 ], false));
+            }elseif (Request::is('admin/*')) {
+                $url = url(route('admin.password.reset', [
+                    'token' => $this->token,
+                    'email' => $notifiable->getEmailForPasswordReset(),
+                ], false));
             }
         }
 

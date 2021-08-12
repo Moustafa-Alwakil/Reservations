@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'doc.verified' => \App\Http\Middleware\EnsureDocIsVerified::class,
         'doc.accepted' => \App\Http\Middleware\EnsureDocIsAccepted::class,
+        'admin.verified' => \App\Http\Middleware\EnsureAdminIsVerified::class,
         'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
         'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
         'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,

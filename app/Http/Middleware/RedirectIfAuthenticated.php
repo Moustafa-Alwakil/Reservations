@@ -27,6 +27,9 @@ class RedirectIfAuthenticated
                 return redirect(RouteServiceProvider::INDEX);
             }
         }
+        if (Auth::guard('admin')->check()) {
+            return redirect(RouteServiceProvider::DASHBOARD);
+        }
 
         return $next($request);
     }
