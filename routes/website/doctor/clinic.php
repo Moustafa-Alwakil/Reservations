@@ -13,8 +13,8 @@ Route::group([
 ], function () {
     Route::group(['prefix' => 'doctor', 'middleware' => ['auth:doc', 'doc.verified', 'doc.accepted'], 'namespace' => 'Clinic'], function () {
         Route::resource('clinics', 'ClinicController');
-        Route::get('clinics/create/getregions/{id}', 'ClinicController@getRegions');
+        Route::get('clinics/create/getregions/{id}', 'ClinicController@getRegion');
         Route::get('clinics/edit/photo/destroy/{id}', 'ClinicController@destroyClinicPhoto')->name('clinic.destroyphoto');
-        Route::get('clinics/edit/getregions/{clinic}/{id}', 'ClinicController@getRegions')->name('clinicjskj');
+        Route::get('clinics/edit/getregions/{clinic}/{id}', 'ClinicController@getRegions');
     });
 });

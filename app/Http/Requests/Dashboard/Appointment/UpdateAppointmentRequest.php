@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Website\User\Appointment;
+namespace App\Http\Requests\Dashboard\Appointment;
 
-use App\Models\Clinic;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreAppointmentRequest extends FormRequest
+class UpdateAppointmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,19 +24,14 @@ class StoreAppointmentRequest extends FormRequest
      */
     public function rules()
     {
-        $clinics = Clinic::select()->where(['review' => 1, 'status' => 1])->get();
-        $i = 0;
-        $available_clinics_id = [];
-        foreach ($clinics as $clinic) {
-            $available_clinics_id[$i] = $clinic->id;
-            $i++;
-        }
         return [
             'date' => 'required|date_format:Y-m-d',
-            'bookdate' => 'required',
+            'bookdate' => 'required|date_format:Y-m-d',
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i',
-            'clinic_id' =>[ 'required',Rule::in($available_clinics_id),'exists:clinics,id'],
+            'clinic_id' =>[ 'required','exists:clinics,id'],
+            'user_id' =>[ 'required','exists:users,id'],
+            'status' =>[ 'required',Rule::in([0,1,2,3])],
         ];
     }
 }

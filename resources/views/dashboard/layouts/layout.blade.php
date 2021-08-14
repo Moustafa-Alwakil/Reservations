@@ -16,11 +16,15 @@
 
     <!-- Fontawesome CSS -->
     <link rel="stylesheet" href="{{ url('dashboard/assets/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href={{ url('dashboard/assets/plugins/fontawesome/css/all.min.css') }}>
 
     <!-- Feathericon CSS -->
     <link rel="stylesheet" href="{{ url('dashboard/assets/css/feathericon.min.css') }}">
 
     <link rel="stylesheet" href="{{ url('dashboard/assets/plugins/morris/morris.css') }}">
+
+    	<!-- Datatables CSS -->
+	<link rel="stylesheet" href="{{url('dashboard/assets/plugins/datatables/datatables.min.css')}}">
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ url('dashboard/assets/css/style.css') }}">
@@ -101,129 +105,23 @@
                             <li class="menu-title">
                                 <span>Main</span>
                             </li>
-                            <li class="active">
-                                <a href="index.html"><i class="fe fe-home"></i> <span>Dashboard</span></a>
-                            </li>
-                            <li>
-                                <a href="appointment-list.html"><i class="fe fe-layout"></i>
-                                    <span>Appointments</span></a>
-                            </li>
-                            <li>
-                                <a href="specialities.html"><i class="fe fe-users"></i> <span>Specialities</span></a>
-                            </li>
-                            <li>
-                                <a href="doctor-list.html"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
-                            </li>
-                            <li>
-                                <a href="patient-list.html"><i class="fe fe-user"></i> <span>Patients</span></a>
-                            </li>
-                            <li>
-                                <a href="reviews.html"><i class="fe fe-star-o"></i> <span>Reviews</span></a>
-                            </li>
-                            <li>
-                                <a href="transactions-list.html"><i class="fe fe-activity"></i>
-                                    <span>Transactions</span></a>
-                            </li>
-                            <li>
-                                <a href="settings.html"><i class="fe fe-vector"></i> <span>Settings</span></a>
+                            <li class="@if(route('admin.index') == Request::url()) {{'active'}} @endif">
+                                <a href="{{route('admin.index')}}"><i class="fe fe-home"></i> <span>Dashboard</span></a>
                             </li>
                             <li class="submenu">
-                                <a href="#"><i class="fe fe-document"></i> <span> Reports</span> <span
+                                <a><i class="fas fa-map-marked-alt"></i><span>&nbsp;Addresses</span> <span
                                         class="menu-arrow"></span></a>
                                 <ul style="display: none;">
-                                    <li><a href="invoice-report.html">Invoice Reports</a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-title">
-                                <span>Pages</span>
-                            </li>
-                            <li class="submenu">
-                                <a href="#"><i class="fe fe-document"></i> <span> Blog </span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display: none;">
-                                    <li><a href="blog.html"> Blog </a></li>
-                                    <li><a href="blog-details.html"> Blog Details</a></li>
-                                    <li><a href="add-blog.html"> Add Blog </a></li>
-                                    <li><a href="edit-blog.html"> Edit Blog </a></li>
-                                </ul>
-                            </li>
-                            <li><a href="product-list.html"><i class="fe fe-layout"></i> <span>Product List</span></a>
-                            </li>
-                            <li><a href="pharmacy-list.html"><i class="fe fe-vector"></i> <span>Pharmacy List</span></a>
-                            </li>
-                            <li>
-                                <a href="profile.html"><i class="fe fe-user-plus"></i> <span>Profile</span></a>
-                            </li>
-                            <li class="submenu">
-                                <a href="#"><i class="fe fe-document"></i> <span> Authentication </span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display: none;">
-                                    <li><a href="login.html"> Login </a></li>
-                                    <li><a href="register.html"> Register </a></li>
-                                    <li><a href="forgot-password.html"> Forgot Password </a></li>
-                                    <li><a href="lock-screen.html"> Lock Screen </a></li>
+                                    <li class="@if(route('addresses.index') == Request::url()) {{'active'}} @endif"><a href="{{route('addresses.index')}}">All Addresses</a></li>
+                                    <li class="@if(route('addresses.create') == Request::url()) {{'active'}} @endif"><a href="{{route('addresses.create')}}">Add Address</a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a href="#"><i class="fe fe-warning"></i> <span> Error Pages </span> <span
+                                <a><i class="far fa-calendar-alt"></i><span>&nbsp;Appointments</span> <span
                                         class="menu-arrow"></span></a>
                                 <ul style="display: none;">
-                                    <li><a href="error-404.html">404 Error </a></li>
-                                    <li><a href="error-500.html">500 Error </a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="blank-page.html"><i class="fe fe-file"></i> <span>Blank Page</span></a>
-                            </li>
-                            <li class="menu-title">
-                                <span>UI Interface</span>
-                            </li>
-                            <li>
-                                <a href="components.html"><i class="fe fe-vector"></i> <span>Components</span></a>
-                            </li>
-                            <li class="submenu">
-                                <a href="#"><i class="fe fe-layout"></i> <span> Forms </span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display: none;">
-                                    <li><a href="form-basic-inputs.html">Basic Inputs </a></li>
-                                    <li><a href="form-input-groups.html">Input Groups </a></li>
-                                    <li><a href="form-horizontal.html">Horizontal Form </a></li>
-                                    <li><a href="form-vertical.html"> Vertical Form </a></li>
-                                    <li><a href="form-mask.html"> Form Mask </a></li>
-                                    <li><a href="form-validation.html"> Form Validation </a></li>
-                                </ul>
-                            </li>
-                            <li class="submenu">
-                                <a href="#"><i class="fe fe-table"></i> <span> Tables </span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display: none;">
-                                    <li><a href="tables-basic.html">Basic Tables </a></li>
-                                    <li><a href="data-tables.html">Data Table </a></li>
-                                </ul>
-                            </li>
-                            <li class="submenu">
-                                <a href="javascript:void(0);"><i class="fe fe-code"></i> <span>Multi Level</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display: none;">
-                                    <li class="submenu">
-                                        <a href="javascript:void(0);"> <span>Level 1</span> <span
-                                                class="menu-arrow"></span></a>
-                                        <ul style="display: none;">
-                                            <li><a href="javascript:void(0);"><span>Level 2</span></a></li>
-                                            <li class="submenu">
-                                                <a href="javascript:void(0);"> <span> Level 2</span> <span
-                                                        class="menu-arrow"></span></a>
-                                                <ul style="display: none;">
-                                                    <li><a href="javascript:void(0);">Level 3</a></li>
-                                                    <li><a href="javascript:void(0);">Level 3</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="javascript:void(0);"> <span>Level 2</span></a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);"> <span>Level 1</span></a>
-                                    </li>
+                                    <li class="@if(route('appointments.index') == Request::url()) {{'active'}} @endif"><a href="{{route('appointments.index')}}">All Appointments</a></li>
+                                    <li class="@if(route('appointments.create') == Request::url()) {{'active'}} @endif"><a href="{{route('appointments.create')}}">Add Appointment</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -259,9 +157,13 @@
     <script src="{{ url('dashboard/assets/plugins/morris/morris.min.js') }}"></script>
     <script src="{{ url('dashboard/assets/js/chart.morris.js') }}"></script>
 
+    	<!-- Datatables JS -->
+	<script src="{{url('dashboard/assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+	<script src="{{url('dashboard/assets/plugins/datatables/datatables.min.js')}}"></script>
+
     <!-- Custom JS -->
     <script src="{{ url('dashboard/assets/js/script.js') }}"></script>
-
+    @yield('scripts')
 </body>
 
 <!-- Mirrored from doccure-html.dreamguystech.com/template/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 22 Mar 2021 19:28:55 GMT -->

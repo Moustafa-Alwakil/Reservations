@@ -54,6 +54,11 @@ class ClinicController extends Controller
         $regions['data'] = Region::select('name', 'id')->where(['city_id'=> $id, 'status'=> 1])->get();
         return response()->json($regions);
     }
+    public function getRegion($id)
+    {
+        $regions['data'] = Region::select('name', 'id')->where(['city_id'=> $id, 'status'=> 1])->get();
+        return response()->json($regions);
+    }
     /**
      * Store a newly created resource in storage.
      *
