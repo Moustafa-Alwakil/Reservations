@@ -15,7 +15,7 @@ class CreateExamfeesTable extends Migration
     {
         Schema::create('examfees', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('price');
+            $table->integer('price');
             $table->foreignId('clinic_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

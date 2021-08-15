@@ -109,7 +109,7 @@
                                 <a href="{{route('admin.index')}}"><i class="fe fe-home"></i> <span>Dashboard</span></a>
                             </li>
                             <li class="submenu">
-                                <a><i class="fas fa-map-marked-alt"></i><span>&nbsp;Addresses</span> <span
+                                <a><i class="fas fa-map-marked-alt"></i><span>&nbsp; Addresses</span> <span
                                         class="menu-arrow"></span></a>
                                 <ul style="display: none;">
                                     <li class="@if(route('addresses.index') == Request::url()) {{'active'}} @endif"><a href="{{route('addresses.index')}}">All Addresses</a></li>
@@ -117,11 +117,43 @@
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a><i class="far fa-calendar-alt"></i><span>&nbsp;Appointments</span> <span
+                                <a><i class="far fa-calendar-alt"></i><span>&nbsp; Appointments</span> <span
                                         class="menu-arrow"></span></a>
                                 <ul style="display: none;">
                                     <li class="@if(route('appointments.index') == Request::url()) {{'active'}} @endif"><a href="{{route('appointments.index')}}">All Appointments</a></li>
                                     <li class="@if(route('appointments.create') == Request::url()) {{'active'}} @endif"><a href="{{route('appointments.create')}}">Add Appointment</a></li>
+                                </ul>
+                            </li>
+                            <li class="submenu">
+                                <a><i class="fas fa-certificate"></i><span>&nbsp; Certificates</span> <span
+                                        class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                                    <li class="@if(route('certificates.index') == Request::url()) {{'active'}} @endif"><a href="{{route('certificates.index')}}">All Certificates</a></li>
+                                    <li class="@if(route('certificates.create') == Request::url()) {{'active'}} @endif"><a href="{{route('certificates.create')}}">Add Certificates</a></li>
+                                </ul>
+                            </li>
+                            <li class="submenu">
+                                <a><i class="fas fa-city"></i><span>&nbsp; Cities</span> <span
+                                        class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                                    <li class="@if(route('cities.index') == Request::url()) {{'active'}} @endif"><a href="{{route('cities.index')}}">All Cities</a></li>
+                                    <li class="@if(route('cities.create') == Request::url()) {{'active'}} @endif"><a href="{{route('cities.create')}}">Add Cities</a></li>
+                                </ul>
+                            </li>
+                            <li class="submenu">
+                                <a><i class="fas fa-glasses"></i><span>&nbsp; Departments</span> <span
+                                        class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                                    <li class="@if(route('departments.index') == Request::url()) {{'active'}} @endif"><a href="{{route('departments.index')}}">All Departments</a></li>
+                                    <li class="@if(route('departments.create') == Request::url()) {{'active'}} @endif"><a href="{{route('departments.create')}}">Add Departments</a></li>
+                                </ul>
+                            </li>
+                            <li class="submenu">
+                                <a><i class="fas fa-dollar-sign"></i><span>&nbsp; Examfees</span> <span
+                                        class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                                    <li class="@if(route('examfees.index') == Request::url()) {{'active'}} @endif"><a href="{{route('examfees.index')}}">All Examfees</a></li>
+                                    <li class="@if(route('examfees.create') == Request::url()) {{'active'}} @endif"><a href="{{route('examfees.create')}}">Add Examfees</a></li>
                                 </ul>
                             </li>
                         </ul>

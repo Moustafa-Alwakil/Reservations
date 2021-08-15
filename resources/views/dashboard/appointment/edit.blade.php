@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.layout')
-@section('title', 'Edit Address')
+@section('title', 'Edit Appointment')
 @section('content')
 @include('dashboard.includes.pageHeader1')
 Appointments

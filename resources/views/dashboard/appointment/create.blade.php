@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.layout')
-@section('title', 'Add Address')
+@section('title', 'Add Appointment')
 @section('content')
 @include('dashboard.includes.pageHeader1')
 Appointments
@@ -49,7 +49,7 @@ Appointments
                         <label>Status</label>
                         <select class="form-control" name="status">
                             <option disabled selected>Select status</option>
-                            <option value="0" @if(old('status')==0){{'selected'}} @endif>Waiting</option>
+                            <option value="0" @if(old('status')=='0'){{'selected'}} @endif>Waiting</option>
                             <option value="1" @if(old('status')==1){{'selected'}} @endif>Accepted</option>
                             <option value="2" @if(old('status')==2){{'selected'}} @endif>Refused</option>
                             <option value="3" @if(old('status')==3){{'selected'}} @endif>Canceled</option>

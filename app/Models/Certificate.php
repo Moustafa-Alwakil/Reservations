@@ -22,7 +22,7 @@ class Certificate extends Model
     public $timestamps = true;
 
     // Start Eloquent Relations
-    public function phiscan()
+    public function physican()
     {
         return $this->belongsTo(Physican::class,'physican_id','id');
     }
