@@ -71,7 +71,7 @@ Appointments
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <div class="form-group">
-                        <label>City</label>
+                        <label>User</label>
                         <select class="form-control" name="user_id">
                             <option selected disabled>Select user</option>
                             @foreach ($users as $user)
@@ -79,7 +79,7 @@ Appointments
                             @endforeach
                         </select>
                     </div>
-                    @error('city_id')
+                    @error('user_id')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <div class="text-right">

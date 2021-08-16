@@ -34,9 +34,9 @@ class StoreAppointmentRequest extends FormRequest
         }
         return [
             'date' => 'required|date_format:Y-m-d',
-            'bookdate' => 'required',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i',
+            'bookdate' => 'required|after_or_equal:'.date('Y-m-d').'',
+            'start_time'=> 'required|after:'.date('H:i').'|date_format:H:i',
+            'end_time'=> 'required|after:start_time|date_format:H:i',
             'clinic_id' =>[ 'required',Rule::in($available_clinics_id),'exists:clinics,id'],
         ];
     }

@@ -99,7 +99,6 @@ Addresses
                     <div class="form-group">
                         <label>Region</label>
                         <select class="form-control" name="region_id" id="region">
-                            <option selected disabled>Select region</option>
                                 <option selected value="{{ $address->region->id }}">
                                     {{ $address->region->name['name_en'] }}
                                 <option>

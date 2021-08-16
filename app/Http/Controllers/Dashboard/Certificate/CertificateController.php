@@ -111,7 +111,7 @@ class CertificateController extends Controller
             $delete = $this->deletePhoto($path);
 
             if (!$delete)
-                return redirect()->route('certificate.index')->with('error', 'Something went wrong, please try again.');
+                return redirect()->route('certificates.index')->with('error', 'Something went wrong, please try again.');
 
             $data['photo'] = $photo;
         }

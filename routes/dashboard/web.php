@@ -19,6 +19,13 @@ Route::group([
     Route::resource('examfees', 'Examfee\ExamfeeController');
     Route::get('examfees/getclinics/{id}', 'Examfee\ExamfeeController@getClinic');
     Route::get('examfees/edit/getclinics/{examfee}/{id}', 'Examfee\ExamfeeController@getClinics');
+    Route::resource('clinicphotos', 'ClinicPhoto\ClinicPhotoController');
+    Route::get('clinicphotos/getclinics/{id}', 'ClinicPhoto\ClinicPhotoController@getClinic');
+    Route::get('clinicphotos/edit/getclinics/{clinicphoto}/{id}', 'ClinicPhoto\ClinicPhotoController@getClinics');
+    Route::resource('exceptions', 'Exception\ExceptionController');
+    Route::get('exceptions/getclinics/{id}', 'Exception\ExceptionController@getClinic');
+    Route::get('exceptions/edit/getclinics/{clinicphoto}/{id}', 'Exception\ExceptionController@getClinics');
+    Route::resource('experiences', 'Experience\ExperienceController');
 });
 
 require __DIR__ . '/auth.php';

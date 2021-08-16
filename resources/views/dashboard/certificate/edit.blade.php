@@ -35,13 +35,13 @@ certificates
                         <label>Photo</label>
                         <input type="file" class="form-control" name="photo">
                     </div>
-                    <div class="d-flex justify-content-center">
-                        <img src="{{$certificate->photo}}" alt="certificate" width="50%" height="50%"></div>
-                    </div>
                     @error('photo')
                         <div class=" alert alert-danger">{{ $message }}
                         </div>
                     @enderror
+                    <div class="d-flex justify-content-center">
+                        <img src="{{$certificate->photo}}" alt="certificate" width="50%" height="50%"></div>
+                    </div>
                     <div class="form-group">
                         <label>Doctor</label>
                         <select class="form-control" name="physican_id">
