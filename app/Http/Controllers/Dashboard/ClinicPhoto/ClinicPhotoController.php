@@ -41,7 +41,7 @@ class ClinicPhotoController extends Controller
         return view('dashboard.clinicPhoto.create', compact('doctors'));
     }
 
-    public function getClinics($examfee, $id)
+    public function getClinics($clinicphoto, $id)
     {
         $clinics['data'] = Clinic::select('id', 'name', 'physican_id')->where('physican_id', $id)->get();
         return response()->json($clinics);

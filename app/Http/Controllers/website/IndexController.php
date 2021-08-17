@@ -39,7 +39,7 @@ class IndexController extends Controller
             $q->select()->where('status', 1);
         }, 'examfee', 'physican' => function ($q) {
             $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
-                $q->select('id', 'photo', 'physican_id');
+                $q->select('id', 'photo', 'title', 'physican_id');
             }, 'department' => function ($q) {
                 $q->select()->where('status', 1);
             }, 'reviews' => function ($q) {
@@ -209,7 +209,7 @@ class IndexController extends Controller
                     $q->select()->where('status', 1);
                 }, 'examfee', 'physican' => function ($q) {
                     $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
-                        $q->select('id', 'photo', 'physican_id');
+                        $q->select('id', 'photo', 'title', 'physican_id');
                     }, 'department' => function ($q) {
                         $q->select()->where('status', 1);
                     }, 'reviews' => function ($q) {
@@ -237,7 +237,7 @@ class IndexController extends Controller
             $q->select()->where('status', 1);
         }, 'examfee', 'physican' => function ($q) {
             $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
-                $q->select('id', 'photo', 'physican_id');
+                $q->select('id', 'photo', 'title', 'physican_id');
             }, 'department' => function ($q) {
                 $q->select()->where('status', 1);
             }, 'reviews' => function ($q) {
@@ -271,7 +271,7 @@ class IndexController extends Controller
                 $q->select()->where('status', 1);
             }, 'examfee', 'physican' => function ($q) {
                 $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
-                    $q->select('id', 'photo', 'physican_id');
+                    $q->select('id', 'photo', 'title', 'physican_id');
                 }, 'department' => function ($q) {
                     $q->select()->where('status', 1);
                 }, 'reviews' => function ($q) {
@@ -294,7 +294,7 @@ class IndexController extends Controller
             $q->select()->where('status', 1);
         }, 'examfee', 'physican' => function ($q) {
             $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
-                $q->select('id', 'photo', 'about', 'physican_id');
+                $q->select('id', 'photo', 'title', 'about', 'physican_id');
             }, 'department' => function ($q) {
                 $q->select()->where('status', 1);
             }, 'experiences' => function ($q) {

@@ -118,7 +118,7 @@
                                                 </h4>
                                                 <p class="doc-speciality">
                                                     Dr.
-                                                    {{ ucwords($clinic->physican->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $clinic->physican->name['lname_' . LaravelLocalization::getCurrentLocale()]) }}
+                                                    {{ ucwords($clinic->physican->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $clinic->physican->name['lname_' . LaravelLocalization::getCurrentLocale()]) }} - ({{__('website\layouts\layout.'.$clinic->physican->info->title)}})
                                                 </p>
                                                 <h5 class="doc-department">
                                                     {{ ucwords($clinic->physican->department->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
@@ -230,7 +230,7 @@
                                             </h4>
                                             <p class="doc-speciality">
                                                 Dr.
-                                                {{ ucwords($clinic->physican->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $clinic->physican->name['lname_' . LaravelLocalization::getCurrentLocale()]) }}
+                                                {{ ucwords($clinic->physican->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $clinic->physican->name['lname_' . LaravelLocalization::getCurrentLocale()]) }} - ({{__('website\layouts\layout.'.$clinic->physican->info->title)}})
                                             </p>
                                             <h5 class="doc-department">
                                                 {{ ucwords($clinic->physican->department->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
@@ -349,7 +349,7 @@
                                                         </h4>
                                                         <p class="doc-speciality">
                                                             Dr.
-                                                            {{ ucwords($address->clinic->physican->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $address->clinic->physican->name['lname_' . LaravelLocalization::getCurrentLocale()]) }}
+                                                            {{ ucwords($address->clinic->physican->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $address->clinic->physican->name['lname_' . LaravelLocalization::getCurrentLocale()]) }} - ({{__('website\layouts\layout.'.$address->clinic->physican->info->title)}})
                                                         </p>
                                                         <h5 class="doc-department">
                                                             {{ ucwords($address->clinic->physican->department->name['name_' . LaravelLocalization::getCurrentLocale()]) }}

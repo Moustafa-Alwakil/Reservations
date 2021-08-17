@@ -18,7 +18,7 @@
                                                 <img src="{{ $info->photo }}" alt="Profile Picture">
                                             </a>
                                         @endif
-                                        <h3>{{ $name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . ''] }}
+                                        <h3>{{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . '']) }}
                                         </h3>
                                     @endif
                                     <div class="patient-details">

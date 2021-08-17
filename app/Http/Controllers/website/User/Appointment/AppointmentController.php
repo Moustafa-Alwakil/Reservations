@@ -17,7 +17,7 @@ class AppointmentController extends Controller
         $appointments = Appointment::select(DB::raw("CONCAT(appointments.date,' ',appointments.start_time)  AS datetime"), 'id', 'clinic_id', 'user_id', 'date', 'bookdate', 'start_time', 'end_time', 'status')->where('user_id', Auth::guard('web')->user()->id)->with(['clinic' => function ($q) {
             $q->select('id', 'name', 'physican_id')->with(['physican' => function ($q) {
                 $q->select('id', 'name', 'department_id')->with(['info' => function ($q) {
-                    $q->select('id', 'photo', 'physican_id');
+                    $q->select('id', 'photo', 'title', 'physican_id');
                 }, 'department']);
             }, 'examfee']);
         }])->get();
@@ -27,7 +27,7 @@ class AppointmentController extends Controller
 
     public function create($id)
     {
-        $clinic = Clinic::select('id', 'name', 'phone','physican_id')->where(['status' => 1, 'review' => 1, 'id' => $id])->with(['address' => function ($q) {
+        $clinic = Clinic::select('id', 'name', 'phone', 'physican_id')->where(['status' => 1, 'review' => 1, 'id' => $id])->with(['address' => function ($q) {
             $q->select('id', 'region_id', 'clinic_id')->with(['region' => function ($q) {
                 $q->select()->where('status', 1);
             }, 'region.city' => function ($q) {
@@ -35,12 +35,12 @@ class AppointmentController extends Controller
             }]);
         }, 'physican' => function ($q) {
             $q->select('id', 'name')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
-                $q->select('id', 'photo', 'physican_id');
+                $q->select('id', 'photo', 'title', 'physican_id');
             }, 'reviews' => function ($q) {
                 $q->select();
             }]);
-        }, 'workday', 'appointments'=>function($q){
-            $q->select()->where('date','>=',date('Y-m-d'));
+        }, 'workday', 'appointments' => function ($q) {
+            $q->select()->where('date', '>=', date('Y-m-d'));
         }, 'exceptions'])->first();
         return view('website.user.appointment.create', compact('clinic'));
     }
@@ -60,11 +60,11 @@ class AppointmentController extends Controller
 
     public function update(UpdateAppointmentRequest $request)
     {
-        $updateAppointment = Appointment::where(['id'=>$request->id , 'user_id' => Auth::guard('web')->user()->id])->update(['status'=>3]);
+        $updateAppointment = Appointment::where(['id' => $request->id, 'user_id' => Auth::guard('web')->user()->id])->update(['status' => 3]);
 
-        if(!$updateAppointment)
-            return redirect()->route('appointment.index')->with('error',__('website\includes\sessionDisplay.wrong'));
+        if (!$updateAppointment)
+            return redirect()->route('appointment.index')->with('error', __('website\includes\sessionDisplay.wrong'));
 
-            return redirect()->route('appointment.index')->with('success',__('website\includes\sessionDisplay.successcancle'));
+        return redirect()->route('appointment.index')->with('success', __('website\includes\sessionDisplay.successcancle'));
     }
 }

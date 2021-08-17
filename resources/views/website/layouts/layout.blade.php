@@ -64,10 +64,12 @@
                     <ul class="main-nav">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <li class="has-submenu @if (Request::url()==route('index')) {{ 'active' }} @endif">
-                            <a href="{{ route('index') }}">{{__('website\layouts\layout.home')}}<i class="fas"></i></a>
+                            <a href="{{ route('index') }}">{{ __('website\layouts\layout.home') }}<i
+                                    class="fas"></i></a>
                         </li>
                         <li class="has-submenu @if (Request::url()==route('all.clinics')) {{ 'active' }} @endif">
-                            <a href="{{ route('all.clinics') }}">{{__('website\layouts\layout.clinics')}}<i class="fas"></i></a>
+                            <a href="{{ route('all.clinics') }}">{{ __('website\layouts\layout.clinics') }}<i
+                                    class="fas"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -89,14 +91,16 @@
                                 <div class="user-header">
                                     <div class="user-text">
                                         <h6>{{ ucwords($name['fname'] . ' ' . $name['lname']) }}</h6>
-                                        <p class="text-muted mb-0">{{__('website\layouts\layout.user')}}</p>
+                                        <p class="text-muted mb-0">{{ __('website\layouts\layout.user') }}</p>
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="{{route('appointment.index')}}">{{__('website\layouts\layout.appts')}}</a>
-                                <a class="dropdown-item" href="{{ route('user.profile') }}">{{__('website\layouts\layout.profile')}}</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('appointment.index') }}">{{ __('website\layouts\layout.appts') }}</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('user.profile') }}">{{ __('website\layouts\layout.profile') }}</a>
                                 <form method="POST" action="{{ route('user.logout') }}" class="d-inline">
                                     @csrf<button class="btn btn-link dropdown-item"
-                                        href="{{ route('user.logout') }}">{{__('website\layouts\layout.logout')}}</button>
+                                        href="{{ route('user.logout') }}">{{ __('website\layouts\layout.logout') }}</button>
                                 </form>
                             </div>
                         </li>
@@ -126,14 +130,20 @@
                                     <div class="user-text">
                                         <h6>{{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale()]) }}
                                         </h6>
-                                        <p class="text-muted mb-0">{{__('website\layouts\layout.doctor')}}</p>
+                                        @if ($info)
+                                        <p class="text-muted mb-0">{{__('website\layouts\layout.'.$info->title)}}</p>
+                                        @else
+                                            <p class="text-muted mb-0">{{ __('website\layouts\layout.doctor') }}</p>
+                                        @endif
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="{{ route('clinics.index') }}">{{__('website\layouts\layout.dashboard')}}</a>
-                                <a class="dropdown-item" href="{{ route('doctor.profile') }}">{{__('website\layouts\layout.profile')}}</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('clinics.index') }}">{{ __('website\layouts\layout.dashboard') }}</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('doctor.profile') }}">{{ __('website\layouts\layout.profile') }}</a>
                                 <form method="POST" action="{{ route('doctor.logout') }}" class="d-inline">
                                     @csrf<button class="btn btn-link dropdown-item"
-                                        href="{{ route('doctor.logout') }}">{{__('website\layouts\layout.logout')}}</button>
+                                        href="{{ route('doctor.logout') }}">{{ __('website\layouts\layout.logout') }}</button>
                                 </form>
                             </div>
                         </li>
@@ -141,23 +151,27 @@
                         <li class="nav-item dropdown has-arrow logged-item">
                             <a class="dropdown-toggle nav-link" data-toggle="dropdown">
                                 <span class="user-img">
-                                    {{__('website\layouts\layout.user')}}
+                                    {{ __('website\layouts\layout.user') }}
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="{{ route('user.login') }}">{{__('website\layouts\layout.login')}}</a>
-                                <a class="dropdown-item" href="{{ route('user.register') }}">{{__('website\layouts\layout.register')}}</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('user.login') }}">{{ __('website\layouts\layout.login') }}</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('user.register') }}">{{ __('website\layouts\layout.register') }}</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown has-arrow logged-item">
                             <a class="dropdown-toggle nav-link" data-toggle="dropdown">
                                 <span class="user-img">
-                                    {{__('website\layouts\layout.doctor')}}
+                                    {{ __('website\layouts\layout.doctor') }}
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="{{ route('doctor.login') }}">{{__('website\layouts\layout.login')}}</a>
-                                <a class="dropdown-item" href="{{ route('doctor.register') }}">{{__('website\layouts\layout.register')}}</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('doctor.login') }}">{{ __('website\layouts\layout.login') }}</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('doctor.register') }}">{{ __('website\layouts\layout.register') }}</a>
                             </div>
                         </li>
                     @endif
@@ -165,7 +179,7 @@
                     <li class="nav-item dropdown has-arrow logged-item">
                         <a class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <span class="user-img">
-                                {{__('website\layouts\layout.lang')}}
+                                {{ __('website\layouts\layout.lang') }}
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -200,7 +214,7 @@
                                         <img src={{ url('website/assets/img/footer-logo.png') }} alt="logo">
                                     </div>
                                     <div class="footer-about-content">
-                                        <p>{{__('website\layouts\layout.lorem')}} </p>
+                                        <p>{{ __('website\layouts\layout.lorem') }} </p>
                                         <div class="social-icon">
                                             <ul>
                                                 <li>
@@ -229,7 +243,7 @@
 
                                 <!-- Footer Widget -->
                                 <div class="footer-widget footer-contact">
-                                    <h2 class="footer-title">{{__('website\layouts\layout.contactus')}}</h2>
+                                    <h2 class="footer-title">{{ __('website\layouts\layout.contactus') }}</h2>
                                     <div class="footer-contact-info">
                                         <p>
                                             <i class="fas fa-phone-alt"></i>
@@ -259,7 +273,8 @@
                             <div class="row">
                                 <div class="col-md-6 col-lg-6">
                                     <div class="copyright-text">
-                                        <p class="mb-0">&copy; 2021 Doccure. {{__('website\layouts\layout.rights')}}</p>
+                                        <p class="mb-0">&copy; 2021 Doccure. {{ __('website\layouts\layout.rights') }}
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-6">
@@ -267,8 +282,12 @@
                                     <!-- Copyright Menu -->
                                     <div class="copyright-menu">
                                         <ul class="policy-menu">
-                                            <li><a href="{{route('terms')}}">{{__('website\layouts\layout.terms')}}</a></li>
-                                            <li><a href="{{route('policy')}}">{{__('website\layouts\layout.policy')}}</a></li>
+                                            <li><a
+                                                    href="{{ route('terms') }}">{{ __('website\layouts\layout.terms') }}</a>
+                                            </li>
+                                            <li><a
+                                                    href="{{ route('policy') }}">{{ __('website\layouts\layout.policy') }}</a>
+                                            </li>
                                         </ul>
                                     </div>
                                     <!-- /Copyright Menu -->
@@ -299,8 +318,8 @@
     <script src={{ url('website/assets/js/slick.js') }}></script>
 
     <!-- Sticky Sidebar JS -->
-	<script src="{{url('website/assets/plugins/theia-sticky-sidebar/ResizeSensor.js')}}"></script>
-	<script src="{{url('website/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js')}}"></script>
+    <script src="{{ url('website/assets/plugins/theia-sticky-sidebar/ResizeSensor.js') }}"></script>
+    <script src="{{ url('website/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js') }}"></script>
 
     <!-- Custom JS -->
     <script src={{ url('website/assets/js/script.js') }}></script>

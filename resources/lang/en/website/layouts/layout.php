@@ -19,5 +19,11 @@ return [
 'rights' => 'All rights reserved.',
 'terms' => 'Terms and Conditions',
 'policy' => 'Policy',
+'1'=>'Professor',
+'2'=>'Lecturer',
+'3'=>'Consultant',
+'4'=>'Specialist',
+'5'=>'Assistant Lecturer',
+'6'=>'Assistant Proffesor',
 
 ];

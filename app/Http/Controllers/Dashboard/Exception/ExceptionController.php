@@ -38,7 +38,7 @@ class ExceptionController extends Controller
         return view('dashboard.exception.create', compact('doctors'));
     }
 
-    public function getClinics($examfee, $id)
+    public function getClinics($exception, $id)
     {
         $clinics['data'] = Clinic::select('id', 'name', 'physican_id')->where('physican_id', $id)->get();
         return response()->json($clinics);

@@ -40,7 +40,7 @@ certificates
                         </div>
                     @enderror
                     <div class="d-flex justify-content-center">
-                        <img src="{{$certificate->photo}}" alt="certificate" width="50%" height="50%"></div>
+                        <img src="{{ $certificate->photo }}" alt="certificate" width="50%" height="50%">
                     </div>
                     <div class="form-group">
                         <label>Doctor</label>

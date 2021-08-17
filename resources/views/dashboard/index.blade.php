@@ -2,7 +2,7 @@
 @section('title', 'Dashbord')
 @section('content')
 @include('dashboard.includes.pageHeader1')
-Welcome {{ucwords(Auth::guard('admin')->user()->name)}}
+Welcome {{ ucwords(Auth::guard('admin')->user()->name) }}
 @include('dashboard.includes.pageHeader2')
 @include('dashboard.includes.pageHeader3')
 
@@ -22,6 +22,27 @@ Welcome {{ucwords(Auth::guard('admin')->user()->name)}}
                     <h6 class="text-muted">Doctors</h6>
                     <div class="progress progress-sm">
                         <div class="progress-bar bg-primary w-50"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="dash-widget-header">
+                    <span class="dash-widget-icon text-warning border-warning">
+                        <i class="fas fa-clinic-medical"></i>
+                    </span>
+                    <div class="dash-count">
+                        <h3>$62523</h3>
+                    </div>
+                </div>
+                <div class="dash-widget-info">
+
+                    <h6 class="text-muted">Clinics</h6>
+                    <div class="progress progress-sm">
+                        <div class="progress-bar bg-warning w-50"></div>
                     </div>
                 </div>
             </div>
@@ -64,27 +85,6 @@ Welcome {{ucwords(Auth::guard('admin')->user()->name)}}
                     <h6 class="text-muted">Appointment</h6>
                     <div class="progress progress-sm">
                         <div class="progress-bar bg-danger w-50"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-warning border-warning">
-                        <i class="fe fe-folder"></i>
-                    </span>
-                    <div class="dash-count">
-                        <h3>$62523</h3>
-                    </div>
-                </div>
-                <div class="dash-widget-info">
-
-                    <h6 class="text-muted">Revenue</h6>
-                    <div class="progress progress-sm">
-                        <div class="progress-bar bg-warning w-50"></div>
                     </div>
                 </div>
             </div>

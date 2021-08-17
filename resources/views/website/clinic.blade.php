@@ -36,7 +36,7 @@
                                 <h4 class="doc-name">
                                     {{ ucwords($clinic->name['name_' . LaravelLocalization::getCurrentLocale()]) }}</h4>
                                 <p class="doc-speciality">Dr.
-                                    {{ ucwords($clinic->physican->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $clinic->physican->name['lname_' . LaravelLocalization::getCurrentLocale()]) }}
+                                    {{ ucwords($clinic->physican->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $clinic->physican->name['lname_' . LaravelLocalization::getCurrentLocale()]) }} - ({{__('website\layouts\layout.'.$clinic->physican->info->title)}})
                                 </p>
                                 <p class="doc-department">
                                     {{ ucwords($clinic->physican->department->name['name_' . LaravelLocalization::getCurrentLocale()]) }}

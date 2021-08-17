@@ -24,8 +24,13 @@ Route::group([
     Route::get('clinicphotos/edit/getclinics/{clinicphoto}/{id}', 'ClinicPhoto\ClinicPhotoController@getClinics');
     Route::resource('exceptions', 'Exception\ExceptionController');
     Route::get('exceptions/getclinics/{id}', 'Exception\ExceptionController@getClinic');
-    Route::get('exceptions/edit/getclinics/{clinicphoto}/{id}', 'Exception\ExceptionController@getClinics');
+    Route::get('exceptions/edit/getclinics/{exception}/{id}', 'Exception\ExceptionController@getClinics');
     Route::resource('experiences', 'Experience\ExperienceController');
+    Route::resource('infos', 'Info\InfoController');
+    Route::resource('regions', 'Region\RegionController');
+    Route::resource('workdays', 'Workday\WorkdayController');
+    Route::get('workdays/getclinics/{id}', 'Workday\WorkdayController@getClinic');
+    Route::get('workdays/edit/getclinics/{workday}/{id}', 'Workday\WorkdayController@getClinics');
 });
 
 require __DIR__ . '/auth.php';

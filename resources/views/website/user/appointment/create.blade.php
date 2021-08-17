@@ -40,7 +40,7 @@
                                             href="doctor-profile.html">{{ ucwords($clinic->name['name_' . LaravelLocalization::getCurrentLocale()]) }}</a>
                                     </h4>
                                     <p class="doc-speciality">Dr.
-                                        {{ ucwords($clinic->physican->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $clinic->physican->name['lname_' . LaravelLocalization::getCurrentLocale()]) }}
+                                        {{ ucwords($clinic->physican->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $clinic->physican->name['lname_' . LaravelLocalization::getCurrentLocale()]) }} - ({{__('website\layouts\layout.'.$clinic->physican->info->title)}})
                                     </p>
                                     <div class="rating">
                                         @for ($i = 0; $i < $avgRate; $i++)
