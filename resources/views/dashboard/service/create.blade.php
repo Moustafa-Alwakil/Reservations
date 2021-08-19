@@ -1,21 +1,21 @@
 @extends('dashboard.layouts.layout')
-@section('title', 'Add Region')
+@section('title', 'Add Service')
 @section('content')
 @include('dashboard.includes.pageHeader1')
-Regions
+Services
 @include('dashboard.includes.pageHeader2')
-<li class="breadcrumb-item">Regions</li>
-<li class="breadcrumb-item">Add Region</li>
+<li class="breadcrumb-item">Services</li>
+<li class="breadcrumb-item">Add Service</li>
 @include('dashboard.includes.pageHeader3')
 <div class="row">
     <div class="col-12">
         @include('website.includes.sessionDisplay')
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Add Region</h4>
+                <h4 class="card-title">Add Service</h4>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('regions.store') }}">
+                <form method="POST" action="{{ route('services.store') }}">
                     @csrf
                     <div class="form-group">
                         <label>Name (Arabic)</label>
@@ -43,15 +43,15 @@ Regions
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <div class="form-group">
-                        <label>City</label>
-                        <select class="form-control" name="city_id">
-                            <option disabled selected>Select city</option>
-                            @foreach ($cities as $city)
-                            <option value="{{$city->id}}" @if(old('city_id')== $city->id){{'selected'}} @endif>{{$city->name['name_en']}} - {{$city->name['name_ar']}}</option>
+                        <label>Department</label>
+                        <select class="form-control" name="department_id">
+                            <option disabled selected>Select department</option>
+                            @foreach ($departments as $department)
+                            <option value="{{$department->id}}" @if(old('department_id')== $department->id){{'selected'}} @endif>{{$department->name['name_en']}} - {{$department->name['name_ar']}}</option>
                             @endforeach
                         </select>
                     </div>
-                    @error('city_id')
+                    @error('department_id')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <div class="text-right">

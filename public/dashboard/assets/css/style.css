@@ -89,6 +89,34 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px white inset !important;
 }
+.star-rating input[type=radio] {
+    display: none
+}
+.star-rating label {
+    color: #bbb;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out
+}
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input[type=radio]:checked ~ label {
+    color: #f2b600
+}
+.rating {
+    list-style: none;
+    margin: 0 0 7px;
+    padding: 0;
+    width: 100%;
+}
+.rating i {
+    color: #dedfe0;
+}
+.rating i.filled {
+    color: #f4c150;
+}
 .form-control {
     border: 1px solid #ddd;
     box-shadow: none;

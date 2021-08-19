@@ -2,9 +2,9 @@
 @section('title', 'Edit Clinic Photo')
 @section('content')
 @include('dashboard.includes.pageHeader1')
-Clinic Photos
+Clinics Photos
 @include('dashboard.includes.pageHeader2')
-<li class="breadcrumb-item">Clinic Photos</li>
+<li class="breadcrumb-item">Clinics Photos</li>
 <li class="breadcrumb-item">Edit Clinic Photo</li>
 @include('dashboard.includes.pageHeader3')
 <div class="row">

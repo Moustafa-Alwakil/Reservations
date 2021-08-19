@@ -35,6 +35,9 @@ Route::group([
     Route::resource('workdays', 'Workday\WorkdayController');
     Route::get('workdays/getclinics/{id}', 'Workday\WorkdayController@getClinic');
     Route::get('workdays/edit/getclinics/{workday}/{id}', 'Workday\WorkdayController@getClinics');
+    Route::resource('services', 'Service\ServiceController');
+    Route::resource('reviews', 'Review\ReviewController');
+    Route::resource('clinicservices', 'ClinicService\ClinicServiceController');
 });
 
 require __DIR__ . '/auth.php';

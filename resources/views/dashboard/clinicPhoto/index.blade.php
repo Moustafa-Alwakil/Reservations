@@ -1,10 +1,10 @@
 @extends('dashboard.layouts.layout')
-@section('title','All Clinic Photos')
+@section('title','All Clinics Photos')
 @section('content')
 @include('dashboard.includes.pageHeader1')
-Clinic Photos
+Clinics Photos
 @include('dashboard.includes.pageHeader2')
-<li class="breadcrumb-item">Clinic Photos</li>
+<li class="breadcrumb-item">Clinics Photos</li>
 <li class="breadcrumb-item">All Clinic Photos</li>
 @include('dashboard.includes.pageHeader3')
 <div class="row">

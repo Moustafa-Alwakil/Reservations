@@ -28,7 +28,7 @@ class Service extends Model
     // Start Eloquent Relations
     public function department()
     {
-        return $this->belongsTo(Department::class, 'depatment_id','id');
+        return $this->belongsTo(Department::class, 'department_id','id');
     }
     public function clinics()
     {

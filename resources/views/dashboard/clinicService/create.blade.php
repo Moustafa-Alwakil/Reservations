@@ -1,21 +1,21 @@
 @extends('dashboard.layouts.layout')
-@section('title', 'Add Clinic Photos')
+@section('title', 'Add Clinic Photo')
 @section('content')
 @include('dashboard.includes.pageHeader1')
-Clinics Photos
+Clinic Services
 @include('dashboard.includes.pageHeader2')
-<li class="breadcrumb-item">Clinics Photos</li>
-<li class="breadcrumb-item">Add Clinic Photos</li>
+<li class="breadcrumb-item">Clinic Services</li>
+<li class="breadcrumb-item">Add Clinic Photo</li>
 @include('dashboard.includes.pageHeader3')
 <div class="row">
     <div class="col-12">
         @include('website.includes.sessionDisplay')
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Add Clinic Photos</h4>
+                <h4 class="card-title">Add Clinic Services</h4>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('clinicphotos.store') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('clincservices.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label>Photo</label>
