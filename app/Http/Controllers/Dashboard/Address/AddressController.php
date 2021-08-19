@@ -8,8 +8,8 @@ use App\Http\Requests\Dashboard\Address\UpdateAddressRequest;
 use App\Models\Address;
 use App\Models\City;
 use App\Models\Clinic;
+use App\Models\Physican;
 use App\Models\Region;
-use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
@@ -33,9 +33,9 @@ class AddressController extends Controller
      */
     public function create()
     {
-        $clinics = Clinic::select('id', 'name')->get();
+        $doctors['data'] = Physican::select('id', 'name')->get();
         $cities['data'] = City::select()->get();
-        return view('dashboard.address.create', compact('clinics', 'cities'));
+        return view('dashboard.address.create', compact('doctors', 'cities'));
     }
 
     public function getRegions($address, $id)
@@ -48,6 +48,18 @@ class AddressController extends Controller
     {
         $regions['data'] = Region::select('name', 'id')->where('city_id', $id)->get();
         return response()->json($regions);
+    }
+
+    public function getClinics($address, $id)
+    {
+        $clinics['data'] = Clinic::select('id', 'name', 'physican_id')->where('physican_id', $id)->get();
+        return response()->json($clinics);
+    }
+
+    public function getClinic($id)
+    {
+        $clinics['data'] = Clinic::select('id', 'name', 'physican_id')->where('physican_id', $id)->get();
+        return response()->json($clinics);
     }
 
     /**
@@ -94,11 +106,13 @@ class AddressController extends Controller
     public function edit($id)
     {
         $address = Address::select()->where('id', $id)->with(['clinic' => function ($q) {
-            $q->select('id');
+            $q->select('id','name','physican_id')->with(['physican'=>function($q){
+                $q->select('id');
+            }]);
         }, 'region', 'region.city'])->first();
-        $clinics = Clinic::select('id', 'name')->get();
+        $doctors['data'] = Physican::select('id', 'name')->get();
         $cities['data'] = City::select()->get();
-        return view('dashboard.address.edit', compact('address', 'clinics', 'cities'));
+        return view('dashboard.address.edit', compact('address', 'doctors', 'cities'));
     }
 
     /**

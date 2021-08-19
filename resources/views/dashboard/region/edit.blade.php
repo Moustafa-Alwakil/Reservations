@@ -35,6 +35,8 @@ Regions
                     <div class="form-group">
                         <label>Status</label>
                         <select class="form-control" name="status">
+                            <option disabled>Select status
+                            </option>
                             <option value="0" @if($region->status == 'Not Active'){{'selected'}} @endif>Not Active</option>
                             <option value="1" @if($region->status == 'Active'){{'selected'}} @endif>Active</option>
                         </select>
@@ -43,8 +45,10 @@ Regions
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <div class="form-group">
-                        <label>Status</label>
+                        <label>City</label>
                         <select class="form-control" name="city_id">
+                            <option disabled>Select city
+                            </option>
                             @foreach ($cities as $city)
                             <option value="{{$city->id}}" @if($region->city_id == $city->id){{'selected'}} @endif>{{$city->name['name_en']}}</option>
                             @endforeach

@@ -208,11 +208,11 @@
                                     <div class="form-group">
                                         <label>Region</label>
                                         <select class="form-control select" name="region_id" id="region">
-                                            <option selected disabled>Select your clinic Region
+                                            <option disabled>Select your clinic Region
                                             </option>
                                             <option selected value="{{ $clinic->address->region->id }}">
                                                 {{ $clinic->address->region->name['name_' . LaravelLocalization::getCurrentLocale()] }}
-                                            <option>
+                                            </option>
                                         </select>
                                     </div>
                                     @error('region_id')

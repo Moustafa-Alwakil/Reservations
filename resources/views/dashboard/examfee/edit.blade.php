@@ -28,6 +28,8 @@ Examfees
                     <div class="form-group">
                         <label>Doctor</label>
                         <select class="form-control" name="doctor" id="doctor">
+                            <option disabled>Select doctor
+                            </option>
                             @foreach ($doctors['data'] as $doctor)
                                 <option value="{{$doctor->id}}" @if ($examfee->clinic->physican->id == $doctor->id) {{ 'selected' }} @endif>{{ucwords($doctor->name['fname_en'].' '.$doctor->name['lname_en'])}}</option>
                             @endforeach
@@ -39,6 +41,8 @@ Examfees
                     <div class="form-group">
                         <label>Clinic</label>
                         <select class="form-control" name="clinic_id" id="clinic">
+                            <option disabled>Select clinic
+                            </option>
                             <option selected value="{{$examfee->clinic->id}}">{{$examfee->clinic->name['name_en']}}</option>
                         </select>
                     </div>

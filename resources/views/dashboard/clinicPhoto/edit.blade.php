@@ -5,7 +5,7 @@
 Clinic Photos
 @include('dashboard.includes.pageHeader2')
 <li class="breadcrumb-item">Clinic Photos</li>
-<li class="breadcrumb-item">Add Clinic Photo</li>
+<li class="breadcrumb-item">Edit Clinic Photo</li>
 @include('dashboard.includes.pageHeader3')
 <div class="row">
     <div class="col-12">
@@ -32,6 +32,8 @@ Clinic Photos
                     <div class="form-group">
                         <label>Doctor</label>
                         <select class="form-control" name="doctor" id="doctor">
+                            <option disabled>Select doctor
+                            </option>
                             @foreach ($doctors['data'] as $doctor)
                                 <option value="{{ $doctor->id }}" @if ($clinicPhoto->clinic->physican->id == $doctor->id) {{ 'selected' }} @endif>
                                     {{ ucwords($doctor->name['fname_en'] . ' ' . $doctor->name['lname_en']) }}</option>
@@ -44,6 +46,8 @@ Clinic Photos
                     <div class="form-group">
                         <label>Clinic</label>
                         <select class="form-control" name="clinic_id" id="clinic">
+                            <option disabled>Select clinic
+                            </option>
                             <option selected value="{{ $clinicPhoto->clinic->id }}">
                                 {{ $clinicPhoto->clinic->name['name_en'] }}</option>
                         </select>

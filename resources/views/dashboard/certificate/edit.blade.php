@@ -2,9 +2,9 @@
 @section('title', 'Edit Certificate')
 @section('content')
 @include('dashboard.includes.pageHeader1')
-certificates
+Certificates
 @include('dashboard.includes.pageHeader2')
-<li class="breadcrumb-item">certificates</li>
+<li class="breadcrumb-item">Certificates</li>
 <li class="breadcrumb-item">Edit Certificate</li>
 @include('dashboard.includes.pageHeader3')
 <div class="row">
@@ -20,8 +20,9 @@ certificates
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label>Type</label>
+                        <label>Degree</label>
                         <select class="form-control" name="type">
+                            <option disabled>Select degree</option>
                             <option value="1" @if ($certificate->type == 'Bachelor') {{ 'selected' }} @endif>Bachelor</option>
                             <option value="2" @if ($certificate->type == 'Master') {{ 'selected' }} @endif>Master</option>
                             <option value="3" @if ($certificate->type == 'PHD') {{ 'selected' }} @endif>PHD</option>
@@ -45,6 +46,8 @@ certificates
                     <div class="form-group">
                         <label>Doctor</label>
                         <select class="form-control" name="physican_id">
+                            <option disabled>Select doctor
+                            </option>
                             @foreach ($doctors as $doctor)
                                 <option value="{{ $doctor->id }}" @if ($certificate->physican->id == $doctor->id) {{ 'selected' }} @endif>
                                     {{ ucwords($doctor->name['fname_en'] . ' ' . $doctor->name['lname_en']) }}

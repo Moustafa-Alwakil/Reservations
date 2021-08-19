@@ -35,6 +35,7 @@ class UpdateAddressRequest extends FormRequest
             'apartno' => 'required|string|max:20',
             'landmark_ar' => 'required|string|min:5|max:80',
             'landmark_en' => 'required|string|min:5|max:80',
+            'doctor' =>[ 'required','exists:physicans,id'],
         ];
     }
 }

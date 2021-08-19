@@ -31,6 +31,7 @@ class StoreAppointmentRequest extends FormRequest
             'end_time' => 'required|date_format:H:i',
             'clinic_id' =>[ 'required','exists:clinics,id'],
             'user_id' =>[ 'required','exists:users,id'],
+            'doctor' =>[ 'required','exists:physicans,id'],
             'status' =>[ 'required',Rule::in([0,1,2,3])],
         ];
     }

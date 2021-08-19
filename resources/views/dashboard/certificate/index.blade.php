@@ -17,7 +17,7 @@ Certificates
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Type</th>
+                                <th>Degree</th>
                                 <th>Photo</th>
                                 <th>Doctor (Arabic)</th>
                                 <th>Doctor (English)</th>

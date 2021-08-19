@@ -12,7 +12,11 @@ Route::group([
     Route::resource('addresses', 'Address\AddressController');
     Route::get('addresses/getregions/{id}', 'Address\AddressController@getRegion');
     Route::get('addresses/edit/getregions/{address}/{id}', 'Address\AddressController@getRegions');
+    Route::get('addresses/getclinics/{id}', 'Address\AddressController@getClinic');
+    Route::get('addresses/edit/getclinics/{address}/{id}', 'Address\AddressController@getClinics');
     Route::resource('appointments', 'Appointment\AppointmentController');
+    Route::get('appointments/getclinics/{id}', 'Appointment\AppointmentController@getClinic');
+    Route::get('appointments/edit/getclinics/{appointment}/{id}', 'Appointment\AppointmentController@getClinics');
     Route::resource('certificates', 'Certificate\CertificateController');
     Route::resource('cities', 'City\CityController');
     Route::resource('departments', 'Department\DepartmentController');

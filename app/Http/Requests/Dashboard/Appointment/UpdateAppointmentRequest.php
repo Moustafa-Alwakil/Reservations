@@ -32,6 +32,7 @@ class UpdateAppointmentRequest extends FormRequest
             'clinic_id' =>[ 'required','exists:clinics,id'],
             'user_id' =>[ 'required','exists:users,id'],
             'status' =>[ 'required',Rule::in([0,1,2,3])],
+            'doctor' =>[ 'required','exists:physicans,id'],
         ];
     }
 }

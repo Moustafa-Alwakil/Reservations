@@ -49,6 +49,8 @@ Appointments
                     <div class="form-group">
                         <label>Status</label>
                         <select class="form-control" name="status">
+                            <option disabled>Select status
+                            </option>
                             <option value="0" @if($appointment->status==0){{'selected'}} @endif>Waiting</option>
                             <option value="1" @if($appointment->status==1){{'selected'}} @endif>Accepted</option>
                             <option value="2" @if($appointment->status==2){{'selected'}} @endif>Refused</option>
@@ -59,12 +61,26 @@ Appointments
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <div class="form-group">
-                        <label>Clinic</label>
-                        <select class="form-control" name="clinic_id">
-                            <option selected disabled>Select clinic</option>
-                            @foreach ($clinics as $clinic)
-                                <option value="{{ $clinic->id }}" @if ($appointment->clinic->id == $clinic->id) {{ 'selected' }} @endif>{{ $clinic->name['name_en'] }}</option>
+                        <label>Doctor</label>
+                        <select class="form-control" name="doctor" id="doctor">
+                            <option disabled>Select doctor
+                            </option>
+                            @foreach ($doctors['data'] as $doctor)
+                                <option value="{{ $doctor->id }}" @if ($appointment->clinic->physican->id == $doctor->id) {{ 'selected' }} @endif>
+                                    {{ ucwords($doctor->name['fname_en'] . ' ' . $doctor->name['lname_en']) }}</option>
                             @endforeach
+                        </select>
+                    </div>
+                    @error('doctor')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    <div class="form-group">
+                        <label>Clinic</label>
+                        <select class="form-control" name="clinic_id" id="clinic">
+                            <option disabled>Select clinic
+                            </option>
+                            <option selected value="{{ $appointment->clinic->id }}">
+                                {{ $appointment->clinic->name['name_en'] }}</option>
                         </select>
                     </div>
                     @error('clinic_id')
@@ -90,4 +106,45 @@ Appointments
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+<script>
+    $(document).ready(function() {
+
+        $('#doctor').change(function() {
+
+            var id = $(this).val();
+
+            $('#clinic').find('option').not(':first').remove();
+
+            $.ajax({
+                url: '{{ route('appointments.index') }}/edit/getclinics/{{ $appointment->id }}/' +
+                    id,
+                type: 'get',
+                dataType: 'json',
+                success: function(response) {
+
+                    var len = 0;
+                    if (response['data'] != null) {
+                        len = response['data'].length;
+                    }
+
+                    if (len > 0) {
+                        for (var i = 0; i < len; i++) {
+                            console.log(len);
+                            var id = response['data'][i].id;
+                            var name = response['data'][i].name;
+
+                            var option = "<option value='" + id + "'>" + name
+                                .name_en + "</option>";
+
+                            $("#clinic").append(option);
+                        }
+                    }
+
+                }
+            });
+        });
+    });
+</script>
 @endsection

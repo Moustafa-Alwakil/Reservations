@@ -18,9 +18,9 @@ Certificates
                 <form method="POST" action="{{ route('certificates.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label>Type</label>
+                        <label>Degree</label>
                         <select class="form-control" name="type">
-                            <option disabled selected>Select type</option>
+                            <option disabled selected>Select degree</option>
                             <option value="1" @if(old('type')==1){{'selected'}} @endif>Bachelor</option>
                             <option value="2" @if(old('type')==2){{'selected'}} @endif>Master</option>
                             <option value="3" @if(old('type')==3){{'selected'}} @endif>PHD</option>

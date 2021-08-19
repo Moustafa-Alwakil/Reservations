@@ -5,7 +5,7 @@
 Experiences
 @include('dashboard.includes.pageHeader2')
 <li class="breadcrumb-item">Experiences</li>
-<li class="breadcrumb-item">Add Experience</li>
+<li class="breadcrumb-item">Edit Experience</li>
 @include('dashboard.includes.pageHeader3')
 <div class="row">
     <div class="col-12">
@@ -63,6 +63,8 @@ Experiences
                     <div class="form-group">
                         <label>Status</label>
                         <select class="form-control" name="status">
+                            <option disabled>Select status
+                            </option>
                             <option value="0" @if ($experience->status == 'Left Job') {{ 'selected' }} @endif>Left Job</option>
                             <option value="1" @if ($experience->status == 'Current Job') {{ 'selected' }} @endif>Current Job</option>
                         </select>
@@ -73,6 +75,8 @@ Experiences
                     <div class="form-group">
                         <label>Doctor</label>
                         <select class="form-control" name="physican_id">
+                            <option disabled>Select doctor
+                            </option>
                             @foreach ($doctors as $doctor)
                                 <option value="{{ $doctor->id }}" @if ($experience->physican->id == $doctor->id) {{ 'selected' }} @endif>
                                     {{ ucwords($doctor->name['fname_en'] . ' ' . $doctor->name['lname_en']) }}</option>
