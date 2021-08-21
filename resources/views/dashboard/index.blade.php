@@ -1,518 +1,316 @@
 @extends('dashboard.layouts.layout')
 @section('title', 'Dashbord')
 @section('content')
-@include('dashboard.includes.pageHeader1')
-Welcome {{ ucwords(Auth::guard('admin')->user()->name) }}
-@include('dashboard.includes.pageHeader2')
-@include('dashboard.includes.pageHeader3')
+    @include('dashboard.includes.pageHeader1')
+    Welcome {{ ucwords(Auth::guard('admin')->user()->name) }}
+    @include('dashboard.includes.pageHeader2')
+    @include('dashboard.includes.pageHeader3')
 
-<div class="row">
-    <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-primary border-primary">
-                        <i class="fe fe-users"></i>
-                    </span>
-                    <div class="dash-count">
-                        <h3>168</h3>
+    <div class="row">
+        <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="dash-widget-header">
+                        <span class="dash-widget-icon text-primary border-primary">
+                            <i class="fe fe-users"></i>
+                        </span>
+                        <div class="dash-count">
+                            <h3>{{ $doctorsCount }}</h3>
+                        </div>
                     </div>
-                </div>
-                <div class="dash-widget-info">
-                    <h6 class="text-muted">Doctors</h6>
-                    <div class="progress progress-sm">
-                        <div class="progress-bar bg-primary w-50"></div>
+                    <div class="dash-widget-info">
+                        <h6 class="text-muted">Doctors</h6>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-warning border-warning">
-                        <i class="fas fa-clinic-medical"></i>
-                    </span>
-                    <div class="dash-count">
-                        <h3>$62523</h3>
+        <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="dash-widget-header">
+                        <span class="dash-widget-icon text-warning border-warning">
+                            <i class="fas fa-clinic-medical"></i>
+                        </span>
+                        <div class="dash-count">
+                            <h3>{{ $clinicsCount }}</h3>
+                        </div>
                     </div>
-                </div>
-                <div class="dash-widget-info">
+                    <div class="dash-widget-info">
 
-                    <h6 class="text-muted">Clinics</h6>
-                    <div class="progress progress-sm">
-                        <div class="progress-bar bg-warning w-50"></div>
+                        <h6 class="text-muted">Clinics</h6>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-success">
-                        <i class="fe fe-credit-card"></i>
-                    </span>
-                    <div class="dash-count">
-                        <h3>487</h3>
+        <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="dash-widget-header">
+                        <span class="dash-widget-icon text-success">
+                            <i class="fe fe-credit-card"></i>
+                        </span>
+                        <div class="dash-count">
+                            <h3>{{ $usersCount }}</h3>
+                        </div>
                     </div>
-                </div>
-                <div class="dash-widget-info">
+                    <div class="dash-widget-info">
 
-                    <h6 class="text-muted">Patients</h6>
-                    <div class="progress progress-sm">
-                        <div class="progress-bar bg-success w-50"></div>
+                        <h6 class="text-muted">Patients</h6>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-danger border-danger">
-                        <i class="fe fe-money"></i>
-                    </span>
-                    <div class="dash-count">
-                        <h3>485</h3>
+        <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="dash-widget-header">
+                        <span class="dash-widget-icon text-danger border-danger">
+                            <i class="far fa-calendar-alt"></i>
+                        </span>
+                        <div class="dash-count">
+                            <h3>{{ $apptsCount }}</h3>
+                        </div>
                     </div>
-                </div>
-                <div class="dash-widget-info">
+                    <div class="dash-widget-info">
 
-                    <h6 class="text-muted">Appointment</h6>
-                    <div class="progress progress-sm">
-                        <div class="progress-bar bg-danger w-50"></div>
+                        <h6 class="text-muted">Approved Appointment</h6>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-12 col-lg-6">
+    <div class="row">
+        <div class="col-md-12">
 
-        <!-- Sales Chart -->
-        <div class="card card-chart">
-            <div class="card-header">
-                <h4 class="card-title">Revenue</h4>
-            </div>
-            <div class="card-body">
-                <div id="morrisArea"></div>
-            </div>
-        </div>
-        <!-- /Sales Chart -->
-
-    </div>
-    <div class="col-md-12 col-lg-6">
-
-        <!-- Invoice Chart -->
-        <div class="card card-chart">
-            <div class="card-header">
-                <h4 class="card-title">Status</h4>
-            </div>
-            <div class="card-body">
-                <div id="morrisLine"></div>
-            </div>
-        </div>
-        <!-- /Invoice Chart -->
-
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6 d-flex">
-
-        <!-- Recent Orders -->
-        <div class="card card-table flex-fill">
-            <div class="card-header">
-                <h4 class="card-title">Doctors List</h4>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-hover table-center mb-0">
-                        <thead>
-                            <tr>
-                                <th>Doctor Name</th>
-                                <th>Speciality</th>
-                                <th>Earned</th>
-                                <th>Reviews</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle"
-                                                src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image"></a>
-                                        <a href="profile.html">Dr. Ruby Perrin</a>
-                                    </h2>
-                                </td>
-                                <td>Dental</td>
-                                <td>$3200.00</td>
-                                <td>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star-o text-secondary"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle"
-                                                src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image"></a>
-                                        <a href="profile.html">Dr. Darren Elder</a>
-                                    </h2>
-                                </td>
-                                <td>Dental</td>
-                                <td>$3100.00</td>
-                                <td>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star-o text-secondary"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle"
-                                                src="assets/img/doctors/doctor-thumb-03.jpg" alt="User Image"></a>
-                                        <a href="profile.html">Dr. Deborah Angel</a>
-                                    </h2>
-                                </td>
-                                <td>Cardiology</td>
-                                <td>$4000.00</td>
-                                <td>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star-o text-secondary"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle"
-                                                src="assets/img/doctors/doctor-thumb-04.jpg" alt="User Image"></a>
-                                        <a href="profile.html">Dr. Sofia Brient</a>
-                                    </h2>
-                                </td>
-                                <td>Urology</td>
-                                <td>$3200.00</td>
-                                <td>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star-o text-secondary"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle"
-                                                src="assets/img/doctors/doctor-thumb-05.jpg" alt="User Image"></a>
-                                        <a href="profile.html">Dr. Marvin Campbell</a>
-                                    </h2>
-                                </td>
-                                <td>Orthopaedics</td>
-                                <td>$3500.00</td>
-                                <td>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star text-warning"></i>
-                                    <i class="fe fe-star-o text-secondary"></i>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- Recent Orders -->
+            <div class="card card-table">
+                <div class="card-header">
+                    <h4 class="card-title">Waiting Doctors List</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-center mb-0 text-center">
+                            <thead>
+                                <tr>
+                                    <th>Personal Photo</th>
+                                    <th>Doctor Name (Arabic)</th>
+                                    <th>Doctor Name (English)</th>
+                                    <th>Speciality (Arabic)</th>
+                                    <th>Speciality (English)</th>
+                                    <th>License</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($waitingDoctors as $doctor)
+                                    @php
+                                        if (!$doctor->info) {
+                                            continue;
+                                        }
+                                    @endphp
+                                    <tr id="doctor{{ $doctor->id }}">
+                                        <td>
+                                            <h2 class="table-avatar">
+                                                <a href="{{ $doctor->info->photo }}" class="avatar avatar-sm mr-2"><img
+                                                        class="avatar-img rounded-circle" src="{{ $doctor->info->photo }}"
+                                                        alt="Doctor Image"></a>
+                                            </h2>
+                                        </td>
+                                        <td>
+                                            <h2 class="table-avatar">
+                                                <a>{{ ucwords($doctor->name['fname_ar'] . ' ' . $doctor->name['lname_ar']) }}</a>
+                                            </h2>
+                                        </td>
+                                        <td>
+                                            <h2 class="table-avatar">
+                                                <a>{{ ucwords($doctor->name['fname_en'] . ' ' . $doctor->name['lname_en']) }}</a>
+                                            </h2>
+                                        </td>
+                                        <td>{{ $doctor->department->name['name_ar'] }}</td>
+                                        <td>{{ $doctor->department->name['name_en'] }}</td>
+                                        <td><a href="{{ $doctor->info->license }}" target="_blank"><img
+                                                    src="{{ $doctor->info->license }}" alt="License" width="20%"
+                                                    height="20%"></a></td>
+                                        <td>
+                                            <a href="{{ $doctor->info->license }}" target="_blank"
+                                                class="btn btn-primary"><i class="fas fa-eye"></i>&nbsp;&nbsp;Preview
+                                                License</a>
+                                            <button id="acceptdoc" doctor_id="{{ $doctor->id }}" type="submit"
+                                                class="btn btn-success"><i
+                                                    class="fas fa-check-circle"></i>&nbsp;&nbsp;Accept</button>
+                                            <button id="refusedoc" doctor_id="{{ $doctor->id }}" type="submit"
+                                                class="btn btn-danger"><i
+                                                    class="fas fa-times-circle"></i>&nbsp;&nbsp;Refuse</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- /Recent Orders -->
-
-    </div>
-    <div class="col-md-6 d-flex">
-
-        <!-- Feed Activity -->
-        <div class="card  card-table flex-fill">
-            <div class="card-header">
-                <h4 class="card-title">Patients List</h4>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-hover table-center mb-0">
-                        <thead>
-                            <tr>
-                                <th>Patient Name</th>
-                                <th>Phone</th>
-                                <th>Last Visit</th>
-                                <th>Paid</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle" src="assets/img/patients/patient1.jpg"
-                                                alt="User Image"></a>
-                                        <a href="profile.html">Charlene Reed </a>
-                                    </h2>
-                                </td>
-                                <td>8286329170</td>
-                                <td>20 Oct 2019</td>
-                                <td class="text-right">$100.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle" src="assets/img/patients/patient2.jpg"
-                                                alt="User Image"></a>
-                                        <a href="profile.html">Travis Trimble </a>
-                                    </h2>
-                                </td>
-                                <td>2077299974</td>
-                                <td>22 Oct 2019</td>
-                                <td class="text-right">$200.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle" src="assets/img/patients/patient3.jpg"
-                                                alt="User Image"></a>
-                                        <a href="profile.html">Carl Kelly</a>
-                                    </h2>
-                                </td>
-                                <td>2607247769</td>
-                                <td>21 Oct 2019</td>
-                                <td class="text-right">$250.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle" src="assets/img/patients/patient4.jpg"
-                                                alt="User Image"></a>
-                                        <a href="profile.html"> Michelle Fairfax</a>
-                                    </h2>
-                                </td>
-                                <td>5043686874</td>
-                                <td>21 Sep 2019</td>
-                                <td class="text-right">$150.00</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle" src="assets/img/patients/patient5.jpg"
-                                                alt="User Image"></a>
-                                        <a href="profile.html">Gina Moore</a>
-                                    </h2>
-                                </td>
-                                <td>9548207887</td>
-                                <td>18 Sep 2019</td>
-                                <td class="text-right">$350.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- /Recent Orders -->
+            <br><br><br><br><br><br><br><br>
+            <!-- Recent Orders -->
+            <div class="card card-table">
+                <div class="card-header">
+                    <h4 class="card-title">Waiting Clinics List</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-center mb-0 text-center">
+                            <thead>
+                                <tr>
+                                    <th>Clinic Name (Arabic)</th>
+                                    <th>Clinic Name (English)</th>
+                                    <th>Doctor Name (Arabic)</th>
+                                    <th>Doctor Name (English)</th>
+                                    <th>Speciality (Arabic)</th>
+                                    <th>Speciality (English)</th>
+                                    <th>License</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($waitingClinics as $clinic)
+                                    <tr id="clinic{{ $clinic->id }}">
+                                        <td>{{ ucwords($clinic->name['name_ar']) }}</td>
+                                        <td>{{ ucwords($clinic->name['name_en']) }}</td>
+                                        <td>
+                                            {{ ucwords($clinic->physican->name['fname_ar'] . ' ' . $doctor->name['lname_ar']) }}
+                                        </td>
+                                        <td>
+                                            {{ ucwords($clinic->physican->name['fname_en'] . ' ' . $doctor->name['lname_en']) }}
+                                        </td>
+                                        <td>{{ $clinic->physican->department->name['name_ar'] }}</td>
+                                        <td>{{ $clinic->physican->department->name['name_en'] }}</td>
+                                        <td><a href="{{ $clinic->license }}" target="_blank"><img
+                                                    src="{{ $clinic->license }}" alt="License" width="20%"
+                                                    height="20%"></a></td>
+                                        <td>
+                                            <a href="{{ $clinic->license }}" target="_blank" class="btn btn-primary"><i
+                                                    class="fas fa-eye"></i>&nbsp;&nbsp;Preview
+                                                License</a>
+                                            <button id="acceptclinic" clinic_id="{{$clinic->id}}" type="submit" class="btn btn-success"><i
+                                                    class="fas fa-check-circle"></i>&nbsp;&nbsp;Accept</button>
+                                            <button id="refuseclinic" clinic_id="{{$clinic->id}}" type="submit" class="btn btn-danger"><i
+                                                    class="fas fa-times-circle"></i>&nbsp;&nbsp;Refuse</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+            <!-- /Recent Orders -->
+
         </div>
-        <!-- /Feed Activity -->
-
     </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-
-        <!-- Recent Orders -->
-        <div class="card card-table">
-            <div class="card-header">
-                <h4 class="card-title">Appointment List</h4>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-hover table-center mb-0">
-                        <thead>
-                            <tr>
-                                <th>Doctor Name</th>
-                                <th>Speciality</th>
-                                <th>Patient Name</th>
-                                <th>Apointment Time</th>
-                                <th>Status</th>
-                                <th class="text-right">Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle"
-                                                src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image"></a>
-                                        <a href="profile.html">Dr. Ruby Perrin</a>
-                                    </h2>
-                                </td>
-                                <td>Dental</td>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle" src="assets/img/patients/patient1.jpg"
-                                                alt="User Image"></a>
-                                        <a href="profile.html">Charlene Reed </a>
-                                    </h2>
-                                </td>
-                                <td>9 Nov 2019 <span class="text-primary d-block">11.00 AM - 11.15 AM</span></td>
-                                <td>
-                                    <div class="status-toggle">
-                                        <input type="checkbox" id="status_1" class="check" checked>
-                                        <label for="status_1" class="checktoggle">checkbox</label>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    $200.00
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle"
-                                                src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image"></a>
-                                        <a href="profile.html">Dr. Darren Elder</a>
-                                    </h2>
-                                </td>
-                                <td>Dental</td>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle" src="assets/img/patients/patient2.jpg"
-                                                alt="User Image"></a>
-                                        <a href="profile.html">Travis Trimble </a>
-                                    </h2>
-                                </td>
-
-                                <td>5 Nov 2019 <span class="text-primary d-block">11.00 AM - 11.35 AM</span></td>
-                                <td>
-                                    <div class="status-toggle">
-                                        <input type="checkbox" id="status_2" class="check" checked>
-                                        <label for="status_2" class="checktoggle">checkbox</label>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    $300.00
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle"
-                                                src="assets/img/doctors/doctor-thumb-03.jpg" alt="User Image"></a>
-                                        <a href="profile.html">Dr. Deborah Angel</a>
-                                    </h2>
-                                </td>
-                                <td>Cardiology</td>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle" src="assets/img/patients/patient3.jpg"
-                                                alt="User Image"></a>
-                                        <a href="profile.html">Carl Kelly</a>
-                                    </h2>
-                                </td>
-                                <td>11 Nov 2019 <span class="text-primary d-block">12.00 PM - 12.15 PM</span></td>
-                                <td>
-                                    <div class="status-toggle">
-                                        <input type="checkbox" id="status_3" class="check" checked>
-                                        <label for="status_3" class="checktoggle">checkbox</label>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    $150.00
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle"
-                                                src="assets/img/doctors/doctor-thumb-04.jpg" alt="User Image"></a>
-                                        <a href="profile.html">Dr. Sofia Brient</a>
-                                    </h2>
-                                </td>
-                                <td>Urology</td>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle" src="assets/img/patients/patient4.jpg"
-                                                alt="User Image"></a>
-                                        <a href="profile.html"> Michelle Fairfax</a>
-                                    </h2>
-                                </td>
-                                <td>7 Nov 2019<span class="text-primary d-block">1.00 PM - 1.20 PM</span></td>
-                                <td>
-                                    <div class="status-toggle">
-                                        <input type="checkbox" id="status_4" class="check" checked>
-                                        <label for="status_4" class="checktoggle">checkbox</label>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    $150.00
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle"
-                                                src="assets/img/doctors/doctor-thumb-05.jpg" alt="User Image"></a>
-                                        <a href="profile.html">Dr. Marvin Campbell</a>
-                                    </h2>
-                                </td>
-                                <td>Orthopaedics</td>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                class="avatar-img rounded-circle" src="assets/img/patients/patient5.jpg"
-                                                alt="User Image"></a>
-                                        <a href="profile.html">Gina Moore</a>
-                                    </h2>
-                                </td>
-
-                                <td>15 Nov 2019 <span class="text-primary d-block">1.00 PM - 1.15 PM</span></td>
-                                <td>
-                                    <div class="status-toggle">
-                                        <input type="checkbox" id="status_5" class="check" checked>
-                                        <label for="status_5" class="checktoggle">checkbox</label>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    $200.00
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <!-- /Recent Orders -->
-
-    </div>
-</div>
+@endsection
+@section('scripts')
+    <script>
+        $(document).on('click', '#acceptdoc', function(e) {
+            e.preventDefault();
+            var id = $(this).attr('doctor_id');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'post',
+                url: "{{ route('doctor.accept') }}",
+                data: {
+                    '_token': "{{ csrf_token() }}",
+                    'id': id,
+                    'status': 1,
+                },
+                success: function(data) {
+                    if (data.status == true) {
+                        $('#doctor' + data.id).remove();
+                    }
+                },
+                error: function(reject) {}
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '#refusedoc', function(e) {
+            e.preventDefault();
+            var id = $(this).attr('doctor_id');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'post',
+                url: "{{ route('doctor.accept') }}",
+                data: {
+                    '_token': "{{ csrf_token() }}",
+                    'id': id,
+                    'status': 0,
+                },
+                success: function(data) {
+                    if (data.status == true) {
+                        $('#doctor' + data.id).remove();
+                    }
+                },
+                error: function(reject) {}
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '#acceptclinic', function(e) {
+            e.preventDefault();
+            var id = $(this).attr('clinic_id');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'post',
+                url: "{{ route('clinic.accept') }}",
+                data: {
+                    '_token': "{{ csrf_token() }}",
+                    'id': id,
+                    'review': 1,
+                },
+                success: function(data) {
+                    if (data.status == true) {
+                        $('#clinic' + data.id).remove();
+                    }
+                },
+                error: function(reject) {}
+            });
+        });
+    </script>
+        <script>
+            $(document).on('click', '#refuseclinic', function(e) {
+                e.preventDefault();
+                var id = $(this).attr('clinic_id');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: "{{ route('clinic.accept') }}",
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                        'id': id,
+                        'review': 0,
+                    },
+                    success: function(data) {
+                        if (data.status == true) {
+                            $('#clinic' + data.id).remove();
+                        }
+                    },
+                    error: function(reject) {}
+                });
+            });
+        </script>
 @endsection

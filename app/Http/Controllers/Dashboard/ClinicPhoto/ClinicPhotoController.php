@@ -67,18 +67,18 @@ class ClinicPhotoController extends Controller
                 $clinicPhoto = $this->uploadPhoto(Auth::guard('admin')->user()->id, $photo, 'clinics-photos', $i);
 
                 if (!$clinicPhoto)
-                    return redirect()->route('clinicphotos.index')->with('error', 'Something went wrong, please try again.');
+                    return redirect()->route('clinicphotos.create')->with('error', 'Something went wrong, please try again.');
 
                 $storeClinicPhoto = Clinicphoto::create(['photo' => $clinicPhoto, 'clinic_id' => $request->clinic_id]);
 
                 if (!$storeClinicPhoto)
-                    return redirect()->route('clinicphotos.index')->with('error', 'Something went wrong, please try again.');
+                    return redirect()->route('clinicphotos.create')->with('error', 'Something went wrong, please try again.');
 
                 $i++;
             }
             return redirect()->route('clinicphotos.index')->with('success', 'The data has been saved successfully.');
         }
-        return redirect()->route('clinicphotos.index')->with('error', 'Something went wrong, please try again.');
+        return redirect()->route('clinicphotos.create')->with('error', 'Something went wrong, please try again.');
     }
 
     /**

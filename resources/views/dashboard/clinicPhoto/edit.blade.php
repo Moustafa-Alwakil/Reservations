@@ -88,7 +88,6 @@ Clinics Photos
 
                     if (len > 0) {
                         for (var i = 0; i < len; i++) {
-                            console.log(len);
                             var id = response['data'][i].id;
                             var name = response['data'][i].name;
 

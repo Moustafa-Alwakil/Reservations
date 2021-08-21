@@ -163,7 +163,6 @@
                     type: 'get',
                     dataType: 'json',
                     success: function(response) {
-                        console.log(response);
                         var len = 0;
                         if (response['data'] != null) {
                             len = response['data'].length;
@@ -172,7 +171,6 @@
                         if (len > 0) {
                             // Read data and create <option >
                             for (var i = 0; i < len; i++) {
-                                console.log(len);
                                 var id = response['data'][i].id;
                                 var name = response['data'][i].name;
 
@@ -207,7 +205,6 @@
                     type: 'get',
                     dataType: 'json',
                     success: function(response) {
-                        console.log(response);
                         var len = 0;
                         if (response['data'] != null) {
                             len = response['data'].length;
@@ -216,7 +213,6 @@
                         if (len > 0) {
                             // Read data and create <option >
                             for (var i = 0; i < len; i++) {
-                                console.log(len);
                                 var id = response['data'][i].id;
                                 var name = response['data'][i].name;
 

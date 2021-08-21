@@ -9,6 +9,8 @@ Route::group([
     'middleware'=>['auth:admin','admin.verified'],
 ], function () {
     Route::get('/', 'IndexController@index')->name('admin.index');
+    Route::post('/', 'IndexController@updateDoctorStatus')->name('doctor.accept');
+    Route::post('/clinic', 'IndexController@updateClinicStatus')->name('clinic.accept');
     Route::resource('addresses', 'Address\AddressController');
     Route::get('addresses/getregions/{id}', 'Address\AddressController@getRegion');
     Route::get('addresses/edit/getregions/{address}/{id}', 'Address\AddressController@getRegions');
@@ -38,6 +40,10 @@ Route::group([
     Route::resource('services', 'Service\ServiceController');
     Route::resource('reviews', 'Review\ReviewController');
     Route::resource('clinicservices', 'ClinicService\ClinicServiceController');
+    Route::get('clinicservices/getclinics/{id}', 'ClinicService\ClinicServiceController@getClinic');
+    Route::get('clinicservices/edit/getclinics/{clinicservice}/{id}', 'ClinicService\ClinicServiceController@getClinics');
+    Route::get('clinicservices/getservices/{id}', 'ClinicService\ClinicServiceController@getService');
+    Route::get('clinicservices/edit/getservices/{clinicservice}/{id}', 'ClinicService\ClinicServiceController@getServices');
 });
 
 require __DIR__ . '/auth.php';
