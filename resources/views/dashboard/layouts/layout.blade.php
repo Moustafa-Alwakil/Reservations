@@ -260,6 +260,36 @@
                                             href="{{ route('clinicservices.create') }}">Add Clinic Services</a></li>
                                 </ul>
                             </li>
+                            <li class="submenu">
+                                <a class="@if(Request::url() == route('users.index')||Request::url()==route('users.create')) {{'subdrop'}} @endif"><i class="fas fa-users"></i><span>&nbsp; Users</span> <span
+                                        class="menu-arrow"></span></a>
+                                <ul style="display:  @if(Request::url() == route('users.index')||Request::url()==route('users.create')) {{'block'}} @endif;">
+                                    <li class="@if (route('users.index')==Request::url()) {{ 'active' }} @endif"><a
+                                            href="{{ route('users.index') }}">All Users</a></li>
+                                    <li class="@if (route('users.create')==Request::url()) {{ 'active' }} @endif"><a
+                                            href="{{ route('users.create') }}">Add User</a></li>
+                                </ul>
+                            </li>
+                            <li class="submenu">
+                                <a class="@if(Request::url() == route('doctors.index')||Request::url()==route('doctors.create')) {{'subdrop'}} @endif"><i class="fas fa-user-md"></i><span>&nbsp; Doctors</span> <span
+                                        class="menu-arrow"></span></a>
+                                <ul style="display:  @if(Request::url() == route('doctors.index')||Request::url()==route('doctors.create')) {{'block'}} @endif;">
+                                    <li class="@if (route('doctors.index')==Request::url()) {{ 'active' }} @endif"><a
+                                            href="{{ route('doctors.index') }}">All Doctors</a></li>
+                                    <li class="@if (route('doctors.create')==Request::url()) {{ 'active' }} @endif"><a
+                                            href="{{ route('doctors.create') }}">Add Doctor</a></li>
+                                </ul>
+                            </li>
+                            <li class="submenu">
+                                <a class="@if(Request::url() == route('clinics.index')||Request::url()==route('clinics.create')) {{'subdrop'}} @endif"><i class="fas fa-clinic-medical"></i><span>&nbsp; Clinics</span> <span
+                                        class="menu-arrow"></span></a>
+                                <ul style="display:  @if(Request::url() == route('clinics.index')||Request::url()==route('clinics.create')) {{'block'}} @endif;">
+                                    <li class="@if (route('clinics.index')==Request::url()) {{ 'active' }} @endif"><a
+                                            href="{{ route('clinics.index') }}">All Clinics</a></li>
+                                    <li class="@if (route('clinics.create')==Request::url()) {{ 'active' }} @endif"><a
+                                            href="{{ route('clinics.create') }}">Add Clinic</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>

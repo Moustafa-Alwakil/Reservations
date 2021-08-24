@@ -189,17 +189,18 @@ class ClinicController extends Controller
         $clinic['status'] = $request->status;
 
         if ($request->has('license')) {
-            $license = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->license, 'clinics-licenses');
-
-            if (!$license)
-                return redirect()->back()->with('error', 'Something went wrong, please try again.');
-
+            
             $file = (explode("clinics-licenses/", Clinic::select('license')->where('id', $id)->first()->license));
             $path = public_path('images\clinics-licenses\\' . $file[1]);
             $deleteLicense = $this->deletePhoto($path);
 
             if (!$deleteLicense)
                 return redirect()->route('clinics.index')->with('error', 'Something went wrong, please try again.');
+
+            $license = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->license, 'clinics-licenses');
+
+            if (!$license)
+                return redirect()->back()->with('error', 'Something went wrong, please try again.');
 
             $clinic['license'] = $license;
             $clinic['review'] = 2;

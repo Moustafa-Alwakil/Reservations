@@ -44,6 +44,11 @@ Route::group([
     Route::get('clinicservices/edit/getclinics/{clinicservice}/{id}', 'ClinicService\ClinicServiceController@getClinics');
     Route::get('clinicservices/getservices/{id}', 'ClinicService\ClinicServiceController@getService');
     Route::get('clinicservices/edit/getservices/{clinicservice}/{id}', 'ClinicService\ClinicServiceController@getServices');
+    Route::resource('users', 'User\UserController');
+    Route::get('users/{user}/reset-password', 'User\UserController@showResetPass')->name('users.resetpass');
+    Route::post('users/reset-password', 'User\UserController@resetPass')->name('users.resetpass.update');
+    Route::resource('doctors', 'Doctor\DoctorController');
+    Route::resource('clinics', 'Clinic\ClinicController');
 });
 
 require __DIR__ . '/auth.php';

@@ -4,7 +4,7 @@
     @include('dashboard.includes.pageHeader1')
     Reviiews
     @include('dashboard.includes.pageHeader2')
-    <li class="breadcrumb-item">Reviiews</li>
+    <li class="breadcrumb-item">Reviews</li>
     <li class="breadcrumb-item">Edit Review</li>
     @include('dashboard.includes.pageHeader3')
     <div class="row">

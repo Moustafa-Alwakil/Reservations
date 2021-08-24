@@ -191,9 +191,11 @@
                                             <a href="{{ $clinic->license }}" target="_blank" class="btn btn-primary"><i
                                                     class="fas fa-eye"></i>&nbsp;&nbsp;Preview
                                                 License</a>
-                                            <button id="acceptclinic" clinic_id="{{$clinic->id}}" type="submit" class="btn btn-success"><i
+                                            <button id="acceptclinic" clinic_id="{{ $clinic->id }}" type="submit"
+                                                class="btn btn-success"><i
                                                     class="fas fa-check-circle"></i>&nbsp;&nbsp;Accept</button>
-                                            <button id="refuseclinic" clinic_id="{{$clinic->id}}" type="submit" class="btn btn-danger"><i
+                                            <button id="refuseclinic" clinic_id="{{ $clinic->id }}" type="submit"
+                                                class="btn btn-danger"><i
                                                     class="fas fa-times-circle"></i>&nbsp;&nbsp;Refuse</button>
                                         </td>
                                     </tr>
@@ -287,30 +289,30 @@
             });
         });
     </script>
-        <script>
-            $(document).on('click', '#refuseclinic', function(e) {
-                e.preventDefault();
-                var id = $(this).attr('clinic_id');
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    type: 'post',
-                    url: "{{ route('clinic.accept') }}",
-                    data: {
-                        '_token': "{{ csrf_token() }}",
-                        'id': id,
-                        'review': 0,
-                    },
-                    success: function(data) {
-                        if (data.status == true) {
-                            $('#clinic' + data.id).remove();
-                        }
-                    },
-                    error: function(reject) {}
-                });
+    <script>
+        $(document).on('click', '#refuseclinic', function(e) {
+            e.preventDefault();
+            var id = $(this).attr('clinic_id');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
-        </script>
+            $.ajax({
+                type: 'post',
+                url: "{{ route('clinic.accept') }}",
+                data: {
+                    '_token': "{{ csrf_token() }}",
+                    'id': id,
+                    'review': 0,
+                },
+                success: function(data) {
+                    if (data.status == true) {
+                        $('#clinic' + data.id).remove();
+                    }
+                },
+                error: function(reject) {}
+            });
+        });
+    </script>
 @endsection

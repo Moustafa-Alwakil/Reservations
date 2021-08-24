@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Request;
 
 class VerifyEmail extends Notification
 {
@@ -84,7 +85,6 @@ class VerifyEmail extends Notification
         if (static::$createUrlCallback) {
             return call_user_func(static::$createUrlCallback, $notifiable);
         }
-
         if (Auth::guard('web')->check()) {
             return URL::temporarySignedRoute(
                 'user.verification.verify',
