@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Events\Dashboard\ClinicAccepted;
+use App\Events\Dashboard\DoctorAccepted;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\UpdateClinicStatusRequest;
 use App\Http\Requests\Dashboard\UpdateDoctorStatusRequest;
@@ -45,6 +47,7 @@ class IndexController extends Controller
                 ]);
             }
 
+            event(new DoctorAccepted($doctor));
 
             return response()->json([
                 'status' => true,
@@ -70,7 +73,9 @@ class IndexController extends Controller
     }
     public function updateClinicStatus(UpdateClinicStatusRequest $request)
     {
-        $clinic = Clinic::select()->where(['id' => $request->id, 'review' => 2])->first();
+        $clinic = Clinic::select()->where(['id' => $request->id, 'review' => 2])->with(['physican'=>function($q){
+            $q->select('id','name','email');
+        }])->first();
 
         if (!$clinic)
             return response()->json([
@@ -86,6 +91,7 @@ class IndexController extends Controller
                 ]);
             }
 
+            event(new ClinicAccepted($clinic));
 
             return response()->json([
                 'status' => true,

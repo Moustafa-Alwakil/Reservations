@@ -15,7 +15,7 @@
                     <h4 class="card-title">Edit Clinic</h4>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('clinics.update',['clinic'=>$clinic->id]) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('adminclinics.update',['adminclinic'=>$clinic->id]) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group">

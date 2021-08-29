@@ -115,9 +115,9 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display:  @if(Request::url() == route('addresses.index')||Request::url()==route('addresses.create')) {{'block'}} @endif;">
                                     <li class="@if (route('addresses.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('addresses.index') }}">All Addresses</a></li>
+                                            href="{{ route('addresses.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Addresses</span></a></li>
                                     <li class="@if (route('addresses.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('addresses.create') }}">Add Address</a></li>
+                                            href="{{ route('addresses.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Address</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -125,9 +125,9 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display:  @if(Request::url() == route('appointments.index')||Request::url()==route('appointments.create')) {{'block'}} @endif;">
                                     <li class="@if (route('appointments.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('appointments.index') }}">All Appointments</a></li>
+                                            href="{{ route('appointments.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Appointments</span></a></li>
                                     <li class="@if (route('appointments.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('appointments.create') }}">Add Appointment</a></li>
+                                            href="{{ route('appointments.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Appointment</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -135,9 +135,9 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display:  @if(Request::url() == route('certificates.index')||Request::url()==route('certificates.create')) {{'block'}} @endif;">
                                     <li class="@if (route('certificates.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('certificates.index') }}">All Certificates</a></li>
+                                            href="{{ route('certificates.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Certificates</span></a></li>
                                     <li class="@if (route('certificates.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('certificates.create') }}">Add Certificate</a></li>
+                                            href="{{ route('certificates.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Certificate</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -145,9 +145,9 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display:  @if(Request::url() == route('cities.index')||Request::url()==route('cities.create')) {{'block'}} @endif;">
                                     <li class="@if (route('cities.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('cities.index') }}">All Cities</a></li>
+                                            href="{{ route('cities.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Cities</span></a></li>
                                     <li class="@if (route('cities.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('cities.create') }}">Add City</a></li>
+                                            href="{{ route('cities.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add City</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -155,9 +155,9 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display:  @if(Request::url() == route('departments.index')||Request::url()==route('departments.create')) {{'block'}} @endif;">
                                     <li class="@if (route('departments.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('departments.index') }}">All Departments</a></li>
+                                            href="{{ route('departments.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Departments</span></a></li>
                                     <li class="@if (route('departments.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('departments.create') }}">Add Department</a></li>
+                                            href="{{ route('departments.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Department</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -165,9 +165,9 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display:  @if(Request::url() == route('examfees.index')||Request::url()==route('examfees.create')) {{'block'}} @endif;">
                                     <li class="@if (route('examfees.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('examfees.index') }}">All Examfees</a></li>
+                                            href="{{ route('examfees.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Examfees</span></a></li>
                                     <li class="@if (route('examfees.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('examfees.create') }}">Add Examfee</a></li>
+                                            href="{{ route('examfees.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Examfee</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -175,9 +175,9 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display: @if(Request::url() == route('clinicphotos.index')||Request::url()==route('clinicphotos.create')) {{'block'}} @endif;">
                                     <li class="@if (route('clinicphotos.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('clinicphotos.index') }}">All Clinics Photos</a></li>
+                                            href="{{ route('clinicphotos.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Clinics Photos</span></a></li>
                                     <li class="@if (route('clinicphotos.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('clinicphotos.create') }}">Add Clinic Photos</a></li>
+                                            href="{{ route('clinicphotos.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Clinic Photos</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -185,9 +185,9 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display:  @if(Request::url() == route('exceptions.index')||Request::url()==route('exceptions.create')) {{'block'}} @endif;">
                                     <li class="@if (route('exceptions.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('exceptions.index') }}">All Exceptions</a></li>
+                                            href="{{ route('exceptions.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Exceptions</span></a></li>
                                     <li class="@if (route('exceptions.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('exceptions.create') }}">Add Exception</a></li>
+                                            href="{{ route('exceptions.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Exception</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -195,9 +195,9 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display:  @if(Request::url() == route('experiences.index')||Request::url()==route('experiences.create')) {{'block'}} @endif;">
                                     <li class="@if (route('experiences.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('experiences.index') }}">All Experiences</a></li>
+                                            href="{{ route('experiences.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Experiences</span></a></li>
                                     <li class="@if (route('experiences.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('experiences.create') }}">Add Experience</a></li>
+                                            href="{{ route('experiences.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Experience</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -205,9 +205,9 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display:  @if(Request::url() == route('infos.index')||Request::url()==route('infos.create')) {{'block'}} @endif;">
                                     <li class="@if (route('infos.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('infos.index') }}">All Inforamtions</a></li>
+                                            href="{{ route('infos.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Inforamtions</span></a></li>
                                     <li class="@if (route('infos.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('infos.create') }}">Add Inforamtion</a></li>
+                                            href="{{ route('infos.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Inforamtion</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -215,9 +215,9 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display:  @if(Request::url() == route('regions.index')||Request::url()==route('regions.create')) {{'block'}} @endif;">
                                     <li class="@if (route('regions.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('regions.index') }}">All Regions</a></li>
+                                            href="{{ route('regions.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Regions</span></a></li>
                                     <li class="@if (route('regions.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('regions.create') }}">Add Region</a></li>
+                                            href="{{ route('regions.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Region</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -225,9 +225,9 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display:  @if(Request::url() == route('workdays.index')||Request::url()==route('workdays.create')) {{'block'}} @endif;">
                                     <li class="@if (route('workdays.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('workdays.index') }}">All Workdays</a></li>
+                                            href="{{ route('workdays.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Workdays</span></a></li>
                                     <li class="@if (route('workdays.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('workdays.create') }}">Add Workday</a></li>
+                                            href="{{ route('workdays.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Workday</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -235,9 +235,9 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display:  @if(Request::url() == route('services.index')||Request::url()==route('services.create')) {{'block'}} @endif;">
                                     <li class="@if (route('services.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('services.index') }}">All Services</a></li>
+                                            href="{{ route('services.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Services</span></a></li>
                                     <li class="@if (route('services.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('services.create') }}">Add Service</a></li>
+                                            href="{{ route('services.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Service</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -245,9 +245,9 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display:  @if(Request::url() == route('reviews.index')||Request::url()==route('reviews.create')) {{'block'}} @endif;">
                                     <li class="@if (route('reviews.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('reviews.index') }}">All Reviews</a></li>
+                                            href="{{ route('reviews.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Reviews</span></a></li>
                                     <li class="@if (route('reviews.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('reviews.create') }}">Add Review</a></li>
+                                            href="{{ route('reviews.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Review</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -255,9 +255,9 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display:  @if(Request::url() == route('clinicservices.index')||Request::url()==route('clinicservices.create')) {{'block'}} @endif;">
                                     <li class="@if (route('clinicservices.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('clinicservices.index') }}">All Clinics Services</a></li>
+                                            href="{{ route('clinicservices.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Clinics Services</span></a></li>
                                     <li class="@if (route('clinicservices.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('clinicservices.create') }}">Add Clinic Services</a></li>
+                                            href="{{ route('clinicservices.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Clinic Services</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -265,9 +265,9 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display:  @if(Request::url() == route('users.index')||Request::url()==route('users.create')) {{'block'}} @endif;">
                                     <li class="@if (route('users.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('users.index') }}">All Users</a></li>
+                                            href="{{ route('users.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Users</span></a></li>
                                     <li class="@if (route('users.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('users.create') }}">Add User</a></li>
+                                            href="{{ route('users.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add User</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
@@ -275,19 +275,19 @@
                                         class="menu-arrow"></span></a>
                                 <ul style="display:  @if(Request::url() == route('doctors.index')||Request::url()==route('doctors.create')) {{'block'}} @endif;">
                                     <li class="@if (route('doctors.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('doctors.index') }}">All Doctors</a></li>
+                                            href="{{ route('doctors.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Doctors</span></a></li>
                                     <li class="@if (route('doctors.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('doctors.create') }}">Add Doctor</a></li>
+                                            href="{{ route('doctors.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Doctor</span></a></li>
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('clinics.index')||Request::url()==route('clinics.create')) {{'subdrop'}} @endif"><i class="fas fa-clinic-medical"></i><span>&nbsp; Clinics</span> <span
+                                <a class="@if(Request::url() == route('adminclinics.index')||Request::url()==route('adminclinics.create')) {{'subdrop'}} @endif"><i class="fas fa-clinic-medical"></i><span>&nbsp; Clinics</span> <span
                                         class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('clinics.index')||Request::url()==route('clinics.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('clinics.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('clinics.index') }}">All Clinics</a></li>
-                                    <li class="@if (route('clinics.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('clinics.create') }}">Add Clinic</a></li>
+                                <ul style="display:  @if(Request::url() == route('adminclinics.index')||Request::url()==route('adminclinics.create')) {{'block'}} @endif;">
+                                    <li class="@if (route('adminclinics.index')==Request::url()) {{ 'active' }} @endif"><a
+                                            href="{{ route('adminclinics.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Clinics</span></a></li>
+                                    <li class="@if (route('adminclinics.create')==Request::url()) {{ 'active' }} @endif"><a
+                                            href="{{ route('adminclinics.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Clinic</span></a></li>
                                 </ul>
                             </li>
                         </ul>

@@ -48,7 +48,7 @@ Route::group([
     Route::get('users/{user}/reset-password', 'User\UserController@showResetPass')->name('users.resetpass');
     Route::post('users/reset-password', 'User\UserController@resetPass')->name('users.resetpass.update');
     Route::resource('doctors', 'Doctor\DoctorController');
-    Route::resource('clinics', 'Clinic\ClinicController');
+    Route::resource('adminclinics', 'Clinic\ClinicController');
 });
 
 require __DIR__ . '/auth.php';

@@ -2,11 +2,15 @@
 
 namespace App\Providers;
 
+use App\Events\Dashboard\ClinicAccepted;
+use App\Events\Dashboard\DoctorAccepted;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use App\Listeners\Website\Doctor\Appointment\SendConfirmMail;
 use App\Events\Website\Doctor\Appointment\AppointmentConfirmed;
+use App\Listeners\Dashboard\SendClinicAcceptanceMail;
+use App\Listeners\Dashboard\SendDoctorAcceptanceMail;
 use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
@@ -32,6 +36,16 @@ class EventServiceProvider extends ServiceProvider
         Event::listen(
             AppointmentConfirmed::class,
             [SendConfirmMail::class, 'handle']
+        );
+
+        Event::listen(
+            DoctorAccepted::class,
+            [SendDoctorAcceptanceMail::class, 'handle']
+        );
+
+        Event::listen(
+            ClinicAccepted::class,
+            [SendClinicAcceptanceMail::class, 'handle']
         );
     
     }

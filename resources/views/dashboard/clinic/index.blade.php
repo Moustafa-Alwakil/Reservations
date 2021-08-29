@@ -66,10 +66,10 @@
                                         <td>{{ ucwords($clinic->physican->name['fname_en'] . ' ' . $clinic->physican->name['lname_en']) }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('clinics.edit', ['clinic' => $clinic->id]) }}"
+                                            <a href="{{ route('adminclinics.edit', ['adminclinic' => $clinic->id]) }}"
                                                 class="btn btn-warning">Edit</a>
                                             <form method="POST" class="d-inline"
-                                                action="{{ route('clinics.destroy', ['clinic' => $clinic->id]) }}">
+                                                action="{{ route('adminclinics.destroy', ['adminclinic' => $clinic->id]) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">Delete</button>

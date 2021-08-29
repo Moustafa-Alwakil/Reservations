@@ -104,7 +104,7 @@
                             <tbody>
                                 @foreach ($waitingDoctors as $doctor)
                                     @php
-                                        if (!$doctor->info) {
+                                        if (!$doctor->department_id) {
                                             continue;
                                         }
                                     @endphp

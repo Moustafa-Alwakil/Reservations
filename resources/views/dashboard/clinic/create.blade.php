@@ -15,7 +15,7 @@
                     <h4 class="card-title">Add Clinic</h4>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('clinics.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('adminclinics.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label>Name (Arabic)</label>
