@@ -16,21 +16,26 @@ class CertificateController extends Controller
     public function index()
     {
         $certificates = Certificate::Where('physican_id',  Auth::guard('doc')->user()->id)->get();
-        return view('website.doctor.certificate.index',compact('certificates'));
+        return view('website.doctor.certificate.index', compact('certificates'));
     }
 
     public function store(StoreCertificateRequest $request)
     {
-        $data = $request->except('_token', 'photo');
-
         $photo = $this->uploadPhoto(Auth::guard('doc')->user()->id, $request->photo, 'certificates');
+
         if (!$photo)
             return redirect()->route('doctor.certificate')->with('error', 'Something went wrong, please try again.');
 
         $data['photo'] = $photo;
         $data['physican_id'] = Auth::guard('doc')->user()->id;
+        $data['university'] = $request->only('university_ar', 'university_en');
+        $data['field'] = $request->only('field_ar', 'field_en');
+        $data['type'] = $request->type;
+        $data['start_date'] = $request->start_date;
+        $data['end_date'] = $request->end_date;
 
         $certificate = Certificate::create($data);
+
         if (!$certificate)
             return redirect()->route('doctor.certificate')->with('error', 'Something went wrong, please try again.');
 

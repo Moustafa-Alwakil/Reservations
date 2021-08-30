@@ -144,6 +144,30 @@
                                     </div>
                                     <!-- /About Details -->
 
+                                    	<!-- Education Details -->
+										<div class="widget education-widget">
+											<h4 class="widget-title">Education</h4>
+											<div class="experience-box">
+												<ul class="experience-list">
+                                                    @foreach($clinic->physican->certificates as $certificate)
+                                                    <li>
+														<div class="experience-user">
+															<div class="before-circle"></div>
+														</div>
+														<div class="experience-content">
+															<div class="timeline-content">
+																<a href="#/" class="name">{{$certificate->field['field_'. LaravelLocalization::getCurrentLocale()]}} - {{$certificate->university['university_'. LaravelLocalization::getCurrentLocale()]}}</a>
+																<div>{{ $certificate->type }}</div>
+																<span class="time">{{date_format(date_create($certificate->start_date),'j M Y')}} - {{date_format(date_create($certificate->end_date),'j M Y')}}</span>
+															</div>
+														</div>
+													</li>
+                                                    @endforeach
+												</ul>
+											</div>
+										</div>
+										<!-- /Education Details -->
+
                                     <!-- Experience Details -->
                                     <div class="widget experience-widget">
                                         <h4 class="widget-title">{{__('website\clinic.ex')}}</h4>
@@ -156,7 +180,7 @@
                                                         </div>
                                                         <div class="experience-content">
                                                             <div class="timeline-content">
-                                                                <a class="name">{{ $experience->title['title_' . LaravelLocalization::getCurrentLocale()] }}
+                                                                <a href="#/" class="name">{{ $experience->title['title_' . LaravelLocalization::getCurrentLocale()] }}
                                                                     -
                                                                     {{ $experience->place['place_' . LaravelLocalization::getCurrentLocale()] }}</a>
                                                                 <span

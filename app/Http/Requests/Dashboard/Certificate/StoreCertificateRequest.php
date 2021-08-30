@@ -28,6 +28,12 @@ class StoreCertificateRequest extends FormRequest
             'type'=> ['required', Rule::in([1,2,3,4])],
             'photo' => 'required|mimes:png,jpg,jpeg|max:4000|image',
             'physican_id' => 'required|exists:physicans,id',
+            'university_ar'=>'required|string|min:5|max:70',
+            'university_en'=>'required|string|min:5|max:70',
+            'field_ar'=>'required|string|min:5|max:70',
+            'field_en'=>'required|string|min:5|max:70',
+            'start_date' => ['required', 'date','before:now'],
+            'end_date'=>'required|date|after:start_date|before:tomorrow',
         ];
     }
 }

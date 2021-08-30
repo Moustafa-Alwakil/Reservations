@@ -46,16 +46,21 @@ class CertificateController extends Controller
      */
     public function store(StoreCertificateRequest $request)
     {
-        $data = $request->except('_token', 'photo');
-
         $photo = $this->uploadPhoto(Auth::guard('admin')->user()->id, $request->photo, 'certificates');
+
         if (!$photo)
             return redirect()->route('certificates.create')->with('error', 'Something went wrong, please try again.');
 
         $data['photo'] = $photo;
         $data['physican_id'] = $request->physican_id;
+        $data['field'] = $request->only('field_ar', 'field_en');
+        $data['university'] = $request->only('university_ar', 'university_en');
+        $data['start_date'] = $request->start_date;
+        $data['end_date'] = $request->end_date;
+        $data['type'] = $request->type;
 
         $certificate = Certificate::create($data);
+
         if (!$certificate)
             return redirect()->route('certificates.create')->with('error', 'Something went wrong, please try again.');
 
@@ -98,8 +103,6 @@ class CertificateController extends Controller
      */
     public function update(UpdateCertificateRequest $request, $id)
     {
-        $data = $request->except('_token', '_method', 'photo');
-
         if ($request->has('photo')) {
             $photo = $this->uploadPhoto(Auth::guard('admin')->user()->id, $request->photo, 'certificates');
             if (!$photo)
@@ -117,8 +120,14 @@ class CertificateController extends Controller
         }
 
         $data['physican_id'] = $request->physican_id;
+        $data['field'] = $request->only('field_ar', 'field_en');
+        $data['university'] = $request->only('university_ar', 'university_en');
+        $data['start_date'] = $request->start_date;
+        $data['end_date'] = $request->end_date;
+        $data['type'] = $request->type;
 
         $Updatecertificate = Certificate::where('id', $id)->update($data);
+
         if (!$Updatecertificate)
             return redirect()->route('certificates.edit', ['certificate' => $id])->with('error', 'Something went wrong, please try again.');
 

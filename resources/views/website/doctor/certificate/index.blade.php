@@ -102,7 +102,7 @@
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
-                                            <label>Start Date</label>
+                                            <label>End Date</label>
                                             <input type="date" class="form-control select" name="end_date"
                                                 value="{{ old('end_date') }}">
                                         </div>
@@ -113,7 +113,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Photo</label>
-                                            <input class="form-control" type="file" id="photo" name="photo">
+                                            <input class="form-control" type="file" name="photo">
                                         </div>
                                         @error('photo')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -135,8 +135,10 @@
                                 <img src="{{ $certificate->photo }}" class="card-img-top mx-auto" style="width:50%"
                                     alt="certificate">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ $certificate->type }}</h5>
-                                    <p class="card-text">Upload At: {{ $certificate->created_at }}</p>
+                                    <h5 class="card-title">{{ $certificate->type }} Degree in {{$certificate->field['field_'. LaravelLocalization::getCurrentLocale()]}}</h5>
+                                    <p class="card-text">Place: {{$certificate->university['university_'. LaravelLocalization::getCurrentLocale()]}}</p>
+                                    <p class="card-text">Start Date: {{date_format(date_create($certificate->start_date),'j M Y')}}</p>
+                                    <p class="card-text">End Date: {{date_format(date_create($certificate->end_date),'j M Y')}}</p>
                                     <a href="{{ $certificate->photo }}" class="btn btn-primary" target="_blank">Preview</a>
                                     <form class="d-inline" method="POST" action="{{ route('doctor.certificate.destroy') }}">
                                         @csrf

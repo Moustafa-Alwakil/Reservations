@@ -16,6 +16,10 @@ class CreateCertificatesTable extends Migration
         Schema::create('certificates', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('type')->comment('1->bachelor , 2->master , 3-phd , 4-fellowship');
+            $table->json('university');
+            $table->json('field');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->string('photo');
             $table->foreignId('physican_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

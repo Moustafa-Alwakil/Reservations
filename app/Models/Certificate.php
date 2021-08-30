@@ -11,7 +11,7 @@ class Certificate extends Model
     protected $table = 'certificates';
     protected $primaryKey = 'id';
     protected $fillable = [
-       'id','type','photo','physican_id','created_at','updated_at'
+       'id','type','university','field','start_date','end_date','photo','physican_id','created_at','updated_at'
     ];
     
     protected $hidden = [
@@ -20,6 +20,11 @@ class Certificate extends Model
     ];
     
     public $timestamps = true;
+
+    protected $casts = [
+        'university' => 'json',
+        'field' => 'json',
+    ];
 
     // Start Eloquent Relations
     public function physican()

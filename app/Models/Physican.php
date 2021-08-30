@@ -46,7 +46,7 @@ class Physican extends Authenticatable implements MustVerifyEmail
     ];
 
     // Start Eloquent Relations
-    public function cetificates()
+    public function certificates()
     {
         return $this->hasMany(Certificate::class, 'physican_id', 'id');
     }

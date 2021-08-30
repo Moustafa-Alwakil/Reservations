@@ -20,6 +20,51 @@ Certificates
                     @csrf
                     @method('PUT')
                     <div class="form-group">
+                        <label>University Or Place(Arabic)</label>
+                        <input type="text" class="form-control" name="university_ar"
+                            value="{{ $certificate->university['university_ar'] }}">
+                    </div>
+                    @error('university_ar')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    <div class="form-group">
+                        <label>University Or Place(English)</label>
+                        <input type="text" class="form-control" name="university_en"
+                            value="{{ $certificate->university['university_en'] }}">
+                    </div>
+                    @error('university_en')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    <div class="form-group">
+                        <label>Field of degree (Arabic)</label>
+                        <input type="text" class="form-control" name="field_ar" value="{{ $certificate->field['field_ar'] }}">
+                    </div>
+                    @error('field_ar')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    <div class="form-group">
+                        <label>Field of degree (English)</label>
+                        <input type="text" class="form-control" name="field_en" value="{{ $certificate->field['field_en'] }}">
+                    </div>
+                    @error('field_en')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="date" class="form-control" name="start_date"
+                            value="{{ $certificate->start_date }}">
+                    </div>
+                    @error('start_date')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input type="date" class="form-control" name="end_date" value="{{ $certificate->end_date }}">
+                    </div>
+                    @error('end_date')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    <div class="form-group">
                         <label>Degree</label>
                         <select class="form-control" name="type">
                             <option disabled>Select degree</option>

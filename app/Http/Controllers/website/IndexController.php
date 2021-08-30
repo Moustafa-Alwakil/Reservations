@@ -293,7 +293,7 @@ class IndexController extends Controller
         }, 'clinicphotos', 'services' => function ($q) {
             $q->select()->where('status', 1);
         }, 'examfee', 'physican' => function ($q) {
-            $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['info' => function ($q) {
+            $q->select('id', 'name', 'department_id')->where('status', 1)->withCount('reviews')->with(['certificates','info' => function ($q) {
                 $q->select('id', 'photo', 'title', 'about', 'physican_id');
             }, 'department' => function ($q) {
                 $q->select()->where('status', 1);
