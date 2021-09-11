@@ -26,6 +26,11 @@
         {{ __('website\allClinics.clinicsearch') }}
     @endisset --}}
     @include('website.includes.bar3')
+    @php
+    $name = 'name_'.LaravelLocalization::getCurrentLocale();
+    $fname = 'fname_'.LaravelLocalization::getCurrentLocale();
+    $lname = 'lname_'.LaravelLocalization::getCurrentLocale();
+    @endphp
     <!-- Page Content -->
     <div class="content">
         <div class="container-fluid">
@@ -90,17 +95,6 @@
                 <div class="col-md-12 col-lg-8 col-xl-9">
                     @isset($clinics)
                         @foreach ($clinics as $clinic)
-                            @php
-                                if (!$clinic->physican || !$clinic->address->region || !$clinic->address->region->city || !$clinic->physican->department) {
-                                    continue;
-                                }
-                                $totalReview = 0;
-                                foreach ($clinic->physican->reviews as $review) {
-                                    $totalReview += $review->value;
-                                }
-                                
-                                $avgRate = round(($totalReview * 5) / ($clinic->physican->reviews_count * 5));
-                            @endphp
                             <!-- Clinic Widget -->
                             <div class="card">
                                 <div class="card-body">
@@ -108,54 +102,54 @@
                                         <div class="doc-info-left">
                                             <div class="doctor-img">
                                                 <a href="{{ route('clinic', ['id' => $clinic->id]) }}">
-                                                    <img src="{{ $clinic->physican->info->photo }}" class="img-fluid"
+                                                    <img src="{{ url('images/docphotos/'.$clinic->doctor_photo) }}" class="img-fluid"
                                                         alt="Doctor Image">
                                                 </a>
                                             </div>
                                             <div class="doc-info-cont">
                                                 <h4 class="doc-name"><a
-                                                        href="{{ route('clinic', ['id' => $clinic->id]) }}">{{ ucwords($clinic->name['name_' . LaravelLocalization::getCurrentLocale()]) }}</a>
+                                                        href="{{ route('clinic', ['id' => $clinic->id]) }}">{{ ucwords(json_decode($clinic->name)->$name) }}</a>
                                                 </h4>
                                                 <p class="doc-speciality">
                                                     Dr.
-                                                    {{ ucwords($clinic->physican->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $clinic->physican->name['lname_' . LaravelLocalization::getCurrentLocale()]) }} - ({{__('website\layouts\layout.'.$clinic->physican->info->title)}})
+                                                    {{ ucwords(json_decode($clinic->doctor_name)->$fname . ' ' . json_decode($clinic->doctor_name)->$lname) }} - ({{__('website\layouts\layout.'.$clinic->title)}})
                                                 </p>
                                                 <h5 class="doc-department">
-                                                    {{ ucwords($clinic->physican->department->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
+                                                    {{ ucwords(json_decode($clinic->department_name)->$name) }}
                                                 </h5>
                                                 <div class="rating">
-                                                    @for ($i = 0; $i < $avgRate; $i++)
+                                                    @for ($i = 0; $i < $reviewsAvg[$loop->index]; $i++)
                                                         <i class="fas fa-star filled"></i>
                                                     @endfor
-                                                    @for ($i = 0; $i < 5 - $avgRate; $i++)
+                                                    @for ($i = 0; $i < 5 - $reviewsAvg[$loop->index]; $i++)
                                                         <i class="fas fa-star"></i>
                                                     @endfor
                                                     <span
-                                                        class="d-inline-block average-rating">({{ $clinic->physican->reviews_count }})</span>
+                                                        class="d-inline-block average-rating">({{ $reviewsCount[$loop->index] }})</span>
                                                 </div>
                                                 <div class="clinic-details">
                                                     <p class="doc-location"><i class="fas fa-map-marker-alt"></i>
-                                                        {{ ucwords($clinic->address->region->name['name_' . LaravelLocalization::getCurrentLocale()]) }},
-                                                        {{ ucwords($clinic->address->region->city->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
+                                                        {{ ucwords(json_decode($clinic->region_name)->$name) }},
+                                                        {{ ucwords(json_decode($clinic->city_name)->$name) }}
                                                     </p>
                                                     <ul class="clinic-gallery">
-                                                        @foreach ($clinic->clinicphotos as $clinicphoto)
+                                                        @foreach ($clinicPhotos[$loop->index] as $clinicphoto)
                                                             <li>
-                                                                <a href="{{ $clinicphoto->photo }}" data-fancybox="gallery">
-                                                                    <img src="{{ $clinicphoto->photo }}" alt="Feature">
+                                                                <a href="{{ url('images/clinics-photos/'.$clinicphoto->photo) }}" data-fancybox="gallery">
+                                                                    <img src="{{ url('images/clinics-photos/'.$clinicphoto->photo) }}" alt="Feature">
                                                                 </a>
                                                             </li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
                                                 <div class="clinic-services">
-                                                    @foreach ($clinic->services as $service)
+                                                    @foreach ($clinicServices[$loop->index] as $service)
                                                         @php
-                                                            if (!$service) {
+                                                            if (!$service->service) {
                                                                 continue;
                                                             }
                                                         @endphp
-                                                        <span>{{ ucwords($service->name['name_' . LaravelLocalization::getCurrentLocale()]) }}</span>
+                                                        <span>{{ ucwords($service->service->name['name_' . LaravelLocalization::getCurrentLocale()]) }}</span>
                                                     @endforeach
                                                 </div>
                                             </div>
@@ -164,19 +158,19 @@
                                             <div class="clini-infos">
                                                 <ul>
                                                     <li><i class="far fa-thumbs-up"></i>
-                                                        {{ round(($totalReview / ($clinic->physican->reviews_count * 5)) * 100) }}%
+                                                        {{ round(($reviewsSum[$loop->index] / ($reviewsCount[$loop->index] * 5)) * 100) }}%
                                                     </li>
                                                     <li><i class="far fa-comment"></i>
-                                                        {{ $clinic->physican->reviews_count }}
+                                                        {{ $reviewsCount[$loop->index] }}
                                                         Feedback</li>
                                                     <li><i
-                                                            class="fas fa-map-marker-alt"></i>{{ ucwords($clinic->address->region->name['name_' . LaravelLocalization::getCurrentLocale()]) }},
-                                                        {{ ucwords($clinic->address->region->city->name['name_' . LaravelLocalization::getCurrentLocale()]) }}
+                                                            class="fas fa-map-marker-alt"></i>{{ ucwords(json_decode($clinic->region_name)->$name) }},
+                                                            {{ ucwords(json_decode($clinic->city_name)->$name) }}
                                                     </li>
                                                     <li><i class="fas fa-phone-square-alt"></i> {{ $clinic->phone }}
                                                     </li>
                                                     <li><i class="far fa-money-bill-alt"></i>
-                                                        {{ $clinic->examfee->price }}
+                                                        {{ $clinic->price }}
                                                         EGP
                                                     </li>
                                                 </ul>
@@ -311,7 +305,7 @@
                         </div>
                         <!-- /Clinic Widget -->
                     @endforeach
-                @endisset
+                @endisset 
                     {{-- @isset($clinicsByCity)
                         @foreach ($clinicsByCity->regions as $region)
                             @php
@@ -435,7 +429,7 @@
                                 @endforeach
                             @endif
                         @endforeach
-                    @endisset --}}
+                    @endisset
                     {{-- @isset($clinicsByRegion)
                         @if ($clinicsByRegion->addresses)
                             @foreach ($clinicsByRegion->addresses as $address)
