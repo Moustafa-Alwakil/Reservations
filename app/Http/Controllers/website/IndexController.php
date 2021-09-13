@@ -96,8 +96,7 @@ class IndexController extends Controller
                 }
             )
             ->paginate(10)->withQueryString();
-
-            print_r($clinics);
+            
         $a = 0;
         $b = 0;
         $c = 0;

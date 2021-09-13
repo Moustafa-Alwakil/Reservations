@@ -69,7 +69,7 @@
                                     @foreach ($departments as $department)
                                         <div>
                                             <label class="custom_check">
-                                                <input type="checkbox" name="department_id[]" value="{{ $department->id }}"@if (isset($_GET['department_id']) && $_GET['department_id'] == $department->id){{ 'checked' }}@endif>
+                                                <input type="checkbox" name="department_id[]" value="{{ $department->id }}"@if (isset($_GET['department_id']) && in_array($department->id, $_GET['department_id'])){{ 'checked' }}@endif>
                                                 <span class="checkmark"></span>
                                                 {{ $department->name['name_' . LaravelLocalization::getCurrentLocale()] }}
                                             </label>
