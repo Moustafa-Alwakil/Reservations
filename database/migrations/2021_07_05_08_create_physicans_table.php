@@ -19,7 +19,7 @@ class CreatePhysicansTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->smallInteger('code')->nullable();
+            $table->mediumInteger('code')->nullable();
             $table->string('gender',1)->comment('m->male , f->female');
             $table->tinyInteger('status')->default(2)->comment('0->not accepted , 1->accepted , 2->waiting');
             $table->date('birthdate');

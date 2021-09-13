@@ -6,8 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 {
     use HasFactory, Notifiable;
     protected $table = 'users';
@@ -18,9 +19,9 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'id','name','gender','email','password','phone','code','remember_token','email_verified_at','birthdate','created_at','updated_at'
+        'id', 'name', 'gender', 'email', 'password', 'phone', 'code', 'remember_token', 'email_verified_at', 'birthdate', 'created_at', 'updated_at'
     ];
-    
+
     public $timestamps = true;
 
     /**
@@ -45,23 +46,33 @@ class User extends Authenticatable implements MustVerifyEmail
         'name' => 'json'
     ];
 
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
     // Start Eloquent Relations
     public function appointments()
     {
-        return $this->hasMany(Appointment::class,'user_id','id');
+        return $this->hasMany(Appointment::class, 'user_id', 'id');
     }
     public function reviews()
     {
-        return $this->belongsToMany(Physican::class,'reviews','user_id','physican_id','id','id')->as('reviews');
+        return $this->belongsToMany(Physican::class, 'reviews', 'user_id', 'physican_id', 'id', 'id')->as('reviews');
     }
     // End Elqouent Relations
-    
+
     // Define Accesors 
     public function getGenderAttribute($value)
     {
-        if($value=='m'){
+        if ($value == 'm') {
             return ucwords('male');
-        }elseif($value=='f'){
+        } elseif ($value == 'f') {
             return ucwords('female');
         }
     }

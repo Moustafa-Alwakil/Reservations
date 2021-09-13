@@ -4,6 +4,9 @@
 /storage/*.key
 /vendor/asm89
 /vendor/bin
+/vendor/namshi
+/vendor/lcobucci
+/vendor/tymon
 /vendor/brick
 /vendor/composer
 /vendor/doctrine

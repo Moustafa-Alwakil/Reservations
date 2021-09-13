@@ -6,8 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Physican extends Authenticatable implements MustVerifyEmail
+class Physican extends Authenticatable implements MustVerifyEmail, JWTSubject
 {
     use HasFactory, Notifiable;
     protected $table = 'physicans';
@@ -44,6 +45,16 @@ class Physican extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'name' => 'json'
     ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 
     // Start Eloquent Relations
     public function certificates()

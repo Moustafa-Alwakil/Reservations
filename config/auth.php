@@ -52,10 +52,17 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'jwt',
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'doc-api' => [
+            'driver' => 'jwt',
+            'provider' => 'physicans',
+            'hash' => false,
+        ],
+
     ],
 
     /*
