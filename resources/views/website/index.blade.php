@@ -14,7 +14,7 @@
 
                 <!-- Search -->
                 <div class="search-box d-flex justify-content-center">
-                    <form method="get" action="{{route('show.clinics.bylocation')}}">
+                    <form method="get" action="{{route('clinics.filter')}}">
                         <div class="form-group search-location">
                             <select class="form-control select" name="city_id" id="city">
                                 <option selected disabled>{{__('website\index.sc')}}
@@ -59,7 +59,7 @@
                                 <div class="doctor-book-card-content tile-card-content-1">
                                     <div>
                                         <h3 class="card-title mb-0">{{__('website\index.visit')}}</h3>
-                                        <a href="{{route('all.clinics')}}" class="btn book-btn1 px-3 py-2 mt-3" tabindex="0">{{__('website\index.book')}}</a>
+                                        <a href="{{route('clinics.filter')}}" class="btn book-btn1 px-3 py-2 mt-3" tabindex="0">{{__('website\index.book')}}</a>
                                     </div>
                                 </div>
                             </div>

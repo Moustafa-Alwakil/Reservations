@@ -67,8 +67,8 @@
                             <a href="{{ route('index') }}">{{ __('website\layouts\layout.home') }}<i
                                     class="fas"></i></a>
                         </li>
-                        <li class="has-submenu @if (Request::url()==route('all.clinics')) {{ 'active' }} @endif">
-                            <a href="{{ route('all.clinics') }}">{{ __('website\layouts\layout.clinics') }}<i
+                        <li class="has-submenu @if (Request::url()==route('clinics.filter')) {{ 'active' }} @endif">
+                            <a href="{{ route('clinics.filter') }}">{{ __('website\layouts\layout.clinics') }}<i
                                     class="fas"></i></a>
                         </li>
                     </ul>

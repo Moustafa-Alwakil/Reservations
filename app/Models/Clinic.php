@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use App\ModelFilters\ClinicFilter;
-use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Clinic extends Model
 {
-    use HasFactory, Filterable;
+    use HasFactory;
     protected $table = 'clinics';
     protected $primaryKey = 'id';
     protected $fillable = [

@@ -22,8 +22,11 @@
                 foreach ($clinic->physican->reviews as $review) {
                     $totalReview += $review->value;
                 }
-                
-                $avgRate = round(($totalReview * 5) / ($clinic->physican->reviews_count * 5));
+                if($clinic->physican->reviews_count > 0){
+                    $avgRate = round(($totalReview * 5) / ($clinic->physican->reviews_count * 5));
+                }else{
+                    $avgRate = 0;
+                }
             @endphp
             <div class="card">
                 <div class="card-body">
@@ -81,7 +84,12 @@
                             <div class="clini-infos">
                                 <ul>
                                     <li><i class="far fa-thumbs-up"></i>
-                                        {{ round(($totalReview / ($clinic->physican->reviews_count * 5)) * 100) }}%</li>
+                                        @if($clinic->physican->reviews_count > 0)
+                                        {{ round(($totalReview / ($clinic->physican->reviews_count * 5)) * 100) }}%
+                                        @else
+                                        0%
+                                        @endif
+                                    </li>
                                     <li><i class="far fa-comment"></i> {{ $clinic->physican->reviews_count }} Feedback
                                     </li>
                                     <li><i
@@ -247,8 +255,7 @@
                             <div class="widget review-listing">
                                 <ul class="comments-list">
                                     @include('website.includes.sessionDisplay')
-
-                                    @foreach ($clinic->physican->reviews as $review)
+                                    @forelse ($clinic->physican->reviews as $review)
                                         <!-- Comment List -->
                                         <li>
                                             <div class="comment">
@@ -291,7 +298,10 @@
 
                                         </li>
                                         <!-- /Comment List -->
-                                    @endforeach
+                                        @empty
+                                        <h4 class="text-center">{{__('website\clinic.reviewmsg3')}} 
+                                        </h4>
+                                        @endforelse
 
                                 </ul>
                             </div>
@@ -375,7 +385,7 @@
 
                                 </div>
                                 <!-- /Write Review -->
-                            @elseif(Auth::guard('doc')->check())
+                            @elseif(Auth::guard('doc')->check()||Auth::guard('admin')->check())
                             <div class="write-review">
                                 <h4>{{__('website\clinic.reviewmsg2')}} 
                                 </h4>

@@ -102,12 +102,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($waitingDoctors as $doctor)
-                                    @php
-                                        if (!$doctor->department_id) {
-                                            continue;
-                                        }
-                                    @endphp
+                                @forelse ($waitingDoctors as $doctor)
                                     <tr id="doctor{{ $doctor->id }}">
                                         <td>
                                             <h2 class="table-avatar">
@@ -143,7 +138,9 @@
                                                     class="fas fa-times-circle"></i>&nbsp;&nbsp;Refuse</button>
                                         </td>
                                     </tr>
-                                @endforeach
+                                    @empty
+                                    <tr><td colspan="7">There is no waiting doctors.</td></tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -172,7 +169,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($waitingClinics as $clinic)
+                                @forelse ($waitingClinics as $clinic)
                                     <tr id="clinic{{ $clinic->id }}">
                                         <td>{{ ucwords($clinic->name['name_ar']) }}</td>
                                         <td>{{ ucwords($clinic->name['name_en']) }}</td>
@@ -199,7 +196,9 @@
                                                     class="fas fa-times-circle"></i>&nbsp;&nbsp;Refuse</button>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                <tr><td colspan="8">There is no waiting clinics.</td></tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

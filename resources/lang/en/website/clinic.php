@@ -18,6 +18,7 @@ return [
 'reviewmsg1'=>'You have to login to be able to review this clinic,',
 'click'=>'Click here to login.',
 'reviewmsg2'=>'Sorry, Only patients can write a review.',
+'reviewmsg3'=>'There is no reviews to this clinic yet.',
 'del'=>'Delete Review',
 'writerev'=>'Write a review for',
 'dr'=>'Dr.',

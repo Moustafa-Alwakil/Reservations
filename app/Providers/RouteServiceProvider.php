@@ -40,6 +40,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
+            
             Route::prefix('api')
                 ->middleware('api')
                 ->namespace($this->namespace)
@@ -112,10 +113,6 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/dashboard/profile.php'));
 
-            Route::prefix('hh')
-                ->middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/web.php'));
         });
     }
 
