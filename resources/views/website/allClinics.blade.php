@@ -16,9 +16,11 @@
     @include('website.includes.bar1')
     {{ __('website\layouts\layout.clinics') }}
     @include('website.includes.bar2')
-    @isset($clinics)
-        {{ __('website\allClinics.all') }}
-    @endisset
+    @if (isset($_GET['city_id'])||isset($_GET['region_id'])||isset($_GET['male'])||isset($_GET['female'])||isset($_GET['department_id']))
+    {{ __('website\allClinics.clinicsearchres') }} ({{count($clinics)}})
+    @else
+    {{ __('website\allClinics.all') }}
+    @endif
     @include('website.includes.bar3')
     @php
     $name = 'name_' . LaravelLocalization::getCurrentLocale();

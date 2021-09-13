@@ -4,6 +4,7 @@
 return [
 
 'all' => 'كل العيادات',
+'clinicsearchres' => 'بحث العيادات - تم العثور على',
 'clinicsearch' => 'بحث العيادات',
 'searchfilter' => 'تصفية البحث',
 'gender' => 'النوع',

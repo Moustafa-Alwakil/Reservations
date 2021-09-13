@@ -4,6 +4,7 @@
 return [
 
 'all' => 'All Clinics',
+'clinicsearchres' => 'Clinics Search - Found',
 'clinicsearch' => 'Clinic Search',
 'searchfilter' => 'Search Filter',
 'gender' => 'Gender',
