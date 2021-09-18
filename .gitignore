@@ -7,6 +7,7 @@
 /vendor/namshi
 /vendor/lcobucci
 /vendor/tymon
+/vendor/spatie
 /vendor/brick
 /vendor/composer
 /vendor/doctrine

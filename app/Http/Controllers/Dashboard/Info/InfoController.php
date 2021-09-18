@@ -7,12 +7,20 @@ use App\Http\Requests\Dashboard\Info\StoreInfoRequest;
 use App\Http\Requests\Dashboard\Info\UpdateInfoRequest;
 use App\Models\Info;
 use App\Models\Physican;
-use Illuminate\Http\Request;
 use App\Traits\uploadTrait;
 use Illuminate\Support\Facades\Auth;
 
 class InfoController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:read')->only('index');
+        $this->middleware('permission:create')->only('create','store');
+        $this->middleware('permission:update')->only('edit','update');
+        $this->middleware('permission:delete')->only('edit','destroy');
+    }
+
     use uploadTrait;
     /**
      * Display a listing of the resource.

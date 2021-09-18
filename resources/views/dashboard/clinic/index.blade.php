@@ -37,8 +37,9 @@
                                         <td>{{ ucwords($clinic->name['name_en']) }}
                                         </td>
                                         <td>{{ $clinic->phone }}</td>
-                                        <td><a href="{{ $clinic->photo }}" target="_blank"><img src="{{ $clinic->license }}"
-                                                    alt="License" width="20%" height="20%"></a></td>
+                                        <td><a href="{{ $clinic->photo }}" target="_blank"><img
+                                                    src="{{ $clinic->license }}" alt="License" width="20%"
+                                                    height="20%"></a></td>
                                         @if ($clinic->status == 'Not Active')
                                             <td class="text-danger">
                                                 Not Active
@@ -66,14 +67,18 @@
                                         <td>{{ ucwords($clinic->physican->name['fname_en'] . ' ' . $clinic->physican->name['lname_en']) }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('adminclinics.edit', ['adminclinic' => $clinic->id]) }}"
-                                                class="btn btn-warning">Edit</a>
-                                            <form method="POST" class="d-inline"
-                                                action="{{ route('adminclinics.destroy', ['adminclinic' => $clinic->id]) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger">Delete</button>
-                                            </form>
+                                            @can('update')
+                                                <a href="{{ route('adminclinics.edit', ['adminclinic' => $clinic->id]) }}"
+                                                    class="btn btn-warning">Edit</a>
+                                            @endcan
+                                            @can('delete')
+                                                <form method="POST" class="d-inline"
+                                                    action="{{ route('adminclinics.destroy', ['adminclinic' => $clinic->id]) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger">Delete</button>
+                                                </form>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

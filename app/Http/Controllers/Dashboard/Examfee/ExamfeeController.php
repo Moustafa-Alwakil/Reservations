@@ -8,10 +8,18 @@ use App\Http\Requests\Dashboard\Examfee\UpdateExamfeeRequest;
 use App\Models\Clinic;
 use App\Models\Examfee;
 use App\Models\Physican;
-use Illuminate\Http\Request;
 
 class ExamfeeController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:read')->only('index');
+        $this->middleware('permission:create')->only('create','store');
+        $this->middleware('permission:update')->only('edit','update');
+        $this->middleware('permission:delete')->only('edit','destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -35,12 +35,16 @@ Services
                                 <td>{{$service->department->name['name_ar']}}</td>
                                 <td>{{$service->department->name['name_en']}}</td>
                                 <td>
+                                    @can('update')
                                     <a href="{{route('services.edit',['service'=>$service->id])}}" class="btn btn-warning">Edit</a>
+                                    @endcan
+                                    @can('delete')
                                     <form method="POST" class="d-inline" action="{{route('services.destroy',['service'=>$service->id])}}">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger">Delete</button>
                                     </form>
+                                    @endcan
                                 </td>
                             </tr>
                             @endforeach

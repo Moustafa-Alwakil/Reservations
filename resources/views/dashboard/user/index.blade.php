@@ -47,16 +47,18 @@
                                         <td>{{ date_format(date_create($user->birthdate), 'j M Y') }}</td>
                                         <td>{{ $user->code }}</td>
                                         <td>
-                                            <a href="{{ route('users.edit', ['user' => $user->id]) }}"
-                                                class="btn btn-warning">Edit</a>
-                                                <a href="{{ route('users.resetpass', ['user' => $user->id]) }}"
-                                                    class="btn btn-secondary">Reset Password</a>
-                                            <form method="POST" class="d-inline"
-                                                action="{{ route('users.destroy', ['user' => $user->id]) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger">Delete</button>
-                                            </form>
+                                            @can('update')
+                                                <a href="{{ route('users.edit', ['user' => $user->id]) }}"
+                                                    class="btn btn-warning">Edit</a>
+                                            @endcan
+                                            @can('delete')
+                                                <form method="POST" class="d-inline"
+                                                    action="{{ route('users.destroy', ['user' => $user->id]) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger">Delete</button>
+                                                </form>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

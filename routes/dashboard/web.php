@@ -45,10 +45,36 @@ Route::group([
     Route::get('clinicservices/getservices/{id}', 'ClinicService\ClinicServiceController@getService');
     Route::get('clinicservices/edit/getservices/{clinicservice}/{id}', 'ClinicService\ClinicServiceController@getServices');
     Route::resource('users', 'User\UserController');
-    Route::get('users/{user}/reset-password', 'User\UserController@showResetPass')->name('users.resetpass');
-    Route::post('users/reset-password', 'User\UserController@resetPass')->name('users.resetpass.update');
     Route::resource('doctors', 'Doctor\DoctorController');
     Route::resource('adminclinics', 'Clinic\ClinicController');
+    Route::resource('roles', 'Role\RoleController');
+    Route::resource('permissions', 'Permission\PermissionController');
+    Route::group([
+        'prefix' => 'rolespermissions',
+    ], function () {
+        Route::get('/', 'RolePermission\RolePermissionController@index')->name('rolespermissions.index');
+        Route::get('create', 'RolePermission\RolePermissionController@create')->name('rolespermissions.create');
+        Route::post('/', 'RolePermission\RolePermissionController@store')->name('rolespermissions.store');
+        Route::get('{role_id}/{permission_id}/edit', 'RolePermission\RolePermissionController@edit')->name('rolespermissions.edit');
+        Route::put('{role_id}/{permission_id}/edit', 'RolePermission\RolePermissionController@update')->name('rolespermissions.update');
+        Route::delete('{role_id}/{permission_id}', 'RolePermission\RolePermissionController@destroy')->name('rolespermissions.destroy');
+    });
+    Route::group([
+        'prefix' => 'modelsroles',
+    ], function () {
+        Route::get('/', 'ModelRole\ModelRoleController@index')->name('modelsroles.index');
+        Route::get('create', 'ModelRole\ModelRoleController@create')->name('modelsroles.create');
+        Route::post('/', 'ModelRole\ModelRoleController@store')->name('modelsroles.store');
+        Route::delete('{role_name}/{model_id}', 'ModelRole\ModelRoleController@destroy')->name('modelsroles.destroy');
+    });
+    Route::group([
+        'prefix' => 'modelspermissions',
+    ], function () {
+        Route::get('/', 'ModelPermission\ModelPermissionController@index')->name('modelspermissions.index');
+        Route::get('create', 'ModelPermission\ModelPermissionController@create')->name('modelspermissions.create');
+        Route::post('/', 'ModelPermission\ModelPermissionController@store')->name('modelspermissions.store');
+        Route::delete('{permission_id}/{model_id}', 'ModelPermission\ModelPermissionController@destroy')->name('modelspermissions.destroy');
+    });
 });
 
 require __DIR__ . '/auth.php';

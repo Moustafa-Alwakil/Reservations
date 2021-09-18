@@ -8,10 +8,18 @@ use App\Http\Requests\Dashboard\Review\UpdateReviewRequest;
 use App\Models\Physican;
 use App\Models\Review;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:read')->only('index');
+        $this->middleware('permission:create')->only('create','store');
+        $this->middleware('permission:update')->only('edit','update');
+        $this->middleware('permission:delete')->only('edit','destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -10,12 +10,9 @@
                                     @if (Auth::guard('web')->check())
                                         <h3>{{ $name['fname'] . ' ' . $name['lname'] }}</h3>
                                     @elseif(Auth::guard('doc')->check())
-                                        @php
-                                            $info = Info::where('physican_id', Auth::guard('doc')->user()->id)->first();
-                                        @endphp
-                                        @if ($info)
+                                        @if (Auth::guard('doc')->user()->info)
                                             <a href="{{ route('doctor.profile') }}" class="booking-doc-img">
-                                                <img src="{{ $info->photo }}" alt="Profile Picture">
+                                                <img src="{{ Auth::guard('doc')->user()->info->photo }}" alt="Profile Picture">
                                             </a>
                                         @endif
                                         <h3>{{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale() . ''] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale() . '']) }}

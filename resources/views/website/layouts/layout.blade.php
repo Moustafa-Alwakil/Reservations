@@ -105,33 +105,29 @@
                             </div>
                         </li>
                     @elseif (Auth::guard('doc')->check())
-                        @php
-                            $name = Auth::guard('doc')->user()->name;
-                            $info = Info::where('physican_id', Auth::guard('doc')->user()->id)->first();
-                        @endphp
                         <li class="nav-item dropdown has-arrow logged-item">
                             <a class="dropdown-toggle nav-link" data-toggle="dropdown">
                                 <span class="user-img">
-                                    @if ($info)
-                                        <img class="rounded-circle" src="{{ $info->photo }}" width="31"
+                                    @if (Auth::guard('doc')->user()->info)
+                                        <img class="rounded-circle" src="{{ Auth::guard('doc')->user()->info->photo }}" width="31"
                                             alt="Profile Picture">
                                     @endif
-                                    {{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale()]) }}
+                                    {{ ucwords(Auth::guard('doc')->user()->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . Auth::guard('doc')->user()->name['lname_' . LaravelLocalization::getCurrentLocale()]) }}
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="user-header">
-                                    @if ($info)
+                                    @if (Auth::guard('doc')->user()->info)
                                         <div class="avatar avatar-sm">
-                                            <img class="rounded-circle" src="{{ $info->photo }}" width="31"
+                                            <img class="rounded-circle" src="{{ Auth::guard('doc')->user()->info->photo }}" width="31"
                                                 alt="Profile Picture">
                                         </div>
                                     @endif
                                     <div class="user-text">
-                                        <h6>{{ ucwords($name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . $name['lname_' . LaravelLocalization::getCurrentLocale()]) }}
+                                        <h6>{{ ucwords(Auth::guard('doc')->user()->name['fname_' . LaravelLocalization::getCurrentLocale()] . ' ' . Auth::guard('doc')->user()->name['lname_' . LaravelLocalization::getCurrentLocale()]) }}
                                         </h6>
-                                        @if ($info)
-                                        <p class="text-muted mb-0">{{__('website\layouts\layout.'.$info->title)}}</p>
+                                        @if (Auth::guard('doc')->user()->info)
+                                        <p class="text-muted mb-0">{{__('website\layouts\layout.'.Auth::guard('doc')->user()->info->title)}}</p>
                                         @else
                                             <p class="text-muted mb-0">{{ __('website\layouts\layout.doctor') }}</p>
                                         @endif

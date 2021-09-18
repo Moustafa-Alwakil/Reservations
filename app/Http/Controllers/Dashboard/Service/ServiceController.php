@@ -7,10 +7,17 @@ use App\Http\Requests\Dashboard\Service\StoreServiceRequest;
 use App\Http\Requests\Dashboard\Update\UpdateServiceRequest;
 use App\Models\Department;
 use App\Models\Service;
-use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:read')->only('index');
+        $this->middleware('permission:create')->only('create','store');
+        $this->middleware('permission:update')->only('edit','update');
+        $this->middleware('permission:delete')->only('edit','destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -7,11 +7,19 @@ use App\Http\Requests\Dashboard\Clinic\StoreClinicRequest;
 use App\Http\Requests\Dashboard\Clinic\UpdateClinicRequest;
 use App\Models\Clinic;
 use App\Models\Physican;
-use Illuminate\Http\Request;
 use App\Traits\uploadTrait;
 
 class ClinicController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:read')->only('index');
+        $this->middleware('permission:create')->only('create','store');
+        $this->middleware('permission:update')->only('edit','update');
+        $this->middleware('permission:delete')->only('edit','destroy');
+    }
+
     use uploadTrait;
     /**
      * Display a listing of the resource.

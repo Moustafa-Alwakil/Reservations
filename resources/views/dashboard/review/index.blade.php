@@ -35,11 +35,11 @@
                                         <td>
                                             <div class="rating">
                                                 @for ($i = 0; $i < $review->value; $i++)
-                                                <i class="fas fa-star filled"></i>
-                                            @endfor
-                                            @for ($i = 0; $i < 5 - $review->value; $i++)
-                                                <i class="fas fa-star"></i>
-                                            @endfor
+                                                    <i class="fas fa-star filled"></i>
+                                                @endfor
+                                                @for ($i = 0; $i < 5 - $review->value; $i++)
+                                                    <i class="fas fa-star"></i>
+                                                @endfor
                                             </div>
                                         </td>
                                         <td>{{ ucwords($review->user->name['fname'] . ' ' . $review->user->name['lname']) }}
@@ -49,14 +49,18 @@
                                         <td>{{ ucwords($review->physican->name['fname_en'] . ' ' . $review->physican->name['lname_en']) }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('reviews.edit', ['review' => $review->id]) }}"
-                                                class="btn btn-warning">Edit</a>
-                                            <form method="POST" class="d-inline"
-                                                action="{{ route('reviews.destroy', ['review' => $review->id]) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger">Delete</button>
-                                            </form>
+                                            @can('update')
+                                                <a href="{{ route('reviews.edit', ['review' => $review->id]) }}"
+                                                    class="btn btn-warning">Edit</a>
+                                            @endcan
+                                            @can('delete')
+                                                <form method="POST" class="d-inline"
+                                                    action="{{ route('reviews.destroy', ['review' => $review->id]) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger">Delete</button>
+                                                </form>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

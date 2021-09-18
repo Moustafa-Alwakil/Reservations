@@ -6,10 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\City\StoreCityRequest;
 use App\Http\Requests\Dashboard\City\UpdateCityRequest;
 use App\Models\City;
-use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:read')->only('index');
+        $this->middleware('permission:create')->only('create','store');
+        $this->middleware('permission:update')->only('edit','update');
+        $this->middleware('permission:delete')->only('edit','destroy');
+    }
     /**
      * Display a listing of the resource.
      *

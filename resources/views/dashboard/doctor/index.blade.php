@@ -1,5 +1,5 @@
-@extends('dashboard.layouts.layout')
-@section('title', 'All Doctors')
+@can('create')@extends('dashboard.layouts.layout')
+    @section('title', 'All Doctors')
 @section('content')
     @include('dashboard.includes.pageHeader1')
     Doctors
@@ -63,14 +63,18 @@
                                         @endif
                                         <td>{{ $doctor->code }}</td>
                                         <td>
-                                            <a href="{{ route('doctors.edit', ['doctor' => $doctor->id]) }}"
-                                                class="btn btn-warning">Edit</a>
-                                            <form method="POST" class="d-inline"
-                                                action="{{ route('doctors.destroy', ['doctor' => $doctor->id]) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger">Delete</button>
-                                            </form>
+                                            @can('update')
+                                                <a href="{{ route('doctors.edit', ['doctor' => $doctor->id]) }}"
+                                                    class="btn btn-warning">Edit</a>
+                                            @endcan
+                                            @can('delete')
+                                                <form method="POST" class="d-inline"
+                                                    action="{{ route('doctors.destroy', ['doctor' => $doctor->id]) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger">Delete</button>
+                                                </form>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

@@ -106,190 +106,358 @@
                             <li class="menu-title">
                                 <span>Main</span>
                             </li>
-                            <li class="@if (route('admin.index')==Request::url()) {{ 'active' }} @endif">
+                            <li class="@if (route('admin.index') == Request::url()) {{ 'active' }} @endif">
                                 <a href="{{ route('admin.index') }}"><i class="fe fe-home"></i>
                                     <span>Dashboard</span></a>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('addresses.index')||Request::url()==route('addresses.create')) {{'subdrop'}} @endif"><i class="fas fa-map-marked-alt"></i><span>&nbsp; Addresses</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('addresses.index')||Request::url()==route('addresses.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('addresses.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('addresses.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Addresses</span></a></li>
-                                    <li class="@if (route('addresses.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('addresses.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Address</span></a></li>
+                                <a class="@if (Request::url() == route('addresses.index') || Request::url() == route('addresses.create')) {{ 'subdrop' }} @endif"><i class="fas fa-map-marked-alt"></i><span>&nbsp;
+                                        Addresses</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('addresses.index') || Request::url() == route('addresses.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('addresses.index') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('addresses.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Addresses</span></a></li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('addresses.create') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('addresses.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Address</span></a></li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('appointments.index')||Request::url()==route('appointments.create')) {{'subdrop'}} @endif"><i class="far fa-calendar-alt"></i><span>&nbsp; Appointments</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('appointments.index')||Request::url()==route('appointments.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('appointments.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('appointments.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Appointments</span></a></li>
-                                    <li class="@if (route('appointments.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('appointments.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Appointment</span></a></li>
+                                <a class="@if (Request::url() == route('appointments.index') || Request::url() == route('appointments.create')) {{ 'subdrop' }} @endif"><i class="far fa-calendar-alt"></i><span>&nbsp;
+                                        Appointments</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('appointments.index') || Request::url() == route('appointments.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('appointments.index') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('appointments.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Appointments</span></a>
+                                        </li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('appointments.create') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('appointments.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Appointment</span></a></li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('certificates.index')||Request::url()==route('certificates.create')) {{'subdrop'}} @endif"><i class="fas fa-certificate"></i><span>&nbsp; Certificates</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('certificates.index')||Request::url()==route('certificates.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('certificates.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('certificates.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Certificates</span></a></li>
-                                    <li class="@if (route('certificates.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('certificates.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Certificate</span></a></li>
+                                <a class="@if (Request::url() == route('certificates.index') || Request::url() == route('certificates.create')) {{ 'subdrop' }} @endif"><i class="fas fa-certificate"></i><span>&nbsp;
+                                        Certificates</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('certificates.index') || Request::url() == route('certificates.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('certificates.index') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('certificates.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Certificates</span></a>
+                                        </li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('certificates.create') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('certificates.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Certificate</span></a></li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('cities.index')||Request::url()==route('cities.create')) {{'subdrop'}} @endif"><i class="fas fa-city"></i><span>&nbsp; Cities</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('cities.index')||Request::url()==route('cities.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('cities.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('cities.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Cities</span></a></li>
-                                    <li class="@if (route('cities.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('cities.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add City</span></a></li>
+                                <a class="@if (Request::url() == route('cities.index') || Request::url() == route('cities.create')) {{ 'subdrop' }} @endif"><i class="fas fa-city"></i><span>&nbsp;
+                                        Cities</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('cities.index') || Request::url() == route('cities.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('cities.index') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('cities.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Cities</span></a></li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('cities.create') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('cities.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add City</span></a></li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('departments.index')||Request::url()==route('departments.create')) {{'subdrop'}} @endif"><i class="fas fa-glasses"></i><span>&nbsp; Departments</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('departments.index')||Request::url()==route('departments.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('departments.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('departments.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Departments</span></a></li>
-                                    <li class="@if (route('departments.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('departments.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Department</span></a></li>
+                                <a class="@if (Request::url() == route('departments.index') || Request::url() == route('departments.create')) {{ 'subdrop' }} @endif"><i class="fas fa-glasses"></i><span>&nbsp;
+                                        Departments</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('departments.index') || Request::url() == route('departments.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('departments.index') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('departments.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Departments</span></a>
+                                        </li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('departments.create') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('departments.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Department</span></a></li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('examfees.index')||Request::url()==route('examfees.create')) {{'subdrop'}} @endif"><i class="fas fa-dollar-sign"></i><span>&nbsp; Examfees</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('examfees.index')||Request::url()==route('examfees.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('examfees.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('examfees.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Examfees</span></a></li>
-                                    <li class="@if (route('examfees.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('examfees.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Examfee</span></a></li>
+                                <a class="@if (Request::url() == route('examfees.index') || Request::url() == route('examfees.create')) {{ 'subdrop' }} @endif"><i class="fas fa-dollar-sign"></i><span>&nbsp;
+                                        Examfees</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('examfees.index') || Request::url() == route('examfees.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('examfees.index') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('examfees.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Examfees</span></a></li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('examfees.create') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('examfees.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Examfee</span></a></li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('clinicphotos.index')||Request::url()==route('clinicphotos.create')) {{'subdrop'}} @endif"><i class="fas fa-images"></i><span>&nbsp; Clinics Photos</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display: @if(Request::url() == route('clinicphotos.index')||Request::url()==route('clinicphotos.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('clinicphotos.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('clinicphotos.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Clinics Photos</span></a></li>
-                                    <li class="@if (route('clinicphotos.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('clinicphotos.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Clinic Photos</span></a></li>
+                                <a class="@if (Request::url() == route('clinicphotos.index') || Request::url() == route('clinicphotos.create')) {{ 'subdrop' }} @endif"><i class="fas fa-images"></i><span>&nbsp; Clinics
+                                        Photos</span> <span class="menu-arrow"></span></a>
+                                <ul style="display: @if (Request::url() == route('clinicphotos.index') || Request::url() == route('clinicphotos.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('clinicphotos.index') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('clinicphotos.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Clinics Photos</span></a>
+                                        </li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('clinicphotos.create') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('clinicphotos.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Clinic Photos</span></a>
+                                        </li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('exceptions.index')||Request::url()==route('exceptions.create')) {{'subdrop'}} @endif"><i class="far fa-bell"></i><span>&nbsp; Exceptions</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('exceptions.index')||Request::url()==route('exceptions.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('exceptions.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('exceptions.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Exceptions</span></a></li>
-                                    <li class="@if (route('exceptions.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('exceptions.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Exception</span></a></li>
+                                <a class="@if (Request::url() == route('exceptions.index') || Request::url() == route('exceptions.create')) {{ 'subdrop' }} @endif"><i class="far fa-bell"></i><span>&nbsp;
+                                        Exceptions</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('exceptions.index') || Request::url() == route('exceptions.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('exceptions.index') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('exceptions.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Exceptions</span></a>
+                                        </li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('exceptions.create') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('exceptions.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Exception</span></a></li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('experiences.index')||Request::url()==route('experiences.create')) {{'subdrop'}} @endif"><i class="fas fa-briefcase"></i><span>&nbsp; Experiences</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('experiences.index')||Request::url()==route('experiences.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('experiences.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('experiences.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Experiences</span></a></li>
-                                    <li class="@if (route('experiences.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('experiences.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Experience</span></a></li>
+                                <a class="@if (Request::url() == route('experiences.index') || Request::url() == route('experiences.create')) {{ 'subdrop' }} @endif"><i class="fas fa-briefcase"></i><span>&nbsp;
+                                        Experiences</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('experiences.index') || Request::url() == route('experiences.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('experiences.index') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('experiences.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Experiences</span></a>
+                                        </li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('experiences.create') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('experiences.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Experience</span></a></li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('infos.index')||Request::url()==route('infos.create')) {{'subdrop'}} @endif"><i class="fas fa-info-circle"></i><span>&nbsp; Inforamtions</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('infos.index')||Request::url()==route('infos.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('infos.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('infos.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Inforamtions</span></a></li>
-                                    <li class="@if (route('infos.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('infos.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Inforamtion</span></a></li>
+                                <a class="@if (Request::url() == route('infos.index') || Request::url() == route('infos.create')) {{ 'subdrop' }} @endif"><i class="fas fa-info-circle"></i><span>&nbsp;
+                                        Inforamtions</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('infos.index') || Request::url() == route('infos.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('infos.index') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('infos.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Inforamtions</span></a>
+                                        </li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('infos.create') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('infos.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Inforamtion</span></a></li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('regions.index')||Request::url()==route('regions.create')) {{'subdrop'}} @endif"><i class="fas fa-building"></i><span>&nbsp; Regions</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('regions.index')||Request::url()==route('regions.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('regions.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('regions.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Regions</span></a></li>
-                                    <li class="@if (route('regions.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('regions.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Region</span></a></li>
+                                <a class="@if (Request::url() == route('regions.index') || Request::url() == route('regions.create')) {{ 'subdrop' }} @endif"><i class="fas fa-building"></i><span>&nbsp;
+                                        Regions</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('regions.index') || Request::url() == route('regions.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('regions.index') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('regions.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Regions</span></a></li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('regions.create') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('regions.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Region</span></a></li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('workdays.index')||Request::url()==route('workdays.create')) {{'subdrop'}} @endif"><i class="fas fa-user-clock"></i><span>&nbsp; Workdays</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('workdays.index')||Request::url()==route('workdays.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('workdays.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('workdays.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Workdays</span></a></li>
-                                    <li class="@if (route('workdays.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('workdays.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Workday</span></a></li>
+                                <a class="@if (Request::url() == route('workdays.index') || Request::url() == route('workdays.create')) {{ 'subdrop' }} @endif"><i class="fas fa-user-clock"></i><span>&nbsp;
+                                        Workdays</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('workdays.index') || Request::url() == route('workdays.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('workdays.index') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('workdays.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Workdays</span></a></li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('workdays.create') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('workdays.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Workday</span></a></li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('services.index')||Request::url()==route('services.create')) {{'subdrop'}} @endif"><i class="fas fa-flask"></i><span>&nbsp; Services</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('services.index')||Request::url()==route('services.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('services.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('services.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Services</span></a></li>
-                                    <li class="@if (route('services.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('services.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Service</span></a></li>
+                                <a class="@if (Request::url() == route('services.index') || Request::url() == route('services.create')) {{ 'subdrop' }} @endif"><i class="fas fa-flask"></i><span>&nbsp;
+                                        Services</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('services.index') || Request::url() == route('services.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('services.index') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('services.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Services</span></a></li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('services.create') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('services.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Service</span></a></li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('reviews.index')||Request::url()==route('reviews.create')) {{'subdrop'}} @endif"><i class="fas fa-comments"></i><span>&nbsp; Reviews</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('reviews.index')||Request::url()==route('reviews.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('reviews.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('reviews.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Reviews</span></a></li>
-                                    <li class="@if (route('reviews.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('reviews.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Review</span></a></li>
+                                <a class="@if (Request::url() == route('reviews.index') || Request::url() == route('reviews.create')) {{ 'subdrop' }} @endif"><i class="fas fa-comments"></i><span>&nbsp;
+                                        Reviews</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('reviews.index') || Request::url() == route('reviews.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('reviews.index') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('reviews.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Reviews</span></a></li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('reviews.create') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('reviews.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Review</span></a></li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('clinicservices.index')||Request::url()==route('clinicservices.create')) {{'subdrop'}} @endif"><i class="fas fa-flask"></i><span>&nbsp; Clinics Services</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('clinicservices.index')||Request::url()==route('clinicservices.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('clinicservices.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('clinicservices.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Clinics Services</span></a></li>
-                                    <li class="@if (route('clinicservices.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('clinicservices.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Clinic Services</span></a></li>
+                                <a class="@if (Request::url() == route('clinicservices.index') || Request::url() == route('clinicservices.create')) {{ 'subdrop' }} @endif"><i class="fas fa-flask"></i><span>&nbsp;
+                                        Clinics Services</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('clinicservices.index') || Request::url() == route('clinicservices.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('clinicservices.index') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('clinicservices.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Clinics
+                                                    Services</span></a></li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('clinicservices.create') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('clinicservices.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Clinic Services</span></a>
+                                        </li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('users.index')||Request::url()==route('users.create')) {{'subdrop'}} @endif"><i class="fas fa-users"></i><span>&nbsp; Users</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('users.index')||Request::url()==route('users.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('users.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('users.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Users</span></a></li>
-                                    <li class="@if (route('users.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('users.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add User</span></a></li>
+                                <a class="@if (Request::url() == route('users.index') || Request::url() == route('users.create')) {{ 'subdrop' }} @endif"><i class="fas fa-users"></i><span>&nbsp;
+                                        Users</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('users.index') || Request::url() == route('users.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('users.index') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('users.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Users</span></a></li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('users.create') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('users.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add User</span></a></li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('doctors.index')||Request::url()==route('doctors.create')) {{'subdrop'}} @endif"><i class="fas fa-user-md"></i><span>&nbsp; Doctors</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('doctors.index')||Request::url()==route('doctors.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('doctors.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('doctors.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Doctors</span></a></li>
-                                    <li class="@if (route('doctors.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('doctors.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Doctor</span></a></li>
+                                <a class="@if (Request::url() == route('doctors.index') || Request::url() == route('doctors.create')) {{ 'subdrop' }} @endif"><i class="fas fa-user-md"></i><span>&nbsp;
+                                        Doctors</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('doctors.index') || Request::url() == route('doctors.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('doctors.index') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('doctors.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Doctors</span></a></li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('doctors.create') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('doctors.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Doctor</span></a></li>
+                                    @endcan
                                 </ul>
                             </li>
                             <li class="submenu">
-                                <a class="@if(Request::url() == route('adminclinics.index')||Request::url()==route('adminclinics.create')) {{'subdrop'}} @endif"><i class="fas fa-clinic-medical"></i><span>&nbsp; Clinics</span> <span
-                                        class="menu-arrow"></span></a>
-                                <ul style="display:  @if(Request::url() == route('adminclinics.index')||Request::url()==route('adminclinics.create')) {{'block'}} @endif;">
-                                    <li class="@if (route('adminclinics.index')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('adminclinics.index') }}"><i class="fas fa-border-all"></i><span>&nbsp; All Clinics</span></a></li>
-                                    <li class="@if (route('adminclinics.create')==Request::url()) {{ 'active' }} @endif"><a
-                                            href="{{ route('adminclinics.create') }}"><i class="fas fa-plus"></i><span>&nbsp; Add Clinic</span></a></li>
+                                <a class="@if (Request::url() == route('adminclinics.index') || Request::url() == route('adminclinics.create')) {{ 'subdrop' }} @endif"><i class="fas fa-clinic-medical"></i><span>&nbsp;
+                                        Clinics</span> <span class="menu-arrow"></span></a>
+                                <ul style="display:  @if (Request::url() == route('adminclinics.index') || Request::url() == route('adminclinics.create')) {{ 'block' }} @endif;">
+                                    @can('read')
+                                        <li class="@if (route('adminclinics.index') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('adminclinics.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Clinics</span></a></li>
+                                    @endcan
+                                    @can('create')
+                                        <li class="@if (route('adminclinics.create') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('adminclinics.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Clinic</span></a></li>
+                                    @endcan
                                 </ul>
                             </li>
+                            @can('deal_with_permissions_roles')
+                                <li class="submenu">
+                                    <a class="@if (Request::url() == route('roles.index') || Request::url() == route('roles.create')) {{ 'subdrop' }} @endif"><i class="fas fa-key"></i><span>&nbsp;
+                                            Roles</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display:  @if (Request::url() == route('roles.index') || Request::url() == route('roles.create')) {{ 'block' }} @endif;">
+                                        <li class="@if (route('roles.index') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('roles.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Roles</span></a></li>
+                                        <li class="@if (route('roles.create') == Request::url()) {{ 'active' }} @endif"><a href="{{ route('roles.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Role</span></a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a class="@if (Request::url() == route('permissions.index') || Request::url() == route('permissions.create')) {{ 'subdrop' }} @endif"><i class="fas fa-unlock"></i><span>&nbsp;
+                                            Permissions</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display:  @if (Request::url() == route('permissions.index') || Request::url() == route('permissions.create')) {{ 'block' }} @endif;">
+                                        <li class="@if (route('permissions.index') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('permissions.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Permissions</span></a>
+                                        </li>
+                                        <li class="@if (route('permissions.create') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('permissions.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Permission</span></a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a class="@if (Request::url() == route('rolespermissions.index') || Request::url() == route('rolespermissions.create')) {{ 'subdrop' }} @endif"><i class="fas fa-lock-open"></i><span>&nbsp;
+                                            Rules Permissions</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display:  @if (Request::url() == route('rolespermissions.index') || Request::url() == route('rolespermissions.create')) {{ 'block' }} @endif;">
+                                        <li class="@if (route('rolespermissions.index') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('rolespermissions.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Rules
+                                                    Permissions</span></a></li>
+                                        <li class="@if (route('rolespermissions.create') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('rolespermissions.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Rule Permission</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a class="@if (Request::url() == route('modelsroles.index') || Request::url() == route('modelsroles.create')) {{ 'subdrop' }} @endif"><i class="fas fa-user-lock"></i><span>&nbsp;
+                                            Models Roles</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display:  @if (Request::url() == route('modelsroles.index') || Request::url() == route('modelsroles.create')) {{ 'block' }} @endif;">
+                                        <li class="@if (route('modelsroles.index') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('modelsroles.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Models Roles</span></a>
+                                        </li>
+                                        <li class="@if (route('modelsroles.create') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('modelsroles.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Model Role</span></a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu">
+                                    <a class="@if (Request::url() == route('modelspermissions.index') || Request::url() == route('modelspermissions.create')) {{ 'subdrop' }} @endif"><i class="fas fa-user-shield"></i><span>&nbsp;
+                                            Models Permissions</span> <span class="menu-arrow"></span></a>
+                                    <ul style="display:  @if (Request::url() == route('modelspermissions.index') || Request::url() == route('modelspermissions.create')) {{ 'block' }} @endif;">
+                                        <li class="@if (route('modelspermissions.index') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('modelspermissions.index') }}"><i
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Models
+                                                    Permissions</span></a></li>
+                                        <li class="@if (route('modelspermissions.create') == Request::url()) {{ 'active' }} @endif"><a
+                                                href="{{ route('modelspermissions.create') }}"><i
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Model Permission</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @endcan
                         </ul>
                     </div>
                 </div>

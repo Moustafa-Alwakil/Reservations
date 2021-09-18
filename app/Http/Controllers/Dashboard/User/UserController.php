@@ -10,6 +10,15 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:read')->only('index');
+        $this->middleware('permission:create')->only('create','store');
+        $this->middleware('permission:update')->only('edit','update');
+        $this->middleware('permission:delete')->only('edit','destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -110,24 +119,6 @@ class UserController extends Controller
 
             return redirect()->route('users.index')->with('success', 'The data has been saved successfully.');
         }
-    }
-
-    public function showResetPass($id)
-    {
-        $user = User::where('id', $id)->first();
-        return view('dashboard.user.reset', compact('user'));
-    }
-
-    public function resetPass(ResetPassUserRequest $request)
-    {
-        $user = User::find($request->id);
-        return 1;
-        $user->password = bcrypt($request->password);
-        $user->save();
-        if (!$user)
-            return redirect()->back()->with('error', __('website\includes\sessionDisplay.wrong'));
-
-        return redirect()->route('users.index')->with('success', 'Password has been reset successfully.');
     }
 
     /**
