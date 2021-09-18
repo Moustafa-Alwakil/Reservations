@@ -15,7 +15,7 @@ class RegionController extends Controller
         $this->middleware('permission:read')->only('index');
         $this->middleware('permission:create')->only('create','store');
         $this->middleware('permission:update')->only('edit','update');
-        $this->middleware('permission:delete')->only('edit','destroy');
+        $this->middleware('permission:delete')->only('destroy');
     }
 
     /**

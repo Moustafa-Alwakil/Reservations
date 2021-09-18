@@ -13,9 +13,9 @@ class CityController extends Controller
     public function __construct()
     {
         $this->middleware('permission:read')->only('index');
-        $this->middleware('permission:create')->only('create','store');
-        $this->middleware('permission:update')->only('edit','update');
-        $this->middleware('permission:delete')->only('edit','destroy');
+        $this->middleware('permission:create')->only('create', 'store');
+        $this->middleware('permission:update')->only('edit', 'update');
+        $this->middleware('permission:delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -76,8 +76,8 @@ class CityController extends Controller
      */
     public function edit($id)
     {
-        $city = City::where('id',$id)->first();
-        return view('dashboard.city.edit',compact('city'));
+        $city = City::where('id', $id)->first();
+        return view('dashboard.city.edit', compact('city'));
     }
 
     /**
@@ -89,13 +89,13 @@ class CityController extends Controller
      */
     public function update(UpdateCityRequest $request, $id)
     {
-        $data = $request->except('_token', 'name_ar', 'name_en','_method');
+        $data = $request->except('_token', 'name_ar', 'name_en', '_method');
         $data['name'] = $request->only('name_ar', 'name_en');
 
-        $city = City::where('id',$id)->update($data);
+        $city = City::where('id', $id)->update($data);
 
         if (!$city)
-            return redirect()->route('cities.edit',['city'=>$city->id])->with('error', 'Something went wrong, please try again.');
+            return redirect()->route('cities.edit', ['city' => $city->id])->with('error', 'Something went wrong, please try again.');
 
         return redirect()->route('cities.index')->with('success', 'The data has been saved successfully.');
     }

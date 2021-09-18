@@ -418,15 +418,15 @@
                                 </li>
                                 <li class="submenu">
                                     <a class="@if (Request::url() == route('rolespermissions.index') || Request::url() == route('rolespermissions.create')) {{ 'subdrop' }} @endif"><i class="fas fa-lock-open"></i><span>&nbsp;
-                                            Rules Permissions</span> <span class="menu-arrow"></span></a>
+                                            Roles Permissions</span> <span class="menu-arrow"></span></a>
                                     <ul style="display:  @if (Request::url() == route('rolespermissions.index') || Request::url() == route('rolespermissions.create')) {{ 'block' }} @endif;">
                                         <li class="@if (route('rolespermissions.index') == Request::url()) {{ 'active' }} @endif"><a
                                                 href="{{ route('rolespermissions.index') }}"><i
-                                                    class="fas fa-border-all"></i><span>&nbsp; All Rules
+                                                    class="fas fa-border-all"></i><span>&nbsp; All Role
                                                     Permissions</span></a></li>
                                         <li class="@if (route('rolespermissions.create') == Request::url()) {{ 'active' }} @endif"><a
                                                 href="{{ route('rolespermissions.create') }}"><i
-                                                    class="fas fa-plus"></i><span>&nbsp; Add Rule Permission</span></a>
+                                                    class="fas fa-plus"></i><span>&nbsp; Add Role Permission</span></a>
                                         </li>
                                     </ul>
                                 </li>
