@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use App\Traits\apiResourceTrait;
 
-class userCheckVerify
+class UserCheckVerify
 {
     use apiResourceTrait;
     /**

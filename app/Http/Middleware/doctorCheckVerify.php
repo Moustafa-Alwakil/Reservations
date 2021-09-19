@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Traits;
 use App\Traits\apiResourceTrait;
 
-class doctorCheckVerify
+class DoctorCheckVerify
 {
     use apiResourceTrait;
     /**

@@ -12,7 +12,6 @@ use App\Models\Department;
 use App\Models\Region;
 use App\Models\Review;
 use Illuminate\Support\Facades\DB;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class IndexController extends Controller
 {

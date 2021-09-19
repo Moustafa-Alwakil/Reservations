@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Traits\apiResourceTrait;
 use Illuminate\Support\Facades\Auth;
 
-class checkGuest
+class CheckGuest
 {
     use apiResourceTrait;
     /**

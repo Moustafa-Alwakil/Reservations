@@ -54,6 +54,6 @@ class RegisteredUserController extends Controller
 
         event(new NewRegistered($user));
 
-        return $this->returnDataWithToken('user', $user, 'bearer ' . $token);
+        return $this->returnDataWithToken('api', $user, 'bearer ' . $token, 'user');
     }
 }

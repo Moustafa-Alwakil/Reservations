@@ -9,21 +9,15 @@ Route::group([
 ], function () {
     Route::group(['middleware' => 'api.guest'], function () {
         Route::post('/register', 'RegisteredUserController@store');
-        Route::get('/login', 'AuthenticatedSessionController@create');
-        Route::post('/login', 'AuthenticatedSessionController@store');
-        Route::get('/forgot-password', 'PasswordResetLinkController@create');
-        Route::post('/forgot-password', 'PasswordResetLinkController@store');
-        Route::get('/reset-password/{token}', 'NewPasswordController@create');
-        Route::post('/reset-password', 'NewPasswordController@store');
+        Route::post('/login', 'AuthController@store');
+        Route::post('/forgot-password', 'PasswordResetController@sendResetMail');
+        Route::post('/reset-password', 'PasswordResetController@resetPass');
     });
-    Route::group(['middleware' => 'auth:web'], function () {
-        Route::get('/verify-email', 'EmailVerificationPromptController@__invoke');
-        Route::group(['middleware' => 'throttle:6,1'], function () {
-            Route::get('/verify-email/{id}/{hash}', 'VerifyEmailController@__invoke')->middleware('signed');
-            Route::post('/email/verification-notification', 'EmailVerificationNotificationController@store');
+    Route::group(['middleware' => 'api.user.auth'], function () {
+        Route::group(['middleware' => 'protect.verify'], function () {
+            Route::post('/verify-code', 'VerificationController@verify');
+            Route::get('/send-code', 'VerificationController@sendCode');
         });
-        Route::get('/confirm-password', 'ConfirmablePasswordController@show');
-        Route::post('/confirm-password', 'ConfirmablePasswordController@store');
-        Route::post('/logout', 'AuthenticatedSessionController@destroy');
+        Route::get('/logout', 'AuthController@destroy');
     });
 });

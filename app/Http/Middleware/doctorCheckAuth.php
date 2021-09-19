@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use App\Traits\apiResourceTrait;
 
-class doctorCheckAuth
+class DoctorCheckAuth
 {
     use apiResourceTrait;
     /**

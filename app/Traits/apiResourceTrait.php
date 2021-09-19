@@ -45,10 +45,10 @@ trait apiResourceTrait
     }
 
 
-    public function returnDataWithToken($key = 'data', object $value, $token, $status = 200)
+    public function returnDataWithToken($guard, object $value, $token, $key = 'data', $status = 200)
     {
         $value->access_token =  $token;
-        $value->expire_in = auth('api')->factory()->getTTL() * 60;
+        $value->expire_in = auth($guard)->factory()->getTTL() * 60;
         return response()->json(
             [
                 'status' => true,
