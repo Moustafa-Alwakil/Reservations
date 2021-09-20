@@ -174,10 +174,10 @@
                                         <td>{{ ucwords($clinic->name['name_ar']) }}</td>
                                         <td>{{ ucwords($clinic->name['name_en']) }}</td>
                                         <td>
-                                            {{ ucwords($clinic->physican->name['fname_ar'] . ' ' . $doctor->name['lname_ar']) }}
+                                            {{ ucwords($clinic->physican->name['fname_ar'] . ' ' . $clinic->physican->name['lname_ar']) }}
                                         </td>
                                         <td>
-                                            {{ ucwords($clinic->physican->name['fname_en'] . ' ' . $doctor->name['lname_en']) }}
+                                            {{ ucwords($clinic->physican->name['fname_en'] . ' ' . $clinic->physican->name['lname_en']) }}
                                         </td>
                                         <td>{{ $clinic->physican->department->name['name_ar'] }}</td>
                                         <td>{{ $clinic->physican->department->name['name_en'] }}</td>

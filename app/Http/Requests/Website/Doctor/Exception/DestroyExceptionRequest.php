@@ -37,7 +37,7 @@ class DestroyExceptionRequest extends FormRequest
             'b'=>'required',
             'clinic_id'=>['required','exists:clinics,id',Rule::in($available_clinics_id),'integer'],
             'date'=> 'required|after_or_equal:today|date_format:Y-m-d',
-            'start_time'=> 'required|after:'.date('H:i').'|date_format:H:i',
+            'start_time'=> 'required|date_format:H:i',
             'end_time'=> 'required|after:start_time|date_format:H:i',
         ];
     }

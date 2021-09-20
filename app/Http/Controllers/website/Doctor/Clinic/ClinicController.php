@@ -310,7 +310,7 @@ class ClinicController extends Controller
 
     public function destroyClinicPhoto($id)
     {
-        $clinicPhoto = Clinicphoto::select()->where('id', $id)->where('clinic_id', session()->pull('clinic_id'))->first();
+        $clinicPhoto = Clinicphoto::select()->where('id', $id)->first();
 
         if (!$clinicPhoto)
             return redirect()->back()->with('error', 'Something went wrong, please try again.');
